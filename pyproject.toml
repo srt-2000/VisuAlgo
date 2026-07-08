@@ -1,0 +1,13 @@
+[project]
+name = "visualgo"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "loguru>=0.7.3",
+    "pytest>=9.1.1",
+    "streamlit>=1.57.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
