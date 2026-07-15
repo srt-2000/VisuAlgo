@@ -3,7 +3,7 @@
 import streamlit as st
 from streamlit.navigation.page import StreamlitPage
 
-from front.templates.pages_container import PagesContainer
+from front.components.pages_container import PagesContainer
 
 pages: list[StreamlitPage] = PagesContainer.get_pages()
 app_start_page: StreamlitPage = st.navigation(pages)

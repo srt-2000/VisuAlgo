@@ -1,10 +1,10 @@
-"""About page describing the purpose of the Visualgo application."""
+"""About page describing the purpose of the VisuAlgo application."""
 
 import streamlit as st
 
 st.set_page_config(page_title="About Visualgo")
 
-st.title("WELCOME to Visualgo!")
+st.header("WELCOME to Visualgo!", divider=True)
 st.markdown(
     """
     **Visualgo** is my first pet-project app built specifically for

@@ -89,7 +89,7 @@ uv run pytest
 Run only binary search tests:
 
 ```bash
-uv run pytest tests/src_tests/test_binary_search.py
+uv run pytest tests/atgorithms_tests/test_binary_search.py
 ```
 
 ## Binary Search Demo

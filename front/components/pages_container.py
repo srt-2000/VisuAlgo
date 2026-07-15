@@ -5,7 +5,11 @@ from streamlit.navigation.page import StreamlitPage
 
 
 class PagesContainer:
-    """Holds and dynamically exposes Streamlit pages for navigation."""
+    """Holds and exposes Streamlit pages for application navigation.
+
+    Each class attribute of type ``StreamlitPage`` is treated as a registered
+    navigation entry.
+    """
 
     main: StreamlitPage = streamlit.Page(
         page="front/pages/about.py",
@@ -21,13 +25,13 @@ class PagesContainer:
 
     @classmethod
     def get_pages(cls) -> list[StreamlitPage]:
-        """Return all configured `StreamlitPage` instances.
+        """Return all configured ``StreamlitPage`` instances.
 
-        The method inspects the class attributes and collects every value that is
-        a `StreamlitPage` instance and not callable.
+        Inspects class attributes and collects every value that is a
+        ``StreamlitPage`` instance and is not callable.
 
         Returns:
-            List of all pages that should be available for navigation.
+            Pages available for Streamlit navigation.
         """
         pages: list[StreamlitPage] = []
 
