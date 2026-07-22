@@ -4,7 +4,7 @@ import pytest
 
 from algorithms.binary_search import BinarySearch
 from domains.binary_search import BinarySearchStatus, BinarySearchStepValueObject
-from tests.atgorithms_tests.testcases import (
+from tests.atgorithms.binary_search.cases import (
     BINARY_SEARCH_ITER_STEPS_INVARIANTS,
     EXPECTED_DATA_SYNC_TEST,
     INPUT_DATA_SYNC_TEST,
@@ -12,47 +12,43 @@ from tests.atgorithms_tests.testcases import (
 
 
 class TestBinarySearch:
-    """Validate index lookup behavior of ``BinarySearch.search``."""
+    """Check that ``search`` finds indexes or returns ``None``."""
 
     def test_binary_search_with_filled_list(
         self,
         filled_list: list[int],
-        binary_search: BinarySearch,
+        get_binary_searcher: BinarySearch,
     ) -> None:
-        """Return correct indices for present and missing values."""
-        assert binary_search.search(filled_list, 3) == 2
-        assert binary_search.search(filled_list, 9) == 8
-        assert binary_search.search(filled_list, 9) != 9
-        assert binary_search.search(filled_list, 10) is None
+        """Present values get the right index; missing values get ``None``."""
+        assert get_binary_searcher.search(filled_list, 3) == 2
+        assert get_binary_searcher.search(filled_list, 9) == 8
+        assert get_binary_searcher.search(filled_list, 9) != 9
+        assert get_binary_searcher.search(filled_list, 10) is None
 
     def test_binary_search_with_empty_list(
         self,
         empty_list: list[int],
-        binary_search: BinarySearch,
+        get_binary_searcher: BinarySearch,
     ) -> None:
-        """Return ``None`` when searching an empty array."""
-        assert binary_search.search(empty_list, 0) is None
-        assert binary_search.search(empty_list, 9) is None
+        """An empty list never has a match."""
+        assert get_binary_searcher.search(empty_list, 0) is None
+        assert get_binary_searcher.search(empty_list, 9) is None
 
 
 class TestBinarySearchIterSteps:
-    """Validate step iterator invariants and golden step sequences."""
+    """Check step rules and one known golden sequence."""
 
     @pytest.mark.parametrize("test_case", BINARY_SEARCH_ITER_STEPS_INVARIANTS)
     def test_iter_steps_invariants(
         self,
-        binary_search: BinarySearch,
+        get_binary_searcher: BinarySearch,
         test_case: tuple[list[int], int],
     ) -> None:
-        """Check per-step and terminal invariants for representative cases.
-
-        Asserts empty yield for empty arrays, bounds/status consistency for
-        each step, and correct EQUAL / non-EQUAL termination.
-        """
+        """Each step must stay inside bounds and use the right status."""
         array: list[int] = test_case[0]
         target: int = test_case[1]
         steps: list[BinarySearchStepValueObject] = list(
-            binary_search.iter_steps(array, target)
+            get_binary_searcher.iter_steps(array, target)
         )
 
         if not array:
@@ -83,7 +79,10 @@ class TestBinarySearchIterSteps:
         else:
             assert all(s.status != BinarySearchStatus.EQUAL for s in steps)
 
-    def test_data_sync(self, binary_search: BinarySearch) -> None:
-        """Match the golden step sequence for a fixed array and target."""
+    def test_data_sync(self, get_binary_searcher: BinarySearch) -> None:
+        """Steps for a fixed case must match the golden expected list."""
         array, target = INPUT_DATA_SYNC_TEST
-        assert list(binary_search.iter_steps(array, target)) == EXPECTED_DATA_SYNC_TEST
+        assert (
+            list(get_binary_searcher.iter_steps(array, target))
+            == EXPECTED_DATA_SYNC_TEST
+        )

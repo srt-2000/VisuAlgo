@@ -1,20 +1,20 @@
-"""Domain and service exceptions for VisuAlgo."""
+"""Custom exceptions used by VisuAlgo services."""
 
 from services.constants import Messages
 
 
 class TargetIndexNotFoundException(Exception):
-    """Raised when binary search cannot locate the requested target.
+    """Raised when the target number is not in the list.
 
     Attributes:
-        target_number: Target value that was not found.
+        target_number: The missing target value.
     """
 
     def __init__(self, target_number: int) -> None:
-        """Build the exception with a descriptive message.
+        """Build an exception that names the missing target.
 
         Args:
-            target_number: Target value that was not found in the array.
+            target_number: Value that was not found.
         """
         self.target_number: int = target_number
         super().__init__(

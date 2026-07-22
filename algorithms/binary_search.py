@@ -1,4 +1,4 @@
-"""Binary search algorithm over sorted integer arrays."""
+"""Binary search over a sorted list of ints."""
 
 from typing import Iterator
 
@@ -6,21 +6,17 @@ from domains.binary_search import BinarySearchStepValueObject, BinarySearchStatu
 
 
 class BinarySearch:
-    """Binary search over a sorted integer array.
-
-    Provides both a direct index lookup and a step-by-step iterator used for
-    visualization of the search process.
-    """
+    """Find a number in a sorted list by cutting the list in half each time."""
 
     def search(self, array: list[int], target: int) -> int | None:
-        """Return the index of ``target`` in a sorted ``array``.
+        """Return the index of ``target``, or ``None`` if it is missing.
 
         Args:
-            array: Sorted list of integers to search.
-            target: Value to locate.
+            array: Sorted list of ints.
+            target: Number to find.
 
         Returns:
-            Zero-based index of ``target`` if present, otherwise ``None``.
+            Index of ``target``, or ``None`` when it is not in ``array``.
         """
         for step in self.iter_steps(array, target):
             if step.status == BinarySearchStatus.EQUAL:
@@ -32,18 +28,14 @@ class BinarySearch:
         array: list[int],
         target: int,
     ) -> Iterator[BinarySearchStepValueObject]:
-        """Yield one step per mid-element comparison.
-
-        Each yielded value describes the current search window and the outcome
-        of comparing ``array[mid]`` with ``target``. The generator stops after
-        an equality match or when the search window becomes empty.
+        """Yield each guess until we find ``target`` or run out of room.
 
         Args:
-            array: Sorted list of integers to search.
-            target: Value to locate.
+            array: Sorted list of ints.
+            target: Number to find.
 
         Yields:
-            Immutable step snapshot for visualization and logging.
+            One step snapshot per middle-element check.
         """
         left_index: int = 0
         right_index: int = len(array) - 1

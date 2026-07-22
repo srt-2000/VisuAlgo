@@ -1,4 +1,4 @@
-"""About page describing the purpose of the VisuAlgo application."""
+"""About page: what VisuAlgo is and how to start."""
 
 import streamlit as st
 

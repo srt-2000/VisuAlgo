@@ -1,4 +1,4 @@
-"""Streamlit page that visualizes binary search and shows per-step logs."""
+"""Streamlit page: run binary search and show each step in a table."""
 
 import streamlit as st
 import pandas as pd
@@ -88,7 +88,7 @@ if st.button("Find the target number index"):
             - Find the middle number of the array
             - And compare it to the target
             - Depends on check status we are changing left_index or right_index search border
-            - Every step_data the range size is decreasing
+            - In every step the range size is decreasing
             - We found the target position with :green[**O(log(n))**] time complexity
             """
         )

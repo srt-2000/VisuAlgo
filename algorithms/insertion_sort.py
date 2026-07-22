@@ -1,22 +1,20 @@
-"""Insertion sort algorithm for integer arrays."""
+"""Insertion sort for lists of ints."""
 
 from typing import Iterable
 
 
 class InsertionSorter:
-    """In-place insertion sort for lists of integers."""
+    """Sort a list by placing each next number into the sorted left part."""
 
     @staticmethod
     def sort(array: list[int]) -> list[int]:
-        """Sort ``array`` ascending using insertion sort.
-
-        Mutates ``array`` in place and returns the same list object.
+        """Sort ``array`` from small to big, changing it in place.
 
         Args:
-            array: List of integers to sort. May be empty.
+            array: List of ints (may be empty).
 
         Returns:
-            The sorted ``array`` (same object, mutated in place).
+            The same list object, now sorted.
         """
         sorting_index_range: Iterable[int] = range(1, len(array))
 

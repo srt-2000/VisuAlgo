@@ -1,4 +1,4 @@
-"""Application entry point that wires Streamlit navigation to pages."""
+"""Start VisuAlgo: wire Streamlit navigation to the app pages."""
 
 import streamlit as st
 from streamlit.navigation.page import StreamlitPage

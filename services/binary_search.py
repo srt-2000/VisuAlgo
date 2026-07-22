@@ -1,4 +1,4 @@
-"""Service that logs binary search steps for UI visualization."""
+"""Turn binary-search steps into readable logs for the UI."""
 
 from collections import defaultdict
 
@@ -11,17 +11,17 @@ from services.exceptions import TargetIndexNotFoundException
 
 
 class BinarySearchProcessDataLogger:
-    """Runs binary search and accumulates human-readable step logs.
+    """Run binary search and keep a human-readable log of each step.
 
     Attributes:
-        search_log: Mapping from log field name to per-step string values.
+        search_log: Field name → list of string values, one per step.
     """
 
     def __init__(self, searcher_object: BinarySearch) -> None:
-        """Initialize the logger with a binary search engine.
+        """Store the search engine used to walk through steps.
 
         Args:
-            searcher_object: Algorithm instance used to iterate search steps.
+            searcher_object: Binary search algorithm instance.
         """
         self._search_engine: BinarySearch = searcher_object
         self.search_log: defaultdict[str, list[str]] = defaultdict(list)
@@ -31,11 +31,11 @@ class BinarySearchProcessDataLogger:
         step_data: BinarySearchStepValueObject,
         array: list[int],
     ) -> None:
-        """Append one step snapshot to ``search_log``.
+        """Append one step’s text fields into ``search_log``.
 
         Args:
-            step_data: Current binary search step value object.
-            array: Sorted array being searched (used for range labels).
+            step_data: Current search step.
+            array: Sorted list being searched (used for range labels).
         """
         self.search_log[Fields.STEP_RANGE].append(
             f"{array[step_data.left_index]} ... {array[step_data.right_index]}"
@@ -54,20 +54,19 @@ class BinarySearchProcessDataLogger:
         array: list[int],
         target: int,
     ) -> defaultdict[str, list[str]]:
-        """Run binary search and return the accumulated process log.
+        """Search for ``target`` and return the filled step log.
 
-        Clears any previous log, records every comparison step, and returns
-        the filled ``search_log`` when ``target`` is found.
+        Clears any old log first. Raises if ``target`` is not found.
 
         Args:
-            array: Sorted list of integers to search.
-            target: Value to locate.
+            array: Sorted list of ints.
+            target: Number to find.
 
         Returns:
-            Log mapping field names to lists of per-step string values.
+            Log map: field name → list of per-step strings.
 
         Raises:
-            TargetIndexNotFoundException: If ``target`` is not present in
+            TargetIndexNotFoundException: If ``target`` is missing from
                 ``array``.
         """
         self.search_log.clear()

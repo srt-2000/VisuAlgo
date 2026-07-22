@@ -1,15 +1,11 @@
-"""Container for Streamlit navigation pages used by the application."""
+"""Holds Streamlit pages used in the app sidebar navigation."""
 
 import streamlit
 from streamlit.navigation.page import StreamlitPage
 
 
 class PagesContainer:
-    """Holds and exposes Streamlit pages for application navigation.
-
-    Each class attribute of type ``StreamlitPage`` is treated as a registered
-    navigation entry.
-    """
+    """Collect every ``StreamlitPage`` defined on this class."""
 
     main: StreamlitPage = streamlit.Page(
         page="front/pages/about.py",
@@ -18,20 +14,23 @@ class PagesContainer:
     )
 
     binary_search: StreamlitPage = streamlit.Page(
-        page="front/pages/binary_search.py",
+        page="front/pages/test_binary_search.py",
         title="Binary Search Algorithm",
         icon=":material/search_check_2:",
     )
 
+    insertion_sort: StreamlitPage = streamlit.Page(
+        page="front/pages/insertion_sort.py",
+        title="Insertion Sort Algorithm",
+        icon=":material/sort:",
+    )
+
     @classmethod
     def get_pages(cls) -> list[StreamlitPage]:
-        """Return all configured ``StreamlitPage`` instances.
-
-        Inspects class attributes and collects every value that is a
-        ``StreamlitPage`` instance and is not callable.
+        """Return all page objects registered on this class.
 
         Returns:
-            Pages available for Streamlit navigation.
+            Pages ready for Streamlit navigation.
         """
         pages: list[StreamlitPage] = []
 

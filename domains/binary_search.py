@@ -5,7 +5,13 @@ from enum import StrEnum
 
 
 class BinarySearchStatus(StrEnum):
-    """Outcome of comparing the middle element with the target."""
+    """How the middle number compares to the target.
+
+    Attributes:
+        EQUAL: Middle number is the target.
+        GREATER: Middle number is bigger than the target.
+        LESS: Middle number is smaller than the target.
+    """
 
     EQUAL = "equal to"
     GREATER = "greater than"
@@ -14,15 +20,15 @@ class BinarySearchStatus(StrEnum):
 
 @dataclass(frozen=True, slots=True)
 class BinarySearchStepValueObject:
-    """Immutable snapshot of a single binary search comparison step.
+    """One frozen photo of a binary-search guess.
 
     Attributes:
-        left_index: Inclusive left bound of the current search window.
-        right_index: Inclusive right bound of the current search window.
-        mid_index: Index of the middle element inspected in this step.
+        left_index: Left edge of the current search window.
+        right_index: Right edge of the current search window.
+        mid_index: Index of the number we just checked.
         middle_value: Value at ``mid_index``.
-        status: Result of comparing ``middle_value`` with ``target``.
-        target: Value being searched for.
+        status: Whether mid is equal, greater, or less than ``target``.
+        target: The number we are looking for.
     """
 
     left_index: int
