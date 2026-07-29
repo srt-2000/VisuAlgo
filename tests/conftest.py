@@ -5,7 +5,9 @@ import pytest
 from algorithms.binary_search import BinarySearch
 from algorithms.insertion_sort import InsertionSorter
 from domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
+from domains.sorting import InsertionSortStepValueObject, SortingStatus
 from services.binary_search import BinarySearchProcessDataLogger
+from services.insertion_sort import InsertionSortProcessDataLogger
 
 
 @pytest.fixture(scope="class")
@@ -44,6 +46,21 @@ def get_binary_search_process_data_logger(
 
 
 @pytest.fixture(scope="function")
+def get_insertion_sort_process_data_logger(
+    get_insert_sorter: InsertionSorter,
+) -> InsertionSortProcessDataLogger:
+    """Build a fresh sort process logger for one test.
+
+    Args:
+        get_insert_sorter: Shared insertion sort engine fixture.
+
+    Returns:
+        Logger with an empty ``sort_log``.
+    """
+    return InsertionSortProcessDataLogger(get_insert_sorter)
+
+
+@pytest.fixture(scope="function")
 def filled_list() -> list[int]:
     """Provide a small sorted list ``[1, 2, ..., 9]``.
 
@@ -77,6 +94,24 @@ def binary_search_test_step_data() -> BinarySearchStepValueObject:
         middle_value=58,
         status=BinarySearchStatus.GREATER,
         target=60,
+    )
+
+    return step_data
+
+
+@pytest.fixture(scope="function")
+def insertion_sort_test_step_data() -> InsertionSortStepValueObject:
+    """Provide one sample insertion-sort step for logger tests.
+
+    Returns:
+        Frozen step with fixed index, value, and ``SORTING`` status.
+    """
+    step_data: InsertionSortStepValueObject = InsertionSortStepValueObject(
+        index=2,
+        value=3,
+        before=(2, 38, 3),
+        result=(2, 3, 38),
+        status=SortingStatus.SORTING,
     )
 
     return step_data

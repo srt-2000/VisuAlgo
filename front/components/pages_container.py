@@ -14,7 +14,7 @@ class PagesContainer:
     )
 
     binary_search: StreamlitPage = streamlit.Page(
-        page="front/pages/test_binary_search.py",
+        page="front/pages/binary_search.py",
         title="Binary Search Algorithm",
         icon=":material/search_check_2:",
     )

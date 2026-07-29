@@ -20,10 +20,12 @@ class TestBinarySearch:
         get_binary_searcher: BinarySearch,
     ) -> None:
         """Present values get the right index; missing values get ``None``."""
-        assert get_binary_searcher.search(filled_list, 3) == 2
-        assert get_binary_searcher.search(filled_list, 9) == 8
-        assert get_binary_searcher.search(filled_list, 9) != 9
-        assert get_binary_searcher.search(filled_list, 10) is None
+        searcher = get_binary_searcher
+
+        assert searcher.search(filled_list, 3) == 2
+        assert searcher.search(filled_list, 9) == 8
+        assert searcher.search(filled_list, 9) != 9
+        assert searcher.search(filled_list, 10) is None
 
     def test_binary_search_with_empty_list(
         self,
@@ -31,8 +33,10 @@ class TestBinarySearch:
         get_binary_searcher: BinarySearch,
     ) -> None:
         """An empty list never has a match."""
-        assert get_binary_searcher.search(empty_list, 0) is None
-        assert get_binary_searcher.search(empty_list, 9) is None
+        searcher = get_binary_searcher
+
+        assert searcher.search(empty_list, 0) is None
+        assert searcher.search(empty_list, 9) is None
 
 
 class TestBinarySearchIterSteps:
@@ -45,10 +49,11 @@ class TestBinarySearchIterSteps:
         test_case: tuple[list[int], int],
     ) -> None:
         """Each step must stay inside bounds and use the right status."""
+        searcher = get_binary_searcher
         array: list[int] = test_case[0]
         target: int = test_case[1]
         steps: list[BinarySearchStepValueObject] = list(
-            get_binary_searcher.iter_steps(array, target)
+            searcher.iter_steps(array, target)
         )
 
         if not array:
@@ -74,15 +79,21 @@ class TestBinarySearchIterSteps:
 
         if target in array:
             assert steps
-            assert steps[-1].status == BinarySearchStatus.EQUAL
-            assert array[steps[-1].mid_index] == target
+
+            final_status: str = steps[-1].status
+            founded_index: int = steps[-1].mid_index
+            founded_value: int = array[founded_index]
+            assert final_status == BinarySearchStatus.EQUAL
+            assert founded_value == target
         else:
-            assert all(s.status != BinarySearchStatus.EQUAL for s in steps)
+            assert all(step.status != BinarySearchStatus.EQUAL for step in steps)
 
     def test_data_sync(self, get_binary_searcher: BinarySearch) -> None:
         """Steps for a fixed case must match the golden expected list."""
         array, target = INPUT_DATA_SYNC_TEST
-        assert (
-            list(get_binary_searcher.iter_steps(array, target))
-            == EXPECTED_DATA_SYNC_TEST
+        searcher = get_binary_searcher
+        steps_container: list[BinarySearchStepValueObject] = list(
+            searcher.iter_steps(array, target)
         )
+
+        assert steps_container == EXPECTED_DATA_SYNC_TEST

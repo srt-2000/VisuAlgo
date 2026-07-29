@@ -1,8 +1,13 @@
 """Streamlit page: build a random list and sort it with insertion sort."""
 
+from collections import defaultdict
+
 import streamlit as st
+import pandas as pd
+
 
 from algorithms.insertion_sort import InsertionSorter
+from services.insertion_sort import InsertionSortProcessDataLogger
 from utils.sorting import get_not_sorted_random_list
 
 st.set_page_config(page_title="Insertion Sort Algorithm")
@@ -11,6 +16,9 @@ if "not_sorted_array" not in st.session_state:
     st.session_state.not_sorted_array = None
 if "sorted_array" not in st.session_state:
     st.session_state.sorted_array = None
+if "process_data" not in st.session_state:
+    st.session_state.process_data = None
+
 
 st.header("INSERTION SORT", divider="yellow")
 st.markdown(
@@ -83,15 +91,40 @@ if not_sorted_list_length and min_value_limit and max_value_limit:
 
 if st.session_state.not_sorted_array is not None:
     if sorted_column.button("SORT IT"):
-        sorter: InsertionSorter = InsertionSorter()
         array: list[int] = st.session_state.not_sorted_array.copy()
-        sorted_array: list[int] = sorter.sort(array)
+        sorter = InsertionSorter()
+        process_logger = InsertionSortProcessDataLogger(sorter)
+        process_data: defaultdict[str, list[int | str | tuple[int, ...]]] = (
+            process_logger.sort_and_get_process_data(st.session_state.not_sorted_array)
+        )
+
+        sorted_array = process_data["result"][-1]
+        st.session_state.not_sorted_array = array
         st.session_state.sorted_array = sorted_array
+        st.session_state.process_data = process_data
 
 if st.session_state.not_sorted_array is not None:
     not_sorted_column.info(":material/done_outline:NOT sorted array")
-    not_sorted_column.write(st.session_state.not_sorted_array)
+    not_sorted_column.write(tuple(st.session_state.not_sorted_array))
 
-if st.session_state.sorted_array is not None:
+if (st.session_state.sorted_array and st.session_state.process_data) is not None:
     sorted_column.success(":material/done_outline:Sorted array")
     sorted_column.write(st.session_state.sorted_array)
+
+    data_frame_for_table = pd.DataFrame(data=st.session_state.process_data)
+    data_frame_range: range = range(1, len(data_frame_for_table) + 1)
+    data_frame_for_table = data_frame_for_table.set_axis(
+        [f"step {i}" for i in data_frame_range], axis=0
+    )
+
+    st.table(data_frame_for_table, border="horizontal")
+
+    st.markdown(
+        """
+        ### As you see in every step we:
+        - Pick the next element
+        - Compare it with the elements in the LEFT sorted section 
+        - Shift all larger elements in the sorted section 
+        - Insert element into its correct position
+        """
+    )

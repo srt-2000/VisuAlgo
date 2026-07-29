@@ -1,4 +1,4 @@
-"""Shared labels and messages for binary-search logging."""
+"""Shared labels and messages for algorithm process logs."""
 
 from enum import StrEnum
 
@@ -7,7 +7,7 @@ addition_to_full_range: int = 1
 
 
 class Fields(StrEnum):
-    """Column names written into the binary-search process log."""
+    """Column names written into algorithm process logs."""
 
     STEP_RANGE = "step range"
     RANGE_SIZE = "range size"
@@ -16,6 +16,11 @@ class Fields(StrEnum):
     MIDDLE_ELEMENT = "middle number"
     STATUS = "check status to"
     TARGET = "target"
+    INDEX = "index"
+    VALUE = "value"
+    SORT_STATUS = "status"
+    RESULT = "result"
+    BEFORE = "before"
 
 
 class Messages(StrEnum):
