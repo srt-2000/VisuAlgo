@@ -1,12 +1,12 @@
-"""About page: what VisuAlgo is and how to start."""
+"""Markdown body text for the About page."""
 
-import streamlit as st
+from enum import StrEnum
 
-st.set_page_config(page_title="About Visualgo")
 
-st.header("WELCOME to Visualgo!", divider=True)
-st.markdown(
-    """
+class PageContent(StrEnum):
+    """Long text blocks shown on the About page."""
+
+    WELCOME_CONTENT = """
     **Visualgo** is my first pet-project app built specifically for
     visualisation and deep understanding famous algorithms implementation.
 
@@ -15,5 +15,4 @@ st.markdown(
 
     ### Want to explore more of my pet-projects?
     - Check out [my GitHub repositories](https://github.com/srt-2000?tab=repositories)
-    """,
-)
+    """

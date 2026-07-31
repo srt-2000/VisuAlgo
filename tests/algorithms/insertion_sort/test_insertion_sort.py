@@ -1,12 +1,12 @@
-"""Unit tests for sorting algorithms."""
+"""Unit tests for ``InsertionSorter.sort`` and ``InsertionSorter.iter_steps``."""
 
 import pytest
 
 from algorithms.insertion_sort import InsertionSorter
 from domains.sorting import InsertionSortStepValueObject, SortingStatus
-from tests.atgorithms.insertion_sort.cases import (
-    EXPECTED_DATA_SYNC_TEST,
-    INPUT_DATA_SYNC_TEST,
+from tests.algorithms.insertion_sort.cases import (
+    INSERTION_SORT_EXPECTED_DATA_SYNC_TEST,
+    INSERTION_SORT_DATA_SYNC_TEST,
     NOT_SORTED_ARRAYS,
 )
 
@@ -17,31 +17,28 @@ class TestInsertionSort:
     @pytest.mark.parametrize("array", NOT_SORTED_ARRAYS)
     def test_insert_sort(
         self,
-        get_insert_sorter: InsertionSorter,
+        insertion_sorter: InsertionSorter,
         array: list[int],
     ) -> None:
         """``sort`` must sort the input list in place."""
-        sorter = get_insert_sorter
         array_copy = array.copy()
-        insertion_sort_result: list[int] = sorter.sort(array)
+        sort_result: list[int] = insertion_sorter.sort(array)
         expected: list[int] = sorted(array_copy)
 
-        assert insertion_sort_result == expected
+        assert sort_result == expected
         assert array == expected
-        assert insertion_sort_result is array
+        assert sort_result is array
 
     def test_insert_sort_empty(
         self,
-        get_insert_sorter: InsertionSorter,
+        insertion_sorter: InsertionSorter,
         empty_list: list[int],
     ) -> None:
         """Empty list must stay unchanged."""
-        sorter = get_insert_sorter
-        array: list[int] = empty_list
-        result: list[int] = sorter.sort(array)
+        expected_array: list[int] = empty_list.copy()
+        sort_result: list[int] = insertion_sorter.sort(empty_list)
 
-        assert result == []
-        assert result is array
+        assert sort_result == expected_array
 
 
 class TestInsertionSortIterSteps:
@@ -50,18 +47,17 @@ class TestInsertionSortIterSteps:
     @pytest.mark.parametrize("array", NOT_SORTED_ARRAYS)
     def test_iter_steps_invariants(
         self,
-        get_insert_sorter: InsertionSorter,
+        insertion_sorter: InsertionSorter,
         array: list[int],
     ) -> None:
         """Each step must sort the current prefix and finish with a full sort."""
-        sorter = get_insert_sorter
         array_copy = array.copy()
         sorting_steps: list[InsertionSortStepValueObject] = list(
-            sorter.iter_steps(array)
+            insertion_sorter.iter_steps(array)
         )
         expected_array_len: int = len(array_copy)
         expected_steps_quantity: int = len(array_copy) - 1
-        expected_final_result: list[int] = sorted(array_copy)
+        expected_sorted_array: list[int] = sorted(array_copy)
 
         if expected_array_len <= 1:
             assert sorting_steps == []
@@ -76,6 +72,8 @@ class TestInsertionSortIterSteps:
             assert step.value == array_copy[step.index]
             assert isinstance(step.result, tuple)
             assert len(step.result) == expected_array_len
+            assert isinstance(step.before, tuple)
+            assert len(step.before) == expected_array_len
 
             sorted_part_end_index: int = step.index + 1
             sorted_array_part_left: list[int] = list(
@@ -85,25 +83,27 @@ class TestInsertionSortIterSteps:
             assert sorted_array_part_left == expected_sorted_part
 
             if step.index == expected_steps_quantity:
-                expected_step_result: tuple[int, ...] = tuple(expected_final_result)
+                expected_step_result: tuple[int, ...] = tuple(expected_sorted_array)
                 assert step.status == SortingStatus.READY
                 assert step.result == expected_step_result
             else:
                 assert step.status == SortingStatus.SORTING
 
-        assert array == expected_final_result
+        assert array == expected_sorted_array
 
     def test_data_sync(
         self,
-        get_insert_sorter: InsertionSorter,
+        insertion_sorter: InsertionSorter,
     ) -> None:
         """Steps for a fixed case must match the golden expected list."""
-        sorter = get_insert_sorter
-        array: list[int] = INPUT_DATA_SYNC_TEST
-        expected_result: list[int] = sorted(array)
+        array: list[int] = INSERTION_SORT_DATA_SYNC_TEST
+        expected_sorted_array: list[int] = sorted(array)
+        expected_steps: list[InsertionSortStepValueObject] = (
+            INSERTION_SORT_EXPECTED_DATA_SYNC_TEST
+        )
         steps_container: list[InsertionSortStepValueObject] = list(
-            sorter.iter_steps(array)
+            insertion_sorter.iter_steps(array)
         )
 
-        assert steps_container == EXPECTED_DATA_SYNC_TEST
-        assert array == expected_result
+        assert steps_container == expected_steps
+        assert array == expected_sorted_array

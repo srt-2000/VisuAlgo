@@ -20,10 +20,6 @@ class TestGetNotSortedRandomList:
         """Non-zero length: size and min/max bounds must match the limits."""
         length_limit, min_value, max_value = test_limits
         random_list: list[int] = get_not_sorted_random_list(*test_limits)
-        first_element: int = random_list[0]
-
-        isinstance(first_element, int)
-        isinstance(random_list, list)
 
         assert len(random_list) == length_limit
         assert min(random_list) >= min_value
@@ -33,9 +29,10 @@ class TestGetNotSortedRandomList:
     def test_with_zero_elements_quantity(
         self,
         test_limits: tuple[int, int, int],
+        empty_list: list[int],
     ) -> None:
         """Zero length must return an empty list."""
         random_list: list[int] = get_not_sorted_random_list(*test_limits)
 
         assert len(random_list) == 0
-        assert random_list == []
+        assert random_list == empty_list

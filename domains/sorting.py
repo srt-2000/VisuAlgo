@@ -5,7 +5,7 @@ from enum import StrEnum
 
 
 class SortingStatus(StrEnum):
-    """Simple labels for “still sorting” vs “done”.
+    """Simple labels for "still sorting" vs "done".
 
     Attributes:
         SORTING: We are still moving numbers around.

@@ -1,35 +1,37 @@
 # VisuAlgo
 
-VisuAlgo is a small Streamlit pet project for exploring algorithms through a simple interactive UI.
+VisuAlgo is a Streamlit pet project for exploring algorithms through an interactive UI with step-by-step process tables.
 
-At the moment, the app includes:
-- an `About` page
-- an interactive `Binary Search` demo
-- a core binary search implementation in `src`
-- pytest coverage for the binary search logic
+Current pages:
+- `About`
+- `Binary Search` — search a sorted integer range and inspect each half-check
+- `Insertion Sort` — generate a random list, sort it, and inspect each insertion step
 
 ## Overview
 
-The project is built as a multipage Streamlit application. Navigation is wired in `main.py`, available pages are declared in `front/templates/pages_container.py`, and algorithm logic lives in `src/`.
+The app is a multipage Streamlit application. Navigation is wired in `main.py` via `front/components/pages_container.py`.
 
-The current focus is a binary search demo that lets you:
-- define a sorted integer range
-- choose a target value
-- run binary search and get the target index if it exists
+Algorithm demos follow a layered pipeline:
 
-## Features
+```text
+front (page)
+  → services (process data logger)
+    → algorithms (iter_steps / search / sort)
+      → domains (step value objects + status enums)
+```
 
-- Multipage Streamlit app with sidebar navigation
-- Dedicated `About` page
-- Interactive binary search demo
-- Separated UI and algorithm logic
-- Automated tests for binary search behavior
+- **`domains/`** — frozen step snapshots and status enums
+- **`algorithms/`** — pure algorithm logic that yields step objects
+- **`services/`** — turns steps into human-readable column logs for tables
+- **`front/`** — Streamlit pages, copy, widgets, and navigation
+- **`utils/`** — shared helpers (e.g. random unsorted lists)
 
 ## Tech Stack
 
 - Python 3.12+
 - Streamlit
 - Loguru
+- Pandas (tables on algorithm pages)
 - Pytest
 - `uv` lockfile and dependency workflow
 
@@ -37,22 +39,58 @@ The current focus is a binary search demo that lets you:
 
 ```text
 VisuAlgo/
+├── algorithms/
+│   ├── binary_search.py
+│   └── insertion_sort.py
+├── domains/
+│   ├── binary_search.py
+│   └── sorting.py
+├── services/
+│   ├── binary_search.py
+│   ├── insertion_sort.py
+│   ├── constants.py
+│   └── exceptions.py
 ├── front/
+│   ├── components/
+│   │   ├── pages_container.py
+│   │   └── element_settings.py
 │   ├── pages/
-│   │   ├── about.py
-│   │   └── binary_search.py
-│   └── templates/
-│       └── pages_container.py
-├── src/
-│   └── binary_search.py
+│   │   ├── about/
+│   │   ├── binary_search/
+│   │   └── insertion_sort/
+│   └── element_settings.py
+├── utils/
+│   └── sorting.py
 ├── tests/
-│   └── src_tests/
-│       ├── conftest.py
-│       └── test_binary_search.py
+│   ├── algorithms/
+│   │   ├── binary_search/
+│   │   └── insertion_sort/
+│   ├── services/
+│   │   ├── binary_search/
+│   │   └── insertion_sort/
+│   └── utils/
 ├── main.py
 ├── pyproject.toml
 └── uv.lock
 ```
+
+Each algorithm page package typically contains:
+- `page_*.py` — Streamlit entry
+- `content.py` — markdown copy
+- `constants.py` — page-local field / message keys
+- `element_settings.py` — widget labels, limits, titles
+
+## Architecture Notes
+
+| Layer | Responsibility |
+| --- | --- |
+| `domains` | Immutable step VOs (`BinarySearchStepValueObject`, `InsertionSortStepValueObject`) and status enums |
+| `algorithms` | Core logic: `search` / `sort` plus `iter_steps` generators |
+| `services` | `*ProcessDataLogger` classes that record steps into table-ready dicts |
+| `front` | UI only: inputs, buttons, pandas tables, success/error messages |
+| `utils` | Small helpers used by pages/tests (random list factory) |
+
+Adding a new algorithm demo usually means: tests → algorithm → service logger → page package → register the page in `PagesContainer`.
 
 ## Getting Started
 
@@ -67,7 +105,7 @@ uv sync
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install streamlit loguru pytest
+pip install streamlit loguru pytest pandas
 ```
 
 ## Running the App
@@ -76,48 +114,10 @@ pip install streamlit loguru pytest
 uv run streamlit run main.py
 ```
 
-Then open the local Streamlit URL shown in the terminal.
-
 ## Running Tests
 
-Run the full test suite:
+Full suite:
 
 ```bash
 uv run pytest
 ```
-
-Run only binary search tests:
-
-```bash
-uv run pytest tests/atgorithms/test_binary_search.py
-```
-
-## Binary Search Demo
-
-The binary search page is implemented in `front/pages/binary_search.py`, while the core search logic is implemented in `src/binary_search.py`.
-
-The page currently:
-- explains the algorithm and its complexity
-- lets the user define a sorted integer range
-- accepts a target number
-- runs iterative binary search on button click
-- displays the found index or an error message
-
-## Current Status
-
-This project is in an early stage.
-
-Right now, only one algorithm demo is implemented: binary search. The app is structured to make it easy to add more algorithm pages later, but they are not part of the current codebase yet.
-
-## Current Limitations
-
-- The project currently demonstrates only binary search
-- The UI is an interactive demo, not a step-by-step animated visualizer
-- Tests currently cover only the binary search core logic
-
-## Roadmap
-
-Possible next steps for the project:
-- add more algorithm pages
-- expand automated test coverage
-- improve the binary search page with richer visualization of each search step

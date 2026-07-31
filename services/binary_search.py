@@ -31,7 +31,7 @@ class BinarySearchProcessDataLogger:
         step_data: BinarySearchStepValueObject,
         array: list[int],
     ) -> None:
-        """Append one step’s text fields into ``search_log``.
+        """Append one step's text fields into ``search_log``.
 
         Args:
             step_data: Current search step.

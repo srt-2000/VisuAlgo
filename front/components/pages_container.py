@@ -3,26 +3,29 @@
 import streamlit
 from streamlit.navigation.page import StreamlitPage
 
+from front.components.element_settings import LeftNavigationTitle, PagePath
+from front.element_settings import Icon
+
 
 class PagesContainer:
-    """Collect every ``StreamlitPage`` defined on this class."""
+    """Holds every ``StreamlitPage`` wired into the sidebar."""
 
     main: StreamlitPage = streamlit.Page(
-        page="front/pages/about.py",
-        title="About",
-        icon=":material/info:",
+        page=PagePath.ABOUT,
+        title=LeftNavigationTitle.ABOUT,
+        icon=Icon.INFO,
     )
 
     binary_search: StreamlitPage = streamlit.Page(
-        page="front/pages/binary_search.py",
-        title="Binary Search Algorithm",
-        icon=":material/search_check_2:",
+        page=PagePath.BINARY_SEARCH,
+        title=LeftNavigationTitle.BINARY_SEARCH,
+        icon=Icon.SEARCH_CHECK,
     )
 
     insertion_sort: StreamlitPage = streamlit.Page(
-        page="front/pages/insertion_sort.py",
-        title="Insertion Sort Algorithm",
-        icon=":material/sort:",
+        page=PagePath.INSERTION_SORT,
+        title=LeftNavigationTitle.INSERTION_SORT,
+        icon=Icon.SORT,
     )
 
     @classmethod

@@ -14,10 +14,10 @@ NOT_SORTED_ARRAYS: tuple[list[int], ...] = (
 )
 """Lists used to check that ``sort`` and ``iter_steps`` behave correctly."""
 
-INPUT_DATA_SYNC_TEST: list[int] = [1, 3, 2, 5]
+INSERTION_SORT_DATA_SYNC_TEST: list[int] = [1, 3, 2, 5]
 """Fixed list for the golden step sequence."""
 
-EXPECTED_DATA_SYNC_TEST: list[InsertionSortStepValueObject] = [
+INSERTION_SORT_EXPECTED_DATA_SYNC_TEST: list[InsertionSortStepValueObject] = [
     InsertionSortStepValueObject(
         1, 3, (1, 3, 2, 5), (1, 3, 2, 5), SortingStatus.SORTING
     ),
@@ -26,4 +26,4 @@ EXPECTED_DATA_SYNC_TEST: list[InsertionSortStepValueObject] = [
     ),
     InsertionSortStepValueObject(3, 5, (1, 2, 3, 5), (1, 2, 3, 5), SortingStatus.READY),
 ]
-"""Exact steps expected for ``INPUT_DATA_SYNC_TEST``."""
+"""Exact steps expected for ``INSERTION_SORT_DATA_SYNC_TEST``."""
