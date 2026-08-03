@@ -36,6 +36,7 @@ class TestBinarySearch:
         sorted_filled_list_with_nine_elements: list[int],
     ) -> None:
         """A missing target must return ``None``."""
+        target: int = FILLED_LIST_TARGET_NONE_RESULTS
         search_result: int | None = binary_searcher.search(
             sorted_filled_list_with_nine_elements, target
         )

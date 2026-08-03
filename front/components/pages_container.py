@@ -3,7 +3,7 @@
 import streamlit
 from streamlit.navigation.page import StreamlitPage
 
-from front.components.element_settings import LeftNavigationTitle, PagePath
+from front.components.element_settings import LeftNavigationTitle, pages_paths
 from front.element_settings import Icon
 
 
@@ -11,19 +11,19 @@ class PagesContainer:
     """Holds every ``StreamlitPage`` wired into the sidebar."""
 
     main: StreamlitPage = streamlit.Page(
-        page=PagePath.ABOUT,
+        page=pages_paths.ABOUT,
         title=LeftNavigationTitle.ABOUT,
         icon=Icon.INFO,
     )
 
     binary_search: StreamlitPage = streamlit.Page(
-        page=PagePath.BINARY_SEARCH,
+        page=pages_paths.BINARY_SEARCH,
         title=LeftNavigationTitle.BINARY_SEARCH,
         icon=Icon.SEARCH_CHECK,
     )
 
     insertion_sort: StreamlitPage = streamlit.Page(
-        page=PagePath.INSERTION_SORT,
+        page=pages_paths.INSERTION_SORT,
         title=LeftNavigationTitle.INSERTION_SORT,
         icon=Icon.SORT,
     )

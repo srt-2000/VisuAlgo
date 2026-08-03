@@ -27,10 +27,10 @@ class TestBinarySearchProcessDataLogger:
         """One recorded step must fill every log field with the right text."""
         logger = binary_search_process_data_logger
         step_data = binary_search_test_step_data
-        logger._record_step_data_to_search_log(
+        logger._record_step_data_to_algorithm_log(
             step_data, BINARY_SEARCH_RECORD_TEST_ARRAY
         )
-        step_records = logger.search_log
+        step_records = logger.algorithm_log
 
         expected_step_range: list[str] = [
             f"{BINARY_SEARCH_RECORD_TEST_ARRAY[step_data.left_index]} ... "
@@ -63,12 +63,12 @@ class TestBinarySearchProcessDataLogger:
         test_range: int = 2
 
         for _ in range(test_range):
-            logger._record_step_data_to_search_log(
+            logger._record_step_data_to_algorithm_log(
                 step_data, BINARY_SEARCH_RECORD_TEST_ARRAY
             )
 
         for field in BINARY_SEARCH_EXPECTED_LOG_FIELDS:
-            field_len: int = len(logger.search_log[field])
+            field_len: int = len(logger.algorithm_log[field])
             assert field_len == test_range
 
     def test_search_and_get_process_data(
@@ -79,7 +79,7 @@ class TestBinarySearchProcessDataLogger:
         """Found target ends with EQUAL; log length matches ``iter_steps``."""
         logger = binary_search_process_data_logger
         searcher = binary_searcher
-        process_data: defaultdict[str, list[str]] = logger.search_and_get_process_data(
+        process_data: defaultdict[str, list[str]] = logger.get_result_and_process_data(
             BINARY_SEARCH_RECORD_TEST_ARRAY,
             TEST_TARGET,
         )
@@ -101,7 +101,7 @@ class TestBinarySearchProcessDataLogger:
             logger = binary_search_process_data_logger
             array: list[int] = [1, 2, 3]
             target_not_in_array: int = 99
-            logger.search_and_get_process_data(array, target_not_in_array)
+            logger.get_result_and_process_data(array, target_not_in_array)
 
     def test_search_to_clean_previous_log(
         self,
@@ -109,11 +109,11 @@ class TestBinarySearchProcessDataLogger:
     ) -> None:
         """A second successful search must replace the old log, not grow it."""
         logger = binary_search_process_data_logger
-        first_log = logger.search_and_get_process_data(
+        first_log = logger.get_result_and_process_data(
             BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET
         )
         first_log_len = len(first_log[Fields.MIDDLE_INDEX])
-        second_log = logger.search_and_get_process_data(
+        second_log = logger.get_result_and_process_data(
             BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET
         )
         second_log_len = len(second_log[Fields.MIDDLE_INDEX])

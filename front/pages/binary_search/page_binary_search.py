@@ -70,7 +70,7 @@ if st.button(label=Button.LABEL):
 
     try:
         process_data: defaultdict[str, list[str]] = (
-            process_logger.search_and_get_process_data(
+            process_logger.get_result_and_process_data(
                 array_from_slider, inputted_target
             )
         )

@@ -23,8 +23,8 @@ class TestInsertionSortProcessDataLogger:
         """One recorded step must fill every log field with the right value."""
         logger = insertion_sort_process_data_logger
         step_data = insertion_sort_test_step_data
-        logger._record_step_data_to_sort_log(step_data)
-        step_records: defaultdict[str, list[str]] = logger.sort_log
+        logger._record_step_data_to_algorithm_log(step_data)
+        step_records: defaultdict[str, list[str]] = logger.algorithm_log
         expected_index: list[int] = [int(step_data.index)]
         expected_value: list[int] = [int(step_data.value)]
         expected_before: list[tuple[int, ...]] = [step_data.before]
@@ -48,10 +48,10 @@ class TestInsertionSortProcessDataLogger:
         test_range: int = 2
 
         for _ in range(test_range):
-            logger._record_step_data_to_sort_log(step_data)
+            logger._record_step_data_to_algorithm_log(step_data)
 
         for field in INSERTION_SORT_EXPECTED_LOG_FIELDS:
-            field_len: int = len(logger.sort_log[field])
+            field_len: int = len(logger.algorithm_log[field])
 
             assert field_len == test_range
 
@@ -64,7 +64,7 @@ class TestInsertionSortProcessDataLogger:
         logger = insertion_sort_process_data_logger
         sorter = insertion_sorter
         array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
-        process_data: defaultdict[str, list[str]] = logger.sort_and_get_process_data(
+        process_data: defaultdict[str, list[str]] = logger.get_result_and_process_data(
             array
         )
         end_status: str = process_data[Fields.SORT_STATUS][-1]
@@ -85,10 +85,10 @@ class TestInsertionSortProcessDataLogger:
         first_array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
         second_array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
         first_log: defaultdict[str, list[int | str | tuple]] = (
-            logger.sort_and_get_process_data(first_array)
+            logger.get_result_and_process_data(first_array)
         )
         second_log: defaultdict[str, list[int | str | tuple]] = (
-            logger.sort_and_get_process_data(second_array)
+            logger.get_result_and_process_data(second_array)
         )
         first_log_len = len(first_log[Fields.VALUE])
         second_log_len = len(second_log[Fields.VALUE])

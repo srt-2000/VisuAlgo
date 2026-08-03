@@ -2,10 +2,11 @@
 
 from typing import Iterator
 
+from algorithms.interfaces import AlgorithmBase
 from domains.sorting import InsertionSortStepValueObject, SortingStatus
 
 
-class InsertionSorter:
+class InsertionSorter(AlgorithmBase):
     """Sort a list in place by insertion sort and expose step snapshots."""
 
     def sort(self, array: list[int]) -> list[int]:

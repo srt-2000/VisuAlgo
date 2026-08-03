@@ -1,6 +1,7 @@
 """Sidebar labels and file paths for Streamlit pages."""
 
 from enum import StrEnum
+import streamlit as st
 
 
 class LeftNavigationTitle(StrEnum):
@@ -11,9 +12,4 @@ class LeftNavigationTitle(StrEnum):
     INSERTION_SORT = "Insertion Sort"
 
 
-class PagePath(StrEnum):
-    """Relative paths to Streamlit page scripts."""
-
-    ABOUT = "front/pages/about/page_about.py"
-    BINARY_SEARCH = "front/pages/binary_search/page_binary_search.py"
-    INSERTION_SORT = "front/pages/insertion_sort/page_insertion_sort.py"
+pages_paths = st.secrets.project_pages_paths

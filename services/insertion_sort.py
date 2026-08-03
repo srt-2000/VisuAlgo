@@ -2,43 +2,47 @@
 
 from collections import defaultdict
 
-from algorithms.insertion_sort import InsertionSorter
+from algorithms.interfaces import AlgorithmBase
 from domains.sorting import InsertionSortStepValueObject
 from services.constants import Fields
+from services.interfaces import ServiceBase
 
 
-class InsertionSortProcessDataLogger:
+class InsertionSortProcessDataLogger(ServiceBase):
     """Run insertion sort and keep a human-readable log of each step.
 
     Attributes:
-        sort_log: Field name → list of values, one per step.
+        algorithm_log: Field name → list of values, one per step.
     """
 
-    def __init__(self, sorter: InsertionSorter) -> None:
+    def __init__(self, algorithm: AlgorithmBase) -> None:
         """Store the sorter used to walk through steps.
 
         Args:
-            sorter: Insertion sort algorithm instance.
+            algorithm: Insertion sort algorithm instance.
         """
-        self._sort_engine: InsertionSorter = sorter
-        self.sort_log: defaultdict[str, list[int | str | tuple]] = defaultdict(list)
+        super().__init__(algorithm)
+        self._algorithm_engine: AlgorithmBase = algorithm
+        self.algorithm_log: defaultdict[str, list[int | str | tuple]] = defaultdict(
+            list
+        )
 
-    def _record_step_data_to_sort_log(
+    def _record_step_data_to_algorithm_log(
         self,
         step_data: InsertionSortStepValueObject,
     ) -> None:
-        """Append one step's fields into ``sort_log``.
+        """Append one step's fields into ``algorithm_log``.
 
         Args:
             step_data: Current sort step.
         """
-        self.sort_log[Fields.INDEX].append(int(step_data.index))
-        self.sort_log[Fields.VALUE].append(int(step_data.value))
-        self.sort_log[Fields.BEFORE].append(step_data.before)
-        self.sort_log[Fields.RESULT].append(step_data.result)
-        self.sort_log[Fields.SORT_STATUS].append(str(step_data.status))
+        self.algorithm_log[Fields.INDEX].append(int(step_data.index))
+        self.algorithm_log[Fields.VALUE].append(int(step_data.value))
+        self.algorithm_log[Fields.BEFORE].append(step_data.before)
+        self.algorithm_log[Fields.RESULT].append(step_data.result)
+        self.algorithm_log[Fields.SORT_STATUS].append(str(step_data.status))
 
-    def sort_and_get_process_data(
+    def get_result_and_process_data(
         self,
         array: list[int],
     ) -> defaultdict[str, list[int | str | tuple]]:
@@ -52,9 +56,9 @@ class InsertionSortProcessDataLogger:
         Returns:
             Log map: field name → list of per-step values.
         """
-        self.sort_log.clear()
+        self.algorithm_log.clear()
 
-        for step_data in self._sort_engine.iter_steps(array):
-            self._record_step_data_to_sort_log(step_data)
+        for step_data in self._algorithm_engine.iter_steps(array):
+            self._record_step_data_to_algorithm_log(step_data)
 
-        return self.sort_log
+        return self.algorithm_log

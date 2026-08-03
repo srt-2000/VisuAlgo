@@ -20,7 +20,7 @@ def binary_search_process_data_logger(
         binary_searcher: Shared binary search engine fixture.
 
     Returns:
-        Logger with an empty ``search_log``.
+        Logger with an empty ``algorithm_log``.
     """
     return BinarySearchProcessDataLogger(binary_searcher)
 
@@ -35,7 +35,7 @@ def insertion_sort_process_data_logger(
         insertion_sorter: Shared insertion sort engine fixture.
 
     Returns:
-        Logger with an empty ``sort_log``.
+        Logger with an empty ``algorithm_log``.
     """
     return InsertionSortProcessDataLogger(insertion_sorter)
 

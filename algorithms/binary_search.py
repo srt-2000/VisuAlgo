@@ -2,10 +2,11 @@
 
 from typing import Iterator
 
+from algorithms.interfaces import AlgorithmBase
 from domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
 
 
-class BinarySearch:
+class BinarySearch(AlgorithmBase):
     """Find a number in a sorted list by cutting the list in half each time."""
 
     def search(self, array: list[int], target: int) -> int | None:
