@@ -3,3 +3,6 @@
 .env
 __pycache__
 .pyc
+todo.txt
+.streamlit/
+secrets.toml
