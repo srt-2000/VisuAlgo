@@ -1,6 +1,6 @@
 """Fixed inputs for ``BinarySearchProcessDataLogger`` tests."""
 
-from services.constants import Fields
+from backend.services.constants import Fields
 
 BINARY_SEARCH_RECORD_TEST_ARRAY: list[int] = [3, 14, 26, 34, 45, 58, 59, 60, 79, 87, 92]
 """Sorted sample array used when recording and searching in logger tests."""

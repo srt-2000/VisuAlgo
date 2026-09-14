@@ -2,8 +2,8 @@
 
 import pytest
 
-from algorithms.binary_search import BinarySearch
-from algorithms.insertion_sort import InsertionSorter
+from backend.algorithms.binary_search import BinarySearch
+from backend.algorithms.insertion_sort import InsertionSorter
 
 
 @pytest.fixture(scope="function")

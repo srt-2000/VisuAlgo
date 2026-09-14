@@ -4,11 +4,11 @@ from collections import defaultdict
 
 from loguru import logger
 
-from algorithms.interfaces import AlgorithmBase
-from domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
-from services.constants import Fields, Messages, addition_to_full_range
-from services.exceptions import TargetIndexNotFoundException
-from services.interfaces import ServiceBase
+from backend.algorithms.interfaces import AlgorithmBase
+from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
+from backend.services.constants import Fields, Messages, addition_to_full_range
+from backend.services.exceptions import TargetIndexNotFoundException
+from backend.services.interfaces import ServiceBase
 
 
 class BinarySearchProcessDataLogger(ServiceBase):

@@ -2,7 +2,7 @@
 
 from random import randint
 
-from domains.sorting import InsertionSortStepValueObject, SortingStatus
+from backend.domains.sorting import InsertionSortStepValueObject, SortingStatus
 
 NOT_SORTED_ARRAYS: tuple[list[int], ...] = (
     [5, 4, 3, 2, 1],

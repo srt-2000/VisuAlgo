@@ -2,10 +2,10 @@
 
 from collections import defaultdict
 
-from algorithms.interfaces import AlgorithmBase
-from domains.sorting import InsertionSortStepValueObject
-from services.constants import Fields
-from services.interfaces import ServiceBase
+from backend.algorithms.interfaces import AlgorithmBase
+from backend.domains.sorting import InsertionSortStepValueObject
+from backend.services.constants import Fields
+from backend.services.interfaces import ServiceBase
 
 
 class InsertionSortProcessDataLogger(ServiceBase):

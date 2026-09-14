@@ -3,7 +3,7 @@
 from abc import ABC, abstractmethod
 from collections import defaultdict
 
-from algorithms.interfaces import AlgorithmBase
+from backend.algorithms.interfaces import AlgorithmBase
 
 
 class ServiceBase(ABC):

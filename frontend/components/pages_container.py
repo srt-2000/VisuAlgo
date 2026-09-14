@@ -3,8 +3,8 @@
 import streamlit
 from streamlit.navigation.page import StreamlitPage
 
-from front.components.element_settings import LeftNavigationTitle, pages_paths
-from front.element_settings import Icon
+from frontend.components.element_settings import LeftNavigationTitle, pages_paths
+from frontend.element_settings import Icon
 
 
 class PagesContainer:

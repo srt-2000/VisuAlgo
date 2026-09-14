@@ -2,8 +2,8 @@
 
 from typing import Iterator
 
-from algorithms.interfaces import AlgorithmBase
-from domains.sorting import InsertionSortStepValueObject, SortingStatus
+from backend.algorithms.interfaces import AlgorithmBase
+from backend.domains.sorting import InsertionSortStepValueObject, SortingStatus
 
 
 class InsertionSorter(AlgorithmBase):

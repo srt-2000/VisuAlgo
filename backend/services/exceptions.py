@@ -1,6 +1,6 @@
 """Custom exceptions used by VisuAlgo services."""
 
-from services.constants import Messages
+from backend.services.constants import Messages
 
 
 class TargetIndexNotFoundException(Exception):

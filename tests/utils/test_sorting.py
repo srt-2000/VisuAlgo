@@ -6,7 +6,7 @@ from tests.utils.cases import (
     RANDOM_NOT_ZERO_LIST_LIMITS,
     RANDOM_ZERO_ELEMENTS_LIST,
 )
-from utils.sorting import get_not_sorted_random_list
+from backend.utils.sorting import get_not_sorted_random_list
 
 
 class TestGetNotSortedRandomList:

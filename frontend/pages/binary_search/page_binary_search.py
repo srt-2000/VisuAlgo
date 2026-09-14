@@ -7,11 +7,11 @@ import streamlit as st
 import pandas as pd
 from pandas import DataFrame
 
-from algorithms.binary_search import BinarySearch
-from front.element_settings import Icon
-from front.pages.binary_search.constants import Field
-from front.pages.binary_search.content import PageContent
-from front.pages.binary_search.element_settings import (
+from backend.algorithms.binary_search import BinarySearch
+from frontend.element_settings import Icon
+from frontend.pages.binary_search.constants import Field
+from frontend.pages.binary_search.content import PageContent
+from frontend.pages.binary_search.element_settings import (
     PageTitle,
     Header,
     SliderInt,
@@ -28,8 +28,8 @@ from front.pages.binary_search.element_settings import (
     DataFrameInt,
     DataFrameStr,
 )
-from services.binary_search import BinarySearchProcessDataLogger
-from services.exceptions import TargetIndexNotFoundException
+from backend.services.binary_search import BinarySearchProcessDataLogger
+from backend.services.exceptions import TargetIndexNotFoundException
 
 
 st.set_page_config(page_title=PageTitle.BINARY_SEARCH_ALGORITHM)

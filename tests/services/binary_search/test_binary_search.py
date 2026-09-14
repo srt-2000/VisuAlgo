@@ -4,11 +4,11 @@ from collections import defaultdict
 
 import pytest
 
-from algorithms.binary_search import BinarySearch
-from domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
-from services.binary_search import BinarySearchProcessDataLogger
-from services.constants import Fields, addition_to_full_range
-from services.exceptions import TargetIndexNotFoundException
+from backend.algorithms.binary_search import BinarySearch
+from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
+from backend.services.binary_search import BinarySearchProcessDataLogger
+from backend.services.constants import Fields, addition_to_full_range
+from backend.services.exceptions import TargetIndexNotFoundException
 from tests.services.binary_search.cases import (
     BINARY_SEARCH_RECORD_TEST_ARRAY,
     TEST_TARGET,

@@ -2,8 +2,8 @@
 
 from typing import Iterator
 
-from algorithms.interfaces import AlgorithmBase
-from domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
+from backend.algorithms.interfaces import AlgorithmBase
+from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
 
 
 class BinarySearch(AlgorithmBase):

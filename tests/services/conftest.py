@@ -2,12 +2,12 @@
 
 import pytest
 
-from algorithms.binary_search import BinarySearch
-from algorithms.insertion_sort import InsertionSorter
-from domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
-from domains.sorting import InsertionSortStepValueObject, SortingStatus
-from services.binary_search import BinarySearchProcessDataLogger
-from services.insertion_sort import InsertionSortProcessDataLogger
+from backend.algorithms.binary_search import BinarySearch
+from backend.algorithms.insertion_sort import InsertionSorter
+from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
+from backend.domains.sorting import InsertionSortStepValueObject, SortingStatus
+from backend.services.binary_search import BinarySearchProcessDataLogger
+from backend.services.insertion_sort import InsertionSortProcessDataLogger
 
 
 @pytest.fixture(scope="function")

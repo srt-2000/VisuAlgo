@@ -6,11 +6,11 @@ import streamlit as st
 import pandas as pd
 from pandas import DataFrame
 
-from algorithms.insertion_sort import InsertionSorter
-from front.element_settings import PageTitle, Icon
-from front.pages.insertion_sort.constants import Fields, Messages
-from front.pages.insertion_sort.content import PageContent
-from front.pages.insertion_sort.element_settings import (
+from backend.algorithms.insertion_sort import InsertionSorter
+from frontend.element_settings import PageTitle, Icon
+from frontend.pages.insertion_sort.constants import Fields, Messages
+from frontend.pages.insertion_sort.content import PageContent
+from frontend.pages.insertion_sort.element_settings import (
     Header,
     NumberInputStr,
     LeftColumnNumberInputInt,
@@ -22,8 +22,8 @@ from front.pages.insertion_sort.element_settings import (
     DataFrameInt,
     DataFrameStr,
 )
-from services.insertion_sort import InsertionSortProcessDataLogger
-from utils.sorting import get_not_sorted_random_list
+from backend.services.insertion_sort import InsertionSortProcessDataLogger
+from backend.utils.sorting import get_not_sorted_random_list
 
 st.set_page_config(page_title=PageTitle.INSERTION_SORT_ALGORITHM)
 

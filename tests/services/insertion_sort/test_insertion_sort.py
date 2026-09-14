@@ -2,10 +2,10 @@
 
 from collections import defaultdict
 
-from algorithms.insertion_sort import InsertionSorter
-from domains.sorting import InsertionSortStepValueObject, SortingStatus
-from services.constants import Fields
-from services.insertion_sort import InsertionSortProcessDataLogger
+from backend.algorithms.insertion_sort import InsertionSorter
+from backend.domains.sorting import InsertionSortStepValueObject, SortingStatus
+from backend.services.constants import Fields
+from backend.services.insertion_sort import InsertionSortProcessDataLogger
 from tests.services.insertion_sort.cases import (
     INSERTION_SORT_RECORD_TEST_ARRAY,
     INSERTION_SORT_EXPECTED_LOG_FIELDS,
