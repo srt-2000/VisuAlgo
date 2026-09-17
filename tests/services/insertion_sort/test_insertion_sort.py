@@ -3,7 +3,8 @@
 from collections import defaultdict
 
 from backend.algorithms.insertion_sort import InsertionSorter
-from backend.domains.sorting import InsertionSortStepValueObject, SortingStatus
+from backend.domains.sorting import InsertionSortStepValueObject
+from backend.utils.constants import SortingStatus
 from backend.services.constants import Fields
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
 from tests.services.insertion_sort.cases import (

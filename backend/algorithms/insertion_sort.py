@@ -3,7 +3,9 @@
 from typing import Iterator
 
 from backend.algorithms.interfaces import AlgorithmBase
-from backend.domains.sorting import InsertionSortStepValueObject, SortingStatus
+from backend.domains.sorting import InsertionSortStepValueObject
+from backend.utils.constants import SortingStatus
+from backend.utils.sorting import get_current_sorting_status
 
 
 class InsertionSorter(AlgorithmBase):
@@ -23,7 +25,7 @@ class InsertionSorter(AlgorithmBase):
         return array
 
     @staticmethod
-    def iter_steps(array: list[int]) -> Iterator[InsertionSortStepValueObject]:
+    def iter_steps(array: list[int] | None) -> Iterator[InsertionSortStepValueObject]:
         """Yield one snapshot after each insertion step.
 
         Args:
@@ -32,10 +34,21 @@ class InsertionSorter(AlgorithmBase):
         Yields:
             One step snapshot after each key insertion.
         """
-        if len(array) <= 1:
-            return
+        if not array:
+            current_status: SortingStatus = get_current_sorting_status(
+                iter_position=0,
+                array_last_index=0,
+            )
 
-        for current_index in range(1, len(array)):
+            yield InsertionSortStepValueObject(
+                index=0,
+                value=0,
+                before=tuple(array),
+                result=tuple(array),
+                status=current_status,
+            )
+
+        for current_index in range(0, len(array)):
             current_value: int = array[current_index]
             check_index: int = current_index - 1
             before_state: list[int] = array.copy()
@@ -45,15 +58,15 @@ class InsertionSorter(AlgorithmBase):
                 check_index -= 1
 
             array[check_index + 1] = current_value
+            current_status: SortingStatus = get_current_sorting_status(
+                iter_position=current_index,
+                array_last_index=len(array) - 1,
+            )
 
             yield InsertionSortStepValueObject(
                 index=current_index,
                 value=current_value,
                 before=tuple(before_state),
                 result=tuple(array),
-                status=(
-                    SortingStatus.READY
-                    if current_index == len(array) - 1
-                    else SortingStatus.SORTING
-                ),
+                status=current_status,
             )

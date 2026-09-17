@@ -77,8 +77,8 @@ not_sorted_column, sorted_column = st.columns(
     spec=Columns.LIST_RENDER_COLUMNS_QUANTITY, border=True
 )
 
-if not_sorted_list_length and randomizer_min_value and randomizer_max_value:
-    if not_sorted_column.button("CREATE"):
+if randomizer_min_value and randomizer_max_value:
+    if not_sorted_column.button(label=Button.LABEL_CREATE):
         st.session_state.not_sorted_array = get_not_sorted_random_list(
             not_sorted_list_length,
             randomizer_min_value,
@@ -96,6 +96,7 @@ if st.session_state.not_sorted_array is not None:
                 st.session_state.not_sorted_array
             )
         )
+
         sorted_array = process_data[Fields.RESULT][-1]
 
         st.session_state.not_sorted_array = array

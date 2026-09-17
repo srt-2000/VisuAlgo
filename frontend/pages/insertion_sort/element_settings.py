@@ -57,6 +57,7 @@ class Button(StrEnum):
     """Label for the sort action button."""
 
     LABEL_SORT_IT = "SORT IT"
+    LABEL_CREATE = "CREATE"
 
 
 class TableBorder:

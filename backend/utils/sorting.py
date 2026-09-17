@@ -3,6 +3,8 @@
 from random import randint
 from typing import Iterable
 
+from backend.utils.constants import SortingStatus
+
 
 def get_not_sorted_random_list(
     length_limit: int,
@@ -28,3 +30,20 @@ def get_not_sorted_random_list(
         random_list.append(random_element)
 
     return random_list
+
+def get_current_sorting_status(iter_position: int, array_last_index: int) -> SortingStatus:
+    """Get the sorting status of the current iteration.
+
+    Args:
+        iter_position: int Current iteration position index.
+        array_last_index: int Last index of iterating array.
+
+    Returns:
+        A str constant with status name.
+        """
+    if iter_position == array_last_index:
+        current_status: SortingStatus = SortingStatus.READY
+    else:
+        current_status = SortingStatus.SORTING
+
+    return current_status
