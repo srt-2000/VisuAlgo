@@ -70,16 +70,18 @@ not_sorted_column, sorted_column = st.columns(
     spec=Columns.LIST_RENDER_COLUMNS_QUANTITY, border=True
 )
 
-if randomizer_min_value and randomizer_max_value:
-    if not_sorted_column.button(label=Button.LABEL_CREATE):
-        st.session_state.not_sorted_array = get_not_sorted_random_list(
-            not_sorted_list_length,
-            randomizer_min_value,
-            randomizer_max_value,
-        )
-        st.session_state.sorted_array = None
+if not_sorted_column.button(label=Button.LABEL_CREATE):
+    st.session_state.not_sorted_array = get_not_sorted_random_list(
+        not_sorted_list_length,
+        randomizer_min_value,
+        randomizer_max_value,
+    )
+    st.session_state.sorted_array = None
 
 if st.session_state.not_sorted_array is not None:
+    not_sorted_column.info(body=Messages.NOT_SORTED_ARRAY, icon=Icon.DONE_OUTLINE)
+    not_sorted_column.write(tuple(st.session_state.not_sorted_array))
+
     if sorted_column.button(label=Button.LABEL_SORT_IT):
         array: list[int] = st.session_state.not_sorted_array.copy()
         sorter = InsertionSorter()
@@ -96,9 +98,7 @@ if st.session_state.not_sorted_array is not None:
         st.session_state.sorted_array = sorted_array
         st.session_state.process_data = process_data
 
-if st.session_state.not_sorted_array is not None:
-    not_sorted_column.info(body=Messages.NOT_SORTED_ARRAY, icon=Icon.DONE_OUTLINE)
-    not_sorted_column.write(tuple(st.session_state.not_sorted_array))
+        st.snow()
 
 if (st.session_state.sorted_array and st.session_state.process_data) is not None:
     sorted_column.success(body=Messages.SORTED_ARRAY, icon=Icon.DONE_OUTLINE)
@@ -114,5 +114,3 @@ if (st.session_state.sorted_array and st.session_state.process_data) is not None
     st.table(data=data_frame_for_table, border=TableBorder.HORIZONTAL_BORDER)
 
     st.markdown(PageContent.RESULT)
-
-    st.snow()
