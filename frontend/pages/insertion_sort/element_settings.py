@@ -10,11 +10,16 @@ class Header(StrEnum):
     INSERTION_SORT = "INSERTION SORT"
     DIVIDER = "yellow"
 
+class SliderLiteral:
+    """Literal values passed to Streamlit slider options."""
+
+    QUERY_PARAMS: Literal["query-params"] = "query-params"
+
 
 class Columns(IntEnum):
     """How many Streamlit columns each layout row uses."""
 
-    RANDOM_LIST_DATA_COLUMNS_QUANTITY = 3
+    RANDOM_LIST_DATA_COLUMNS_QUANTITY = 2
     LIST_RENDER_COLUMNS_QUANTITY = 2
 
 
@@ -36,22 +41,20 @@ class LeftColumnNumberInputInt(IntEnum):
     STEP = 1
 
 
-class MidColumnNumberInputInt(IntEnum):
-    """Limits for the minimum-value input (middle column)."""
+class RightColumnSliderInt(IntEnum):
+    """Limits for the minimum-value input (right column)."""
 
     MIN = -100
     MAX = 100
-    RENDER = -90
+    MIN_RENDER = -80
+    MAX_RENDER = 80
     STEP = 1
 
 
-class RightColumnNumberInputInt(IntEnum):
-    """Limits for the maximum-value input (right column)."""
-
-    MAX = 100
-    RENDER = 90
-    STEP = 1
-
+class RightColumnSliderStr(StrEnum):
+    """Labels and placeholder for random-list number inputs."""
+    LABEL = "values range"
+    KEY = "val_range"
 
 class Button(StrEnum):
     """Label for the sort action button."""

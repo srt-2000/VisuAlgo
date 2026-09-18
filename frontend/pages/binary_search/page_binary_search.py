@@ -65,9 +65,6 @@ inputted_target: int = st.number_input(
     key=NumberInputStr.KEY_INPUTTED_TARGET,
 )
 
-# button is... if we have not right inputted target ... is it ok?
-
-
 if st.button(label=Button.LABEL):
     array_from_slider: list[int] = [
         number for number in range(slider_min_value, slider_max_value + 1)

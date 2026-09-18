@@ -14,13 +14,14 @@ from frontend.pages.insertion_sort.element_settings import (
     Header,
     NumberInputStr,
     LeftColumnNumberInputInt,
-    MidColumnNumberInputInt,
-    RightColumnNumberInputInt,
     Columns,
     Button,
     TableBorder,
     DataFrameInt,
     DataFrameStr,
+    SliderLiteral,
+    RightColumnSliderInt,
+    RightColumnSliderStr,
 )
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
 from backend.utils.sorting import get_not_sorted_random_list
@@ -39,7 +40,7 @@ st.header(body=Header.INSERTION_SORT, divider=Header.DIVIDER)
 
 st.markdown(body=PageContent.INSERTION_SORT_WELCOME)
 
-left_column, mid_column, right_column = st.columns(
+left_column, right_column = st.columns(
     spec=Columns.RANDOM_LIST_DATA_COLUMNS_QUANTITY
 )
 
@@ -53,24 +54,16 @@ not_sorted_list_length: int = left_column.number_input(
     step=LeftColumnNumberInputInt.STEP,
 )
 
-randomizer_min_value: int = mid_column.number_input(
-    icon=Icon.INPUT,
-    label=NumberInputStr.LABEL_MIN_VALUE,
-    placeholder=NumberInputStr.PLACEHOLDER_ENTER_NUMBER,
-    min_value=MidColumnNumberInputInt.MIN,
-    max_value=MidColumnNumberInputInt.MAX,
-    value=MidColumnNumberInputInt.RENDER,
-    step=MidColumnNumberInputInt.STEP,
-)
-
-randomizer_max_value: int = right_column.number_input(
-    icon=Icon.INPUT,
-    label=NumberInputStr.LABEL_MAX_VALUE,
-    placeholder=NumberInputStr.PLACEHOLDER_ENTER_NUMBER,
-    min_value=randomizer_min_value,
-    max_value=RightColumnNumberInputInt.MAX,
-    value=RightColumnNumberInputInt.RENDER,
-    step=RightColumnNumberInputInt.STEP,
+randomizer_min_value, randomizer_max_value = right_column.slider(
+    label=RightColumnSliderStr.LABEL,
+    min_value=RightColumnSliderInt.MIN,
+    max_value=RightColumnSliderInt.MAX,
+    value=(
+        RightColumnSliderInt.MIN_RENDER,
+        RightColumnSliderInt.MAX_RENDER,
+    ),
+    key=RightColumnSliderStr.KEY,
+    bind=SliderLiteral.QUERY_PARAMS,
 )
 
 not_sorted_column, sorted_column = st.columns(
