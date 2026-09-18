@@ -1,21 +1,17 @@
 """Unit tests for ``InsertionSorter.sort`` and ``InsertionSorter.iter_steps``."""
 
-import pytest
-
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.sorting import InsertionSortStepValueObject
 from backend.utils.constants import SortingStatus
 from tests.algorithms.insertion_sort.cases import (
     INSERTION_SORT_EXPECTED_DATA_SYNC_TEST,
     INSERTION_SORT_DATA_SYNC_TEST,
-    NOT_SORTED_ARRAYS,
 )
 
 
 class TestInsertionSort:
     """Check in-place insertion sort behavior."""
 
-    @pytest.mark.parametrize("array", NOT_SORTED_ARRAYS)
     def test_insert_sort(
         self,
         insertion_sorter: InsertionSorter,
@@ -45,7 +41,6 @@ class TestInsertionSort:
 class TestInsertionSortIterSteps:
     """Check step rules and one known golden sequence."""
 
-    @pytest.mark.parametrize("array", NOT_SORTED_ARRAYS)
     def test_iter_steps_not_empty_invariants(
         self,
         insertion_sorter: InsertionSorter,
