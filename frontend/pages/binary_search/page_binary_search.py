@@ -41,11 +41,15 @@ slider_min_value, slider_max_value = st.slider(
     label=SliderStr.LABEL,
     min_value=SliderInt.MIN,
     max_value=SliderInt.MAX,
-    value=(SliderInt.START_RENDER_MIN, SliderInt.START_RENDER_MAX),
-    key=SliderStr.LIST_RANGE,
+    value=(
+        SliderInt.START_RENDER_MIN,
+        SliderInt.START_RENDER_MAX
+    ),
+    key=SliderStr.LIST_RANGE_LENGTH,
     bind=SliderLiteral.QUERY_PARAMS,
 )
-slider_mid_value: int = (slider_min_value + slider_max_value) // 2
+
+slider_mid_value_render: int = (slider_min_value + slider_max_value) // 2
 
 st.badge(
     label=f"{Badge.SORTED_LIST_LABEL}**[{slider_min_value} ... {slider_max_value}]**",
@@ -56,10 +60,13 @@ inputted_target: int = st.number_input(
     label=NumberInputStr.LABEL,
     min_value=slider_min_value,
     max_value=slider_max_value,
-    value=slider_mid_value,
+    value=slider_mid_value_render,
     step=NumberInputInt.STEP,
     key=NumberInputStr.KEY_INPUTTED_TARGET,
 )
+
+# button is... if we have not right inputted target ... is it ok?
+
 
 if st.button(label=Button.LABEL):
     array_from_slider: list[int] = [

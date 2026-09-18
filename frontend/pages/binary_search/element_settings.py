@@ -29,7 +29,7 @@ class SliderInt(IntEnum):
 class SliderStr(StrEnum):
     """Text keys and label for the range slider."""
 
-    LIST_RANGE = "list_range"
+    LIST_RANGE_LENGTH = "list_range_length"
     LABEL = "Define your sorted list range on the slider scale"
 
 

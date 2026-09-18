@@ -4,7 +4,6 @@ from typing import Iterator
 
 from backend.algorithms.interfaces import AlgorithmBase
 from backend.domains.sorting import InsertionSortStepValueObject
-from backend.utils.constants import SortingStatus
 from backend.utils.sorting import get_current_sorting_status
 
 
@@ -35,7 +34,7 @@ class InsertionSorter(AlgorithmBase):
             One step snapshot after each key insertion.
         """
         if not array:
-            current_status: SortingStatus = get_current_sorting_status(
+            current_status: str = get_current_sorting_status(
                 iter_position=0,
                 array_last_index=0,
             )
@@ -58,7 +57,7 @@ class InsertionSorter(AlgorithmBase):
                 check_index -= 1
 
             array[check_index + 1] = current_value
-            current_status: SortingStatus = get_current_sorting_status(
+            current_status: str = get_current_sorting_status(
                 iter_position=current_index,
                 array_last_index=len(array) - 1,
             )

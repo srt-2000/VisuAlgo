@@ -1,12 +1,14 @@
 """Unit tests for sorting utility helpers."""
+from typing import Literal
 
 import pytest
 
+from backend.utils.constants import SortingStatus
 from tests.utils.cases import (
     RANDOM_NOT_ZERO_LIST_LIMITS,
-    RANDOM_ZERO_ELEMENTS_LIST,
+    RANDOM_ZERO_ELEMENTS_LIST, INDEXES_AND_STATUS_RESULTS,
 )
-from backend.utils.sorting import get_not_sorted_random_list
+from backend.utils.sorting import get_not_sorted_random_list, get_current_sorting_status
 
 
 class TestGetNotSortedRandomList:
@@ -36,3 +38,21 @@ class TestGetNotSortedRandomList:
 
         assert len(random_list) == 0
         assert random_list == empty_list
+
+
+class TestGetCurrentSortingStatus:
+
+    @pytest.mark.parametrize("test_invariants", INDEXES_AND_STATUS_RESULTS)
+    def test_all_invariants(
+            self,
+            test_invariants: tuple[int, int, str]
+    ) -> None:
+        """Check all invariants of indexes and it results"""
+        iter_position, array_last_index, expected_status = test_invariants
+        status: str = get_current_sorting_status(
+            iter_position=iter_position,
+            array_last_index=array_last_index
+        )
+
+        assert status == expected_status
+        assert isinstance(status, str)

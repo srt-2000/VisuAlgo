@@ -2,8 +2,6 @@
 
 from dataclasses import dataclass
 
-from backend.utils.constants import SortingStatus
-
 
 @dataclass(frozen=True, slots=True)
 class InsertionSortStepValueObject:
@@ -21,4 +19,4 @@ class InsertionSortStepValueObject:
     value: int
     before: tuple[int, ...]
     result: tuple[int, ...]
-    status: SortingStatus
+    status: str
