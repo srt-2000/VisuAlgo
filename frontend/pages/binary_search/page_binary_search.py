@@ -1,13 +1,12 @@
 """Streamlit page: run binary search and show each step in a table."""
 
 from collections import defaultdict
-from typing import Iterable
 
 import streamlit as st
-import pandas as pd
 from pandas import DataFrame
 
 from backend.algorithms.binary_search import BinarySearch
+from backend.utils.binary_search import get_dataframe_for_result_table
 from frontend.element_settings import Icon
 from frontend.pages.binary_search.constants import Field
 from frontend.pages.binary_search.content import PageContent
@@ -25,8 +24,6 @@ from frontend.pages.binary_search.element_settings import (
     Error,
     TableBorder,
     Success,
-    DataFrameInt,
-    DataFrameStr,
 )
 from backend.services.binary_search import BinarySearchProcessDataLogger
 from backend.services.exceptions import TargetIndexNotFoundException
@@ -81,15 +78,10 @@ if st.button(label=Button.LABEL):
     except TargetIndexNotFoundException:
         st.error(body=f"{inputted_target} {Error.NOT_FOUND_MESSAGE}")
     else:
-        data_frame_for_table = pd.DataFrame(data=process_data)
-        data_frame_range: Iterable[int] = range(1, len(data_frame_for_table) + 1)
-        data_frame_for_table: DataFrame = data_frame_for_table.set_axis(
-            labels=[f"{DataFrameStr.AXIS_NAME} {i}" for i in data_frame_range],
-            axis=DataFrameInt.AXIS_LINES_CHANGES_PARAMETER,
-        )
+        dataframe_for_table: DataFrame = get_dataframe_for_result_table(data_for_dataframe=process_data)
         target_index: str = process_data[Field.MIDDLE_INDEX][-1]
 
-        st.table(data=data_frame_for_table, border=TableBorder.HORIZONTAL_BORDER)
+        st.table(data=dataframe_for_table, border=TableBorder.HORIZONTAL_BORDER)
 
         st.success(
             body=f"{inputted_target} {Success.SUCCESS_MESSAGE} **[{target_index}]**",

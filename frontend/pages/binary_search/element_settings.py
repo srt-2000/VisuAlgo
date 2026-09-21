@@ -84,18 +84,6 @@ class Success(StrEnum):
     SUCCESS_MESSAGE = "element has index"
 
 
-class DataFrameStr(StrEnum):
-    """Row-label prefix for the steps table."""
-
-    AXIS_NAME = "step"
-
-
-class DataFrameInt(IntEnum):
-    """Axis index used when renaming DataFrame rows."""
-
-    AXIS_LINES_CHANGES_PARAMETER = 0
-
-
 class TableBorder:
     """Border style token for ``st.table``."""
 

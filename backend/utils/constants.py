@@ -1,4 +1,4 @@
-from enum import StrEnum
+from enum import StrEnum, IntEnum
 
 
 class SortingStatus(StrEnum):
@@ -11,3 +11,14 @@ class SortingStatus(StrEnum):
 
     SORTING = "sorting"
     READY = "ready"
+
+class DataFrameStr(StrEnum):
+    """Row-label prefix for the steps table."""
+
+    AXIS_NAME = "step"
+
+
+class DataFrameInt(IntEnum):
+    """Axis index used when renaming DataFrame rows."""
+
+    AXIS_LINES_CHANGES_PARAMETER = 0
