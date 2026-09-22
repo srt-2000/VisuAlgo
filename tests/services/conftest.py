@@ -46,19 +46,18 @@ def binary_search_test_step_data() -> BinarySearchStepValueObject:
     """Provide one sample binary-search step for logger tests.
 
     Returns:
-        Frozen step with fixed indexes and ``GREATER`` status.
+        Frozen step with fixed indexes and ``LESS`` status.
     """
     step_data: BinarySearchStepValueObject = BinarySearchStepValueObject(
         left_index=2,
         right_index=8,
         mid_index=5,
         middle_value=58,
-        status=BinarySearchStatus.GREATER,
+        status=BinarySearchStatus.LESS,
         target=60,
     )
 
     return step_data
-
 
 @pytest.fixture(scope="function")
 def insertion_sort_test_step_data() -> InsertionSortStepValueObject:

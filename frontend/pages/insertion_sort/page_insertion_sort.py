@@ -92,7 +92,7 @@ if st.session_state.not_sorted_array is not None:
             )
         )
 
-        sorted_array = process_data[Fields.RESULT][-1]
+        sorted_array: tuple[int,...] = process_logger.get_result_array_from_process_log()
 
         st.session_state.not_sorted_array = array
         st.session_state.sorted_array = sorted_array

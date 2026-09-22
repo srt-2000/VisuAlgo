@@ -7,7 +7,7 @@ from loguru import logger
 from backend.algorithms.interfaces import AlgorithmBase
 from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
 from backend.services.constants import Fields, Messages, addition_to_full_range
-from backend.services.exceptions import TargetIndexNotFoundException
+from backend.services.exceptions import TargetIndexNotFoundException, EmptyResultInProcessLog
 from backend.services.interfaces import ServiceBase
 
 
@@ -85,3 +85,13 @@ class BinarySearchProcessDataLogger(ServiceBase):
             raise TargetIndexNotFoundException(target)
 
         return self.algorithm_log
+
+    def get_target_index_from_process_log(self)-> str:
+        """Get target index from result log."""
+        try:
+            target_index: str = self.algorithm_log[Fields.MIDDLE_INDEX][-1]
+        except IndexError:
+            logger.warning(Messages.EMPTY_RESULT_IN_LOG)
+            raise EmptyResultInProcessLog()
+
+        return target_index

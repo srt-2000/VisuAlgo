@@ -7,8 +7,8 @@ import pytest
 from backend.algorithms.binary_search import BinarySearch
 from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
 from backend.services.binary_search import BinarySearchProcessDataLogger
-from backend.services.constants import Fields, addition_to_full_range
-from backend.services.exceptions import TargetIndexNotFoundException
+from backend.services.constants import Fields, addition_to_full_range, Messages
+from backend.services.exceptions import TargetIndexNotFoundException, EmptyResultInProcessLog
 from tests.services.binary_search.cases import (
     BINARY_SEARCH_RECORD_TEST_ARRAY,
     TEST_TARGET,
@@ -118,3 +118,28 @@ class TestBinarySearchProcessDataLogger:
         )
         second_log_len = len(second_log[Fields.MIDDLE_INDEX])
         assert second_log_len == first_log_len
+
+    def test_get_target_index_from_result(
+        self,
+        binary_search_process_data_logger: BinarySearchProcessDataLogger,
+        binary_search_test_step_data: BinarySearchStepValueObject,
+    )-> None:
+        logger = binary_search_process_data_logger
+        step_data = binary_search_test_step_data
+        logger._record_step_data_to_algorithm_log(
+            step_data, BINARY_SEARCH_RECORD_TEST_ARRAY
+        )
+
+        index_from_result: str = logger.get_target_index_from_process_log()
+        expected_mid_index: str = str(step_data.mid_index)
+
+        assert index_from_result == expected_mid_index
+
+    def test_get_target_index_from_empty_result(
+        self,
+        binary_search_process_data_logger: BinarySearchProcessDataLogger,
+    )-> None:
+        logger = binary_search_process_data_logger
+
+        with pytest.raises(EmptyResultInProcessLog, match=Messages.EMPTY_RESULT_IN_LOG):
+            logger.get_target_index_from_process_log()

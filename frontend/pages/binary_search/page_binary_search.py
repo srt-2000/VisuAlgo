@@ -8,7 +8,6 @@ from pandas import DataFrame
 from backend.algorithms.binary_search import BinarySearch
 from backend.utils.binary_search import get_dataframe_for_result_table
 from frontend.element_settings import Icon
-from frontend.pages.binary_search.constants import Field
 from frontend.pages.binary_search.content import PageContent
 from frontend.pages.binary_search.element_settings import (
     PageTitle,
@@ -79,7 +78,7 @@ if st.button(label=Button.LABEL):
         st.error(body=f"{inputted_target} {Error.NOT_FOUND_MESSAGE}")
     else:
         dataframe_for_table: DataFrame = get_dataframe_for_result_table(data_for_dataframe=process_data)
-        target_index: str = process_data[Field.MIDDLE_INDEX][-1]
+        target_index: str = process_logger.get_target_index_from_process_log()
 
         st.table(data=dataframe_for_table, border=TableBorder.HORIZONTAL_BORDER)
 

@@ -2,10 +2,13 @@
 
 from collections import defaultdict
 
+import pytest
+
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.sorting import InsertionSortStepValueObject
+from backend.services.exceptions import EmptyResultInProcessLog
 from backend.utils.constants import SortingStatus
-from backend.services.constants import Fields
+from backend.services.constants import Fields, Messages
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
 from tests.services.insertion_sort.cases import (
     INSERTION_SORT_RECORD_TEST_ARRAY,
@@ -95,3 +98,26 @@ class TestInsertionSortProcessDataLogger:
         second_log_len = len(second_log[Fields.VALUE])
 
         assert second_log_len == first_log_len
+
+    def test_get_result_array_from_process_log(
+        self,
+        insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
+        insertion_sort_test_step_data: InsertionSortStepValueObject,
+    )-> None:
+        logger = insertion_sort_process_data_logger
+        step_data = insertion_sort_test_step_data
+        logger._record_step_data_to_algorithm_log(step_data)
+
+        array_from_result: tuple[int,...] = logger.get_result_array_from_process_log()
+        expected_result: tuple[int,...] = step_data.result
+
+        assert array_from_result == expected_result
+
+    def test_get_result_array_from_empty_result(
+        self,
+        insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
+    )-> None:
+        logger = insertion_sort_process_data_logger
+
+        with pytest.raises(EmptyResultInProcessLog, match=Messages.EMPTY_RESULT_IN_LOG):
+            logger.get_result_array_from_process_log()

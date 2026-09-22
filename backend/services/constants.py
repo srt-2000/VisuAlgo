@@ -28,3 +28,4 @@ class Messages(StrEnum):
 
     INDEX_NOT_FOUND = "index not found"
     TARGET_NUMBER = "target number"
+    EMPTY_RESULT_IN_LOG = "empty result process log"

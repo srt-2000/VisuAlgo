@@ -2,9 +2,12 @@
 
 from collections import defaultdict
 
+from loguru import logger
+
 from backend.algorithms.interfaces import AlgorithmBase
 from backend.domains.sorting import InsertionSortStepValueObject
-from backend.services.constants import Fields
+from backend.services.constants import Fields, Messages
+from backend.services.exceptions import EmptyResultInProcessLog
 from backend.services.interfaces import ServiceBase
 
 
@@ -62,3 +65,13 @@ class InsertionSortProcessDataLogger(ServiceBase):
             self._record_step_data_to_algorithm_log(step_data)
 
         return self.algorithm_log
+
+    def get_result_array_from_process_log(self)-> tuple[int,...]:
+        """Get result sorted array from algorithm log."""
+        try:
+            result_array: tuple[int,...] = self.algorithm_log[Fields.RESULT][-1]
+        except IndexError:
+            logger.warning(Messages.EMPTY_RESULT_IN_LOG)
+            raise EmptyResultInProcessLog()
+
+        return result_array

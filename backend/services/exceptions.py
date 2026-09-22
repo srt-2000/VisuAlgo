@@ -20,3 +20,11 @@ class TargetIndexNotFoundException(Exception):
         super().__init__(
             f"{Messages.TARGET_NUMBER} {target_number} {Messages.INDEX_NOT_FOUND}"
         )
+
+
+class EmptyResultInProcessLog(Exception):
+    """Raised when the target index value is empty after algorithm got result."""
+
+    def __init__(self,) -> None:
+        """Build an exception that write the problem."""
+        super().__init__(Messages.EMPTY_RESULT_IN_LOG)
