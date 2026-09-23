@@ -3,7 +3,7 @@ from collections import defaultdict
 import pytest
 
 from pandas import DataFrame
-from backend.utils.binary_search import get_dataframe_for_result_table
+from backend.utils.dataframe import get_dataframe_for_result_table
 from backend.utils.constants import DataFrameStr
 from tests.utils.cases import DATAFRAME_TEST_INVARIANTS
 

@@ -4,11 +4,6 @@ from enum import StrEnum, IntEnum
 from typing import Literal
 
 
-class PageTitle(StrEnum):
-    """Browser tab title for this page."""
-
-    BINARY_SEARCH_ALGORITHM = "Binary Search Algorithm"
-
 
 class Header(StrEnum):
     """Page header text and divider color."""
@@ -31,12 +26,6 @@ class SliderStr(StrEnum):
 
     LIST_RANGE_LENGTH = "list_range_length"
     LABEL = "Define your sorted list range on the slider scale"
-
-
-class SliderLiteral:
-    """Literal values passed to Streamlit slider options."""
-
-    QUERY_PARAMS: Literal["query-params"] = "query-params"
 
 
 class Badge(StrEnum):
@@ -82,9 +71,3 @@ class Success(StrEnum):
     """Success text prefix before the found index."""
 
     SUCCESS_MESSAGE = "element has index"
-
-
-class TableBorder:
-    """Border style token for ``st.table``."""
-
-    HORIZONTAL_BORDER: Literal["horizontal"] = "horizontal"

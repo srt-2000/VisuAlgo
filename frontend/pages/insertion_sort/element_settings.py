@@ -1,7 +1,6 @@
 """UI labels and widget defaults for the insertion-sort page."""
 
 from enum import StrEnum, IntEnum
-from typing import Literal
 
 
 class Header(StrEnum):
@@ -9,11 +8,6 @@ class Header(StrEnum):
 
     INSERTION_SORT = "INSERTION SORT"
     DIVIDER = "yellow"
-
-class SliderLiteral:
-    """Literal values passed to Streamlit slider options."""
-
-    QUERY_PARAMS: Literal["query-params"] = "query-params"
 
 
 class Columns(IntEnum):
@@ -61,21 +55,3 @@ class Button(StrEnum):
 
     LABEL_SORT_IT = "SORT IT"
     LABEL_CREATE = "CREATE"
-
-
-class TableBorder:
-    """Border style token for ``st.table``."""
-
-    HORIZONTAL_BORDER: Literal["horizontal"] = "horizontal"
-
-
-class DataFrameStr(StrEnum):
-    """Row-label prefix for the steps table."""
-
-    AXIS_NAME = "step"
-
-
-class DataFrameInt(IntEnum):
-    """Axis index used when renaming DataFrame rows."""
-
-    AXIS_LINES_CHANGES_PARAMETER = 0

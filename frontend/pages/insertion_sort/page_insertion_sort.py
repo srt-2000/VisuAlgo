@@ -3,11 +3,11 @@
 from collections import defaultdict
 
 import streamlit as st
-import pandas as pd
-from pandas import DataFrame
+
 
 from backend.algorithms.insertion_sort import InsertionSorter
-from frontend.element_settings import PageTitle, Icon
+from backend.utils.dataframe import get_dataframe_for_result_table
+from frontend.element_settings import PageTitle, Icon, SliderLiteral, TableBorderLiteral
 from frontend.pages.insertion_sort.constants import Fields, Messages
 from frontend.pages.insertion_sort.content import PageContent
 from frontend.pages.insertion_sort.element_settings import (
@@ -16,10 +16,6 @@ from frontend.pages.insertion_sort.element_settings import (
     LeftColumnNumberInputInt,
     Columns,
     Button,
-    TableBorder,
-    DataFrameInt,
-    DataFrameStr,
-    SliderLiteral,
     RightColumnSliderInt,
     RightColumnSliderStr,
 )
@@ -104,13 +100,10 @@ if (st.session_state.sorted_array and st.session_state.process_data) is not None
     sorted_column.success(body=Messages.SORTED_ARRAY, icon=Icon.DONE_OUTLINE)
     sorted_column.write(st.session_state.sorted_array)
 
-    data_frame_for_table = pd.DataFrame(data=st.session_state.process_data)
-    data_frame_range: range = range(1, len(data_frame_for_table) + 1)
-    data_frame_for_table: DataFrame = data_frame_for_table.set_axis(
-        labels=[f"{DataFrameStr.AXIS_NAME} {i}" for i in data_frame_range],
-        axis=DataFrameInt.AXIS_LINES_CHANGES_PARAMETER,
+    data_frame_for_table = get_dataframe_for_result_table(
+        data_for_dataframe=st.session_state.process_data
     )
 
-    st.table(data=data_frame_for_table, border=TableBorder.HORIZONTAL_BORDER)
+    st.table(data=data_frame_for_table, border=TableBorderLiteral.HORIZONTAL_BORDER)
 
     st.markdown(PageContent.RESULT)

@@ -6,22 +6,19 @@ import streamlit as st
 from pandas import DataFrame
 
 from backend.algorithms.binary_search import BinarySearch
-from backend.utils.binary_search import get_dataframe_for_result_table
-from frontend.element_settings import Icon
+from backend.utils.dataframe import get_dataframe_for_result_table
+from frontend.element_settings import Icon, PageTitle, SliderLiteral, TableBorderLiteral
 from frontend.pages.binary_search.content import PageContent
 from frontend.pages.binary_search.element_settings import (
-    PageTitle,
     Header,
     SliderInt,
     SliderStr,
-    SliderLiteral,
     Badge,
     BadgeColor,
     NumberInputInt,
     NumberInputStr,
     Button,
     Error,
-    TableBorder,
     Success,
 )
 from backend.services.binary_search import BinarySearchProcessDataLogger
@@ -80,7 +77,7 @@ if st.button(label=Button.LABEL):
         dataframe_for_table: DataFrame = get_dataframe_for_result_table(data_for_dataframe=process_data)
         target_index: str = process_logger.get_target_index_from_process_log()
 
-        st.table(data=dataframe_for_table, border=TableBorder.HORIZONTAL_BORDER)
+        st.table(data=dataframe_for_table, border=TableBorderLiteral.HORIZONTAL_BORDER)
 
         st.success(
             body=f"{inputted_target} {Success.SUCCESS_MESSAGE} **[{target_index}]**",
