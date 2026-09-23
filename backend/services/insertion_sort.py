@@ -4,7 +4,6 @@ from collections import defaultdict
 
 from loguru import logger
 
-from backend.algorithms.interfaces import AlgorithmBase
 from backend.domains.sorting import InsertionSortStepValueObject
 from backend.services.constants import Fields, Messages
 from backend.services.exceptions import EmptyResultInProcessLog
@@ -17,18 +16,6 @@ class InsertionSortProcessDataLogger(ServiceBase):
     Attributes:
         algorithm_log: Field name → list of values, one per step.
     """
-
-    def __init__(self, algorithm: AlgorithmBase) -> None:
-        """Store the sorter used to walk through steps.
-
-        Args:
-            algorithm: Insertion sort algorithm instance.
-        """
-        super().__init__(algorithm)
-        self._algorithm_engine: AlgorithmBase = algorithm
-        self.algorithm_log: defaultdict[str, list[int | str | tuple]] = defaultdict(
-            list
-        )
 
     def _record_step_data_to_algorithm_log(
         self,

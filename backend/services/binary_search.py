@@ -4,7 +4,6 @@ from collections import defaultdict
 
 from loguru import logger
 
-from backend.algorithms.interfaces import AlgorithmBase
 from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
 from backend.services.constants import Fields, Messages, addition_to_full_range
 from backend.services.exceptions import TargetIndexNotFoundException, EmptyResultInProcessLog
@@ -17,16 +16,6 @@ class BinarySearchProcessDataLogger(ServiceBase):
     Attributes:
         algorithm_log: Field name → list of string values, one per step.
     """
-
-    def __init__(self, algorithm: AlgorithmBase) -> None:
-        """Store the search engine used to walk through steps.
-
-        Args:
-            algorithm: Binary search algorithm instance.
-        """
-        super().__init__(algorithm)
-        self._algorithm_engine: AlgorithmBase = algorithm
-        self.algorithm_log: defaultdict[str, list[str]] = defaultdict(list)
 
     def _record_step_data_to_algorithm_log(
         self,
