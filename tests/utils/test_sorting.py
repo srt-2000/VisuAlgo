@@ -3,7 +3,7 @@ from typing import Literal
 
 import pytest
 
-from backend.utils.constants import SortingStatus
+from backend.domains.constants import SortingStatus
 from tests.utils.cases import (
     RANDOM_NOT_ZERO_LIST_LIMITS,
     RANDOM_ZERO_ELEMENTS_LIST, INDEXES_AND_STATUS_RESULTS,

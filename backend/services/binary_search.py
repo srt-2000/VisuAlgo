@@ -4,7 +4,8 @@ from collections import defaultdict
 
 from loguru import logger
 
-from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
+from backend.domains.binary_search import BinarySearchStepValueObject
+from backend.domains.constants import BinarySearchStatus
 from backend.services.constants import Fields, Messages, addition_to_full_range
 from backend.services.exceptions import TargetIndexNotFoundException, EmptyResultInProcessLog
 from backend.services.interfaces import ServiceBase

@@ -1,7 +1,7 @@
 """Parametrized limits for ``get_not_sorted_random_list`` tests."""
 from collections import defaultdict
 
-from backend.utils.constants import SortingStatus
+from backend.domains.constants import SortingStatus
 
 RANDOM_NOT_ZERO_LIST_LIMITS: tuple[tuple[int, int, int], ...] = (
     (10, 1, 10),

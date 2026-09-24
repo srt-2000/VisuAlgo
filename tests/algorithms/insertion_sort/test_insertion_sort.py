@@ -2,7 +2,7 @@
 
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.sorting import InsertionSortStepValueObject
-from backend.utils.constants import SortingStatus
+from backend.domains.constants import SortingStatus
 from tests.algorithms.insertion_sort.cases import (
     INSERTION_SORT_EXPECTED_DATA_SYNC_TEST,
     INSERTION_SORT_DATA_SYNC_TEST,

@@ -1,17 +1,6 @@
 from enum import StrEnum, IntEnum
 
 
-class SortingStatus(StrEnum):
-    """Simple labels for "still sorting" vs "done".
-
-    Attributes:
-        SORTING: We are still moving numbers around.
-        READY: The whole list is sorted.
-    """
-
-    SORTING = "sorting"
-    READY = "ready"
-
 class DataFrameStr(StrEnum):
     """Row-label prefix for the steps table."""
 

@@ -1,25 +1,12 @@
 """Domain types for binary search step visualization."""
 
 from dataclasses import dataclass
-from enum import StrEnum
 
-
-class BinarySearchStatus(StrEnum):
-    """How the middle number compares to the target.
-
-    Attributes:
-        EQUAL: Middle number is the target.
-        GREATER: Middle number is bigger than the target.
-        LESS: Middle number is smaller than the target.
-    """
-
-    EQUAL = "equal to"
-    GREATER = "greater than"
-    LESS = "less than"
+from backend.domains.base import BaseStepValueObject
 
 
 @dataclass(frozen=True, slots=True)
-class BinarySearchStepValueObject:
+class BinarySearchStepValueObject(BaseStepValueObject):
     """One frozen photo of a binary-search guess.
 
     Attributes:
@@ -35,5 +22,5 @@ class BinarySearchStepValueObject:
     right_index: int
     mid_index: int
     middle_value: int
-    status: BinarySearchStatus
+    status: str
     target: int

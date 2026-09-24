@@ -3,7 +3,8 @@
 from typing import Iterator
 
 from backend.algorithms.interfaces import AlgorithmBase
-from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
+from backend.domains.binary_search import BinarySearchStepValueObject
+from backend.domains.constants import BinarySearchStatus
 
 
 class BinarySearch(AlgorithmBase):
@@ -47,31 +48,31 @@ class BinarySearch(AlgorithmBase):
 
             if mid_value == target:
                 yield BinarySearchStepValueObject(
-                    left_index,
-                    right_index,
-                    mid_index,
-                    mid_value,
-                    BinarySearchStatus.EQUAL,
-                    target,
+                    left_index=left_index,
+                    right_index=right_index,
+                    mid_index=mid_index,
+                    middle_value=mid_value,
+                    status=BinarySearchStatus.EQUAL,
+                    target=target,
                 )
                 return
             if mid_value > target:
                 yield BinarySearchStepValueObject(
-                    left_index,
-                    right_index,
-                    mid_index,
-                    mid_value,
-                    BinarySearchStatus.GREATER,
-                    target,
+                    left_index=left_index,
+                    right_index=right_index,
+                    mid_index=mid_index,
+                    middle_value=mid_value,
+                    status=BinarySearchStatus.GREATER,
+                    target=target,
                 )
                 right_index = mid_index - 1
             else:
                 yield BinarySearchStepValueObject(
-                    left_index,
-                    right_index,
-                    mid_index,
-                    mid_value,
-                    BinarySearchStatus.LESS,
-                    target,
+                    left_index=left_index,
+                    right_index=right_index,
+                    mid_index=mid_index,
+                    middle_value=mid_value,
+                    status=BinarySearchStatus.LESS,
+                    target=target,
                 )
                 left_index = mid_index + 1

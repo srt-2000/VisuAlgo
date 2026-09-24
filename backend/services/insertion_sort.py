@@ -30,7 +30,7 @@ class InsertionSortProcessDataLogger(ServiceBase):
         self.algorithm_log[Fields.VALUE].append(int(step_data.value))
         self.algorithm_log[Fields.BEFORE].append(step_data.before)
         self.algorithm_log[Fields.RESULT].append(step_data.result)
-        self.algorithm_log[Fields.SORT_STATUS].append(str(step_data.status))
+        self.algorithm_log[Fields.SORT_STATUS].append(step_data.status)
 
     def get_result_and_process_data(
         self,

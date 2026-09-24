@@ -5,7 +5,8 @@ from collections import defaultdict
 import pytest
 
 from backend.algorithms.binary_search import BinarySearch
-from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
+from backend.domains.binary_search import BinarySearchStepValueObject
+from backend.domains.constants import BinarySearchStatus
 from backend.services.binary_search import BinarySearchProcessDataLogger
 from backend.services.constants import Fields, addition_to_full_range, Messages
 from backend.services.exceptions import TargetIndexNotFoundException, EmptyResultInProcessLog

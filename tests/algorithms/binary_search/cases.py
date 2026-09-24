@@ -1,6 +1,7 @@
 """Sample inputs and expected steps for binary-search algorithm tests."""
 
-from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchStatus
+from backend.domains.binary_search import BinarySearchStepValueObject
+from backend.domains.constants import BinarySearchStatus
 
 FILLED_LIST_EXPECTED_RESULTS: tuple[tuple[int, int | None], ...] = (
     (3, 2),

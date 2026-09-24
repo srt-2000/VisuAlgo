@@ -3,7 +3,8 @@
 import pytest
 
 from backend.algorithms.binary_search import BinarySearch
-from backend.domains.binary_search import BinarySearchStatus, BinarySearchStepValueObject
+from backend.domains.binary_search import BinarySearchStepValueObject
+from backend.domains.constants import BinarySearchStatus
 from tests.algorithms.binary_search.cases import (
     BINARY_SEARCH_ITER_STEPS_INVARIANTS,
     BINARY_SEARCH_EXPECTED_DATA_SYNC_TEST,

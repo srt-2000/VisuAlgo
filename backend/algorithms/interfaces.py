@@ -1,13 +1,12 @@
 """Abstract base for step-yielding algorithm engines."""
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from typing import Iterator, TypeVar, Generic, Optional
+from typing import Iterator
 
-T = TypeVar("T", bound=dataclass)
+from backend.domains.base import BaseStepValueObject
 
 
-class AlgorithmBase(ABC, Generic[T]):
+class AlgorithmBase(ABC):
     """Base for algorithms that expose step-by-step iteration.
 
     Subclasses implement ``iter_steps`` and may add a thin entry point
@@ -16,7 +15,7 @@ class AlgorithmBase(ABC, Generic[T]):
 
     @staticmethod
     @abstractmethod
-    def iter_steps(*args, **kwargs) -> Iterator[Optional[T]]:
+    def iter_steps(*args, **kwargs) -> Iterator[BaseStepValueObject]:
         """Yield frozen step snapshots while the algorithm runs.
 
         Args:
@@ -24,7 +23,6 @@ class AlgorithmBase(ABC, Generic[T]):
             **kwargs: Optional algorithm-specific options.
 
         Yields:
-            One step value object per meaningful step, or ``None`` when
-            a subclass uses an empty/optional step.
+            One step value object per meaningful step.
         """
         pass

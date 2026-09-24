@@ -7,7 +7,7 @@ import pytest
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.sorting import InsertionSortStepValueObject
 from backend.services.exceptions import EmptyResultInProcessLog
-from backend.utils.constants import SortingStatus
+from backend.domains.constants import SortingStatus
 from backend.services.constants import Fields, Messages
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
 from tests.services.insertion_sort.cases import (

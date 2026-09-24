@@ -1,9 +1,9 @@
 """Helpers that build arrays for sorting demos and tests."""
 
 from random import randint
-from typing import Iterable, Literal
+from typing import Iterable
 
-from backend.utils.constants import SortingStatus
+from backend.domains.constants import SortingStatus
 
 
 def get_not_sorted_random_list(

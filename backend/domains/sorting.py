@@ -2,9 +2,11 @@
 
 from dataclasses import dataclass
 
+from backend.domains.base import BaseStepValueObject
+
 
 @dataclass(frozen=True, slots=True)
-class InsertionSortStepValueObject:
+class InsertionSortStepValueObject(BaseStepValueObject):
     """One frozen photo of an insertion-sort step.
 
     Attributes:
