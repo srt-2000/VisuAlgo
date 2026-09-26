@@ -47,8 +47,10 @@ class RightColumnSliderInt(IntEnum):
 
 class RightColumnSliderStr(StrEnum):
     """Labels and placeholder for random-list number inputs."""
+
     LABEL = "values range"
     KEY = "val_range"
+
 
 class Button(StrEnum):
     """Label for the sort action button."""

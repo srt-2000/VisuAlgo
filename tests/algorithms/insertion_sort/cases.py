@@ -28,8 +28,6 @@ INSERTION_SORT_EXPECTED_DATA_SYNC_TEST: list[InsertionSortStepValueObject] = [
     InsertionSortStepValueObject(
         2, 2, (1, 3, 2, 5), (1, 2, 3, 5), SortingStatus.SORTING
     ),
-    InsertionSortStepValueObject(
-        3, 5, (1, 2, 3, 5), (1, 2, 3, 5), SortingStatus.READY
-    ),
+    InsertionSortStepValueObject(3, 5, (1, 2, 3, 5), (1, 2, 3, 5), SortingStatus.READY),
 ]
 """Exact steps expected for ``INSERTION_SORT_DATA_SYNC_TEST``."""

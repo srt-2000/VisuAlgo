@@ -82,7 +82,8 @@ class TestInsertionSortIterSteps:
 
         assert array == expected_sorted_array
 
-    def test_insertion_sort_empty_invariant(self,
+    def test_insertion_sort_empty_invariant(
+        self,
         insertion_sorter: InsertionSorter,
         empty_list: list[int],
     ) -> None:

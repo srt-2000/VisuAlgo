@@ -103,20 +103,20 @@ class TestInsertionSortProcessDataLogger:
         self,
         insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
         insertion_sort_test_step_data: InsertionSortStepValueObject,
-    )-> None:
+    ) -> None:
         logger = insertion_sort_process_data_logger
         step_data = insertion_sort_test_step_data
         logger._record_step_data_to_algorithm_log(step_data)
 
-        array_from_result: tuple[int,...] = logger.get_result_array_from_process_log()
-        expected_result: tuple[int,...] = step_data.result
+        array_from_result: tuple[int, ...] = logger.get_result_array_from_process_log()
+        expected_result: tuple[int, ...] = step_data.result
 
         assert array_from_result == expected_result
 
     def test_get_result_array_from_empty_result(
         self,
         insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
-    )-> None:
+    ) -> None:
         logger = insertion_sort_process_data_logger
 
         with pytest.raises(EmptyResultInProcessLog, match=Messages.EMPTY_RESULT_IN_LOG):

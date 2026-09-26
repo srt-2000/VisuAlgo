@@ -4,7 +4,6 @@ from enum import StrEnum, IntEnum
 from typing import Literal
 
 
-
 class Header(StrEnum):
     """Page header text and divider color."""
 

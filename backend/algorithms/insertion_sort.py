@@ -23,8 +23,9 @@ class InsertionSorter(AlgorithmBase):
             pass
         return array
 
-    @staticmethod
-    def iter_steps(array: list[int] | None) -> Iterator[InsertionSortStepValueObject]:
+    def iter_steps(
+        self, array: list[int] | None
+    ) -> Iterator[InsertionSortStepValueObject]:
         """Yield one snapshot after each insertion step.
 
         Args:

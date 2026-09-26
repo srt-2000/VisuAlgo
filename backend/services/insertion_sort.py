@@ -53,10 +53,10 @@ class InsertionSortProcessDataLogger(ServiceBase):
 
         return self.algorithm_log
 
-    def get_result_array_from_process_log(self)-> tuple[int,...]:
+    def get_result_array_from_process_log(self) -> tuple[int, ...]:
         """Get result sorted array from algorithm log."""
         try:
-            result_array: tuple[int,...] = self.algorithm_log[Fields.RESULT][-1]
+            result_array: tuple[int, ...] = self.algorithm_log[Fields.RESULT][-1]
         except IndexError:
             logger.warning(Messages.EMPTY_RESULT_IN_LOG)
             raise EmptyResultInProcessLog()

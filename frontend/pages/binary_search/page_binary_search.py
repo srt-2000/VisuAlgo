@@ -34,10 +34,7 @@ slider_min_value, slider_max_value = st.slider(
     label=SliderStr.LABEL,
     min_value=SliderInt.MIN,
     max_value=SliderInt.MAX,
-    value=(
-        SliderInt.START_RENDER_MIN,
-        SliderInt.START_RENDER_MAX
-    ),
+    value=(SliderInt.START_RENDER_MIN, SliderInt.START_RENDER_MAX),
     key=SliderStr.LIST_RANGE_LENGTH,
     bind=SliderLiteral.QUERY_PARAMS,
 )
@@ -74,7 +71,9 @@ if st.button(label=Button.LABEL):
     except TargetIndexNotFoundException:
         st.error(body=f"{inputted_target} {Error.NOT_FOUND_MESSAGE}")
     else:
-        dataframe_for_table: DataFrame = get_dataframe_for_result_table(data_for_dataframe=process_data)
+        dataframe_for_table: DataFrame = get_dataframe_for_result_table(
+            data_for_dataframe=process_data
+        )
         target_index: str = process_logger.get_target_index_from_process_log()
 
         st.table(data=dataframe_for_table, border=TableBorderLiteral.HORIZONTAL_BORDER)

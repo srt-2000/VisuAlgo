@@ -59,6 +59,7 @@ def binary_search_test_step_data() -> BinarySearchStepValueObject:
 
     return step_data
 
+
 @pytest.fixture(scope="function")
 def insertion_sort_test_step_data() -> InsertionSortStepValueObject:
     """Provide one sample insertion-sort step for logger tests.

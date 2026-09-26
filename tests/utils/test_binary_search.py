@@ -9,11 +9,12 @@ from tests.utils.cases import DATAFRAME_TEST_INVARIANTS
 
 
 class TestGetDataFrameForResultTable:
-
     @pytest.mark.parametrize("test_data", DATAFRAME_TEST_INVARIANTS)
     def test_not_empty_invariants(self, test_data: defaultdict[str, list[str]]) -> None:
         # result dataset
-        result_dataframe: DataFrame = get_dataframe_for_result_table(data_for_dataframe=test_data)
+        result_dataframe: DataFrame = get_dataframe_for_result_table(
+            data_for_dataframe=test_data
+        )
         result_rows: int = len(result_dataframe)
         result_index: list[str] = list(result_dataframe.index)
         result_columns: list[str] = list(result_dataframe.columns)

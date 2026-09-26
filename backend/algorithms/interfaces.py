@@ -6,16 +6,15 @@ from typing import Iterator
 from backend.domains.base import BaseStepValueObject
 
 
-class AlgorithmBase(ABC):
+class AlgorithmBase[AlgorithmStepValueObject: BaseStepValueObject](ABC):
     """Base for algorithms that expose step-by-step iteration.
 
     Subclasses implement ``iter_steps`` and may add a thin entry point
     such as ``search`` or ``sort``.
     """
 
-    @staticmethod
     @abstractmethod
-    def iter_steps(*args, **kwargs) -> Iterator[BaseStepValueObject]:
+    def iter_steps(self, *args, **kwargs) -> Iterator[AlgorithmStepValueObject]:
         """Yield frozen step snapshots while the algorithm runs.
 
         Args:

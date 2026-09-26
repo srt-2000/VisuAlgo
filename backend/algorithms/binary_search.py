@@ -25,8 +25,8 @@ class BinarySearch(AlgorithmBase):
                 return step.mid_index
         return None
 
-    @staticmethod
     def iter_steps(
+        self,
         array: list[int],
         target: int,
     ) -> Iterator[BinarySearchStepValueObject]:

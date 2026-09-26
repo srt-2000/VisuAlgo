@@ -36,9 +36,7 @@ st.header(body=Header.INSERTION_SORT, divider=Header.DIVIDER)
 
 st.markdown(body=PageContent.INSERTION_SORT_WELCOME)
 
-left_column, right_column = st.columns(
-    spec=Columns.RANDOM_LIST_DATA_COLUMNS_QUANTITY
-)
+left_column, right_column = st.columns(spec=Columns.RANDOM_LIST_DATA_COLUMNS_QUANTITY)
 
 not_sorted_list_length: int = left_column.number_input(
     icon=Icon.INPUT,
@@ -88,7 +86,9 @@ if st.session_state.not_sorted_array is not None:
             )
         )
 
-        sorted_array: tuple[int,...] = process_logger.get_result_array_from_process_log()
+        sorted_array: tuple[int, ...] = (
+            process_logger.get_result_array_from_process_log()
+        )
 
         st.session_state.not_sorted_array = array
         st.session_state.sorted_array = sorted_array
