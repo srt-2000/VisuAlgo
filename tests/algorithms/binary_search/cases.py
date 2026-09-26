@@ -3,16 +3,6 @@
 from backend.domains.binary_search import BinarySearchStepValueObject
 from backend.domains.constants import BinarySearchStatus
 
-FILLED_LIST_EXPECTED_RESULTS: tuple[tuple[int, int | None], ...] = (
-    (3, 2),
-    (9, 8),
-    (7, 6),
-)
-"""``(target, expected_index)`` pairs for values that exist in ``[1..9]``."""
-
-FILLED_LIST_TARGET_NONE_RESULTS: int = 10
-"""Target that is missing from ``[1..9]`` and must return ``None``."""
-
 BINARY_SEARCH_ITER_STEPS_INVARIANTS: tuple[tuple[list[int], int], ...] = (
     ([], 2),
     ([7], 7),

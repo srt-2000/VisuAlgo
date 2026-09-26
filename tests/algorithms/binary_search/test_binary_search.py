@@ -9,50 +9,7 @@ from tests.algorithms.binary_search.cases import (
     BINARY_SEARCH_ITER_STEPS_INVARIANTS,
     BINARY_SEARCH_EXPECTED_DATA_SYNC_TEST,
     BINARY_SEARCH_DATA_SYNC_TEST,
-    FILLED_LIST_EXPECTED_RESULTS,
-    FILLED_LIST_TARGET_NONE_RESULTS,
 )
-
-
-class TestBinarySearch:
-    """Check that ``search`` finds indexes or returns ``None``."""
-
-    @pytest.mark.parametrize("test_data", FILLED_LIST_EXPECTED_RESULTS)
-    def test_binary_search_with_filled_list(
-        self,
-        sorted_filled_list_with_nine_elements,
-        binary_searcher: BinarySearch,
-        test_data: tuple[int, int | None],
-    ) -> None:
-        """Known targets in ``[1..9]`` must map to the right index."""
-        target, expected_result = test_data
-        search_result: int | None = binary_searcher.search(
-            sorted_filled_list_with_nine_elements, target
-        )
-        assert search_result == expected_result
-
-    def test_binary_search_filled_list_none_expected(
-        self,
-        binary_searcher: BinarySearch,
-        sorted_filled_list_with_nine_elements: list[int],
-    ) -> None:
-        """A missing target must return ``None``."""
-        target: int = FILLED_LIST_TARGET_NONE_RESULTS
-        search_result: int | None = binary_searcher.search(
-            sorted_filled_list_with_nine_elements, target
-        )
-
-        assert search_result is None
-
-    def test_binary_search_with_empty_list(
-        self,
-        empty_list: list[int],
-        binary_searcher: BinarySearch,
-    ) -> None:
-        """An empty list never has a match."""
-
-        assert binary_searcher.search(empty_list, 0) is None
-        assert binary_searcher.search(empty_list, 9) is None
 
 
 class TestBinarySearchIterSteps:

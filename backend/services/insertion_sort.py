@@ -36,7 +36,7 @@ class InsertionSortProcessDataLogger(ServiceBase):
         self,
         array: list[int],
     ) -> defaultdict[str, list[int | str | tuple]]:
-        """Sort ``array`` in place and return the filled step log.
+        """Sort ``array`` copy locally and return the filled step log.
 
         Clears any old log first.
 

@@ -1,6 +1,5 @@
 """Unit tests for sorting utility helpers."""
 
-
 import pytest
 
 from tests.utils.cases import (

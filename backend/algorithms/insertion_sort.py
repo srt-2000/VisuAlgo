@@ -8,20 +8,7 @@ from backend.utils.sorting import get_current_sorting_status
 
 
 class InsertionSorter(AlgorithmBase):
-    """Sort a list in place by insertion sort and expose step snapshots."""
-
-    def sort(self, array: list[int]) -> list[int]:
-        """Sort ``array`` in place and return the same list object.
-
-        Args:
-            array: List of ints to sort.
-
-        Returns:
-            The same list object after in-place sorting.
-        """
-        for _ in self.iter_steps(array):
-            pass
-        return array
+    """Sort a list copy by insertion sort and expose step snapshots."""
 
     def iter_steps(
         self, array: list[int] | None
@@ -32,8 +19,10 @@ class InsertionSorter(AlgorithmBase):
             array: List of ints to sort in place.
 
         Yields:
-            One step snapshot after each key insertion.
+            One step snapshot after each key insertion.array
         """
+        array_copy: list[int] = array.copy()
+
         if not array:
             current_status: str = get_current_sorting_status(
                 iter_position=0,
@@ -43,30 +32,30 @@ class InsertionSorter(AlgorithmBase):
             yield InsertionSortStepValueObject(
                 index=0,
                 value=0,
-                before=tuple(array),
-                result=tuple(array),
+                before=tuple(array_copy),
+                result=tuple(array_copy),
                 status=current_status,
             )
 
-        for current_index in range(0, len(array)):
-            current_value: int = array[current_index]
+        for current_index in range(0, len(array_copy)):
+            current_value: int = array_copy[current_index]
             check_index: int = current_index - 1
-            before_state: list[int] = array.copy()
+            before_state: list[int] = array_copy.copy()
 
-            while check_index >= 0 and array[check_index] > current_value:
-                array[check_index + 1] = array[check_index]
+            while check_index >= 0 and array_copy[check_index] > current_value:
+                array_copy[check_index + 1] = array_copy[check_index]
                 check_index -= 1
 
-            array[check_index + 1] = current_value
+            array_copy[check_index + 1] = current_value
             current_status: str = get_current_sorting_status(
                 iter_position=current_index,
-                array_last_index=len(array) - 1,
+                array_last_index=len(array_copy) - 1,
             )
 
             yield InsertionSortStepValueObject(
                 index=current_index,
                 value=current_value,
                 before=tuple(before_state),
-                result=tuple(array),
+                result=tuple(array_copy),
                 status=current_status,
             )

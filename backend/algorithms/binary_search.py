@@ -10,20 +10,20 @@ from backend.domains.constants import BinarySearchStatus
 class BinarySearch(AlgorithmBase):
     """Find a number in a sorted list by cutting the list in half each time."""
 
-    def search(self, array: list[int], target: int) -> int | None:
-        """Return the index of ``target``, or ``None`` if it is missing.
-
-        Args:
-            array: Sorted list of ints.
-            target: Number to find.
-
-        Returns:
-            Index of ``target``, or ``None`` when it is not in ``array``.
-        """
-        for step in self.iter_steps(array, target):
-            if step.status == BinarySearchStatus.EQUAL:
-                return step.mid_index
-        return None
+    # def search(self, array: list[int], target: int) -> int | None:
+    #     """Return the index of ``target``, or ``None`` if it is missing.
+    #
+    #     Args:
+    #         array: Sorted list of ints.
+    #         target: Number to find.
+    #
+    #     Returns:
+    #         Index of ``target``, or ``None`` when it is not in ``array``.
+    #     """
+    #     for step in self.iter_steps(array, target):
+    #         if step.status == BinarySearchStatus.EQUAL:
+    #             return step.mid_index
+    #     return None
 
     def iter_steps(
         self,

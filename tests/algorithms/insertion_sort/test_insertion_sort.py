@@ -9,35 +9,6 @@ from tests.algorithms.insertion_sort.cases import (
 )
 
 
-class TestInsertionSort:
-    """Check in-place insertion sort behavior."""
-
-    def test_insert_sort(
-        self,
-        insertion_sorter: InsertionSorter,
-        array: list[int],
-    ) -> None:
-        """``sort`` must sort the input list in place."""
-        array_copy = array.copy()
-        sort_result: list[int] = insertion_sorter.sort(array)
-        expected: list[int] = sorted(array_copy)
-
-        assert sort_result == expected
-        assert array == expected
-        assert sort_result is array
-
-    def test_insert_sort_empty(
-        self,
-        insertion_sorter: InsertionSorter,
-        empty_list: list[int],
-    ) -> None:
-        """Empty list must stay unchanged."""
-        expected_array: list[int] = empty_list.copy()
-        sort_result: list[int] = insertion_sorter.sort(empty_list)
-
-        assert sort_result == expected_array
-
-
 class TestInsertionSortIterSteps:
     """Check step rules and one known golden sequence."""
 
@@ -47,20 +18,21 @@ class TestInsertionSortIterSteps:
         array: list[int],
     ) -> None:
         """Each step must sort the current prefix and finish with a full sort."""
-        array_copy = array.copy()
+        # array_copy = array.copy()
         sorting_steps: list[InsertionSortStepValueObject] = list(
             insertion_sorter.iter_steps(array)
         )
-        expected_array_len: int = len(array_copy)
+        sorted_array: list[int] = list(sorting_steps[-1].result)
+        expected_array_len: int = len(array)
         expected_steps_quantity: int = expected_array_len
-        expected_sorted_array: list[int] = sorted(array_copy)
+        expected_sorted_array: list[int] = sorted(array)
 
         steps_quantity: int = len(sorting_steps)
         assert steps_quantity == expected_steps_quantity
 
         for step in sorting_steps:
             assert 0 <= step.index < expected_array_len
-            assert step.value == array_copy[step.index]
+            assert step.value == array[step.index]
             assert isinstance(step.result, tuple)
             assert len(step.result) == expected_array_len
             assert isinstance(step.before, tuple)
@@ -70,7 +42,7 @@ class TestInsertionSortIterSteps:
             sorted_array_part_left: list[int] = list(
                 step.result[:sorted_part_end_index]
             )
-            expected_sorted_part: list[int] = sorted(array_copy[:sorted_part_end_index])
+            expected_sorted_part: list[int] = sorted(array[:sorted_part_end_index])
             assert sorted_array_part_left == expected_sorted_part
 
             if step.index == expected_steps_quantity - 1:
@@ -80,7 +52,7 @@ class TestInsertionSortIterSteps:
             else:
                 assert step.status == SortingStatus.SORTING
 
-        assert array == expected_sorted_array
+        assert sorted_array == expected_sorted_array
 
     def test_insertion_sort_empty_invariant(
         self,
@@ -120,6 +92,7 @@ class TestInsertionSortIterSteps:
         steps_container: list[InsertionSortStepValueObject] = list(
             insertion_sorter.iter_steps(array)
         )
+        sorted_array: list[int] = list(steps_container[-1].result)
 
         assert steps_container == expected_steps
-        assert array == expected_sorted_array
+        assert sorted_array == expected_sorted_array

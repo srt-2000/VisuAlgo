@@ -81,16 +81,12 @@ if st.session_state.not_sorted_array is not None:
         sorter = InsertionSorter()
         process_logger = InsertionSortProcessDataLogger(sorter)
         process_data: defaultdict[str, list[int | str | tuple[int, ...]]] = (
-            process_logger.get_result_and_process_data(
-                st.session_state.not_sorted_array
-            )
+            process_logger.get_result_and_process_data(array)
         )
-
         sorted_array: tuple[int, ...] = (
             process_logger.get_result_array_from_process_log()
         )
 
-        st.session_state.not_sorted_array = array
         st.session_state.sorted_array = sorted_array
         st.session_state.process_data = process_data
 
