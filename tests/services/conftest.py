@@ -5,8 +5,8 @@ import pytest
 from backend.algorithms.binary_search import BinarySearch
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.binary_search import BinarySearchStepValueObject
-from backend.domains.sorting import InsertionSortStepValueObject
-from backend.domains.constants import SortingStatus, BinarySearchStatus
+from backend.domains.constants import BinarySearchStatus, SortingStatus
+from backend.domains.insertion_sort import InsertionSortStepValueObject
 from backend.services.binary_search import BinarySearchProcessDataLogger
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
 

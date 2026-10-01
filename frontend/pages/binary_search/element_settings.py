@@ -1,6 +1,6 @@
 """UI labels and widget defaults for the binary-search page."""
 
-from enum import StrEnum, IntEnum
+from enum import IntEnum, StrEnum
 from typing import Literal
 
 
@@ -30,9 +30,7 @@ class SliderStr(StrEnum):
 class Badge(StrEnum):
     """Badge text shown above the target input."""
 
-    SORTED_LIST_LABEL = (
-        "You defined **0-indexed** and sorted list with elements numbers range "
-    )
+    SORTED_LIST_LABEL = "You defined **0-indexed** and sorted list with elements numbers range "
 
 
 class BadgeColor:

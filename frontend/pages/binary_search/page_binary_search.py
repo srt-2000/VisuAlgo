@@ -1,29 +1,28 @@
 """Streamlit page: run binary search and show each step in a table."""
 
-from collections import defaultdict
-
 import streamlit as st
 from pandas import DataFrame
 
 from backend.algorithms.binary_search import BinarySearch
+from backend.domains.binary_search import BinarySearchAlgorithmLogDTO
+from backend.services.binary_search import BinarySearchProcessDataLogger
+from backend.services.exceptions import TargetIndexNotFoundError
 from backend.utils.dataframe import get_dataframe_for_result_table
 from frontend.element_settings import Icon, PageTitle, SliderLiteral, TableBorderLiteral
 from frontend.pages.binary_search.content import PageContent
 from frontend.pages.binary_search.element_settings import (
-    Header,
-    SliderInt,
-    SliderStr,
     Badge,
     BadgeColor,
-    NumberInputInt,
-    NumberInputStr,
     Button,
     Error,
+    Header,
+    NumberInputInt,
+    NumberInputStr,
+    SliderInt,
+    SliderStr,
     Success,
 )
-from backend.services.binary_search import BinarySearchProcessDataLogger
-from backend.services.exceptions import TargetIndexNotFoundException
-
+from backend.utils.elements import get_int_slider_mid_value
 
 st.set_page_config(page_title=PageTitle.BINARY_SEARCH_ALGORITHM)
 
@@ -39,11 +38,14 @@ slider_min_value, slider_max_value = st.slider(
     bind=SliderLiteral.QUERY_PARAMS,
 )
 
-slider_mid_value_render: int = (slider_min_value + slider_max_value) // 2
-
 st.badge(
     label=f"{Badge.SORTED_LIST_LABEL}**[{slider_min_value} ... {slider_max_value}]**",
     color=BadgeColor.GREEN,
+)
+
+slider_mid_value_render: int = get_int_slider_mid_value(
+    min_value=slider_min_value,
+    max_value=slider_max_value
 )
 
 inputted_target: int = st.number_input(
@@ -56,27 +58,25 @@ inputted_target: int = st.number_input(
 )
 
 if st.button(label=Button.LABEL):
-    array_from_slider: list[int] = [
-        number for number in range(slider_min_value, slider_max_value + 1)
-    ]
-    binary_searcher = BinarySearch()
-    process_logger = BinarySearchProcessDataLogger(binary_searcher)
+    array_from_slider: list[int] = [number for number in range(slider_min_value, slider_max_value + 1)]
+    binary_search = BinarySearch()
+    process_logger = BinarySearchProcessDataLogger(algorithm=binary_search)
 
     try:
-        process_data: defaultdict[str, list[str]] = (
-            process_logger.get_result_and_process_data(
-                array_from_slider, inputted_target
-            )
+        process_data: BinarySearchAlgorithmLogDTO = process_logger.get_result_and_process_data(
+            array=array_from_slider,
+            target=inputted_target
         )
-    except TargetIndexNotFoundException:
+    except TargetIndexNotFoundError:
         st.error(body=f"{inputted_target} {Error.NOT_FOUND_MESSAGE}")
     else:
-        dataframe_for_table: DataFrame = get_dataframe_for_result_table(
-            data_for_dataframe=process_data
-        )
-        target_index: str = process_logger.get_target_index_from_process_log()
+        dataframe_for_table: DataFrame = get_dataframe_for_result_table(data_for_dataframe=process_data)
+        target_index: int = process_logger.get_target_index_from_process_log()
 
-        st.table(data=dataframe_for_table, border=TableBorderLiteral.HORIZONTAL_BORDER)
+        st.table(
+            data=dataframe_for_table,
+            border=TableBorderLiteral.HORIZONTAL_BORDER
+        )
 
         st.success(
             body=f"{inputted_target} {Success.SUCCESS_MESSAGE} **[{target_index}]**",

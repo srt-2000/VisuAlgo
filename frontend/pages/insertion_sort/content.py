@@ -13,15 +13,14 @@ class PageContent(StrEnum):
         - :yellow[**O(n²)**] if elements are scattered randomly
         - :yellow[**O(n²)**] if array is sorted in exact reverse order
     - Space Complexity: :yellow[**O(1)**] because modifies the array in-place
-    
-    ### How does it work: 
-    - In practice this algorithm give a good metrics with sequences with 
+    ### How does it work:
+    - In practice this algorithm give a good metrics with sequences with
     :red[no more 50 elements]
     - Assume the first element is sorted
     - Pick the next element, which becomes the ":green[**key**]"
-    - Compare the :green[**key**] with the elements in the sorted section 
+    - Compare the :green[**key**] with the elements in the sorted section
     (:red[moving from right to left])
-    - Shift all larger elements in the sorted section one position 
+    - Shift all larger elements in the sorted section one position
     to the right to clear a path
     - Insert the key into its correct placeholder slot
     - Repeat the process for all remaining unsorted items
@@ -33,7 +32,7 @@ class PageContent(StrEnum):
     RESULT = """
         ### As you see in every step we:
         - Pick the next element
-        - Compare it with the elements in the LEFT sorted section 
-        - Shift all larger elements in the sorted section 
+        - Compare it with the elements in the LEFT sorted section
+        - Shift all larger elements in the sorted section
         - Insert element into its correct position
         """

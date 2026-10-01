@@ -1,13 +1,8 @@
-from enum import StrEnum, IntEnum
+from typing import Literal
 
 
-class DataFrameStr(StrEnum):
+class DataFrameLiterals:
     """Row-label prefix for the steps table."""
 
-    AXIS_NAME = "step"
-
-
-class DataFrameInt(IntEnum):
-    """Axis index used when renaming DataFrame rows."""
-
-    AXIS_LINES_CHANGES_PARAMETER = 0
+    AXIS_NAME: Literal["step"] = "step"
+    AXIS_LINES_CHANGES_PARAMETER: Literal["index"] = "index"

@@ -1,21 +1,28 @@
 """Turn insertion-sort steps into readable logs for the UI."""
 
-from collections import defaultdict
-
 from loguru import logger
 
-from backend.domains.sorting import InsertionSortStepValueObject
-from backend.services.constants import Fields, Messages
-from backend.services.exceptions import EmptyResultInProcessLog
-from backend.services.interfaces import ServiceBase
+from backend.algorithms.insertion_sort import InsertionSorter
+from backend.domains.insertion_sort import InsertionSortStepValueObject, InsertionSortAlgorithmLogDTO
+from backend.services.constants import Messages
+from backend.services.exceptions import EmptyResultInProcessLogError
 
 
-class InsertionSortProcessDataLogger(ServiceBase):
+class InsertionSortProcessDataLogger:
     """Run insertion sort and keep a human-readable log of each step.
 
     Attributes:
         algorithm_log: Field name → list of values, one per step.
     """
+
+    def __init__(self, algorithm: InsertionSorter) -> None:
+        """Store the algorithm engine and start with an empty log.
+
+        Args:
+            algorithm: Engine that yields step snapshots via ``iter_steps``.
+        """
+        self._algorithm_engine = algorithm
+        self.algorithm_log = InsertionSortAlgorithmLogDTO()
 
     def _record_step_data_to_algorithm_log(
         self,
@@ -26,16 +33,16 @@ class InsertionSortProcessDataLogger(ServiceBase):
         Args:
             step_data: Current sort step.
         """
-        self.algorithm_log[Fields.INDEX].append(int(step_data.index))
-        self.algorithm_log[Fields.VALUE].append(int(step_data.value))
-        self.algorithm_log[Fields.BEFORE].append(step_data.before)
-        self.algorithm_log[Fields.RESULT].append(step_data.result)
-        self.algorithm_log[Fields.SORT_STATUS].append(step_data.status)
+        self.algorithm_log.index.append(step_data.index)
+        self.algorithm_log.value.append(step_data.value)
+        self.algorithm_log.before.append(step_data.before)
+        self.algorithm_log.result.append(step_data.result)
+        self.algorithm_log.status.append(step_data.status)
 
     def get_result_and_process_data(
         self,
         array: list[int],
-    ) -> defaultdict[str, list[int | str | tuple]]:
+    ) -> InsertionSortAlgorithmLogDTO:
         """Sort ``array`` copy locally and return the filled step log.
 
         Clears any old log first.
@@ -56,9 +63,9 @@ class InsertionSortProcessDataLogger(ServiceBase):
     def get_result_array_from_process_log(self) -> tuple[int, ...]:
         """Get result sorted array from algorithm log."""
         try:
-            result_array: tuple[int, ...] = self.algorithm_log[Fields.RESULT][-1]
+            result_array: tuple[int, ...] = self.algorithm_log.result[-1]
         except IndexError:
             logger.warning(Messages.EMPTY_RESULT_IN_LOG)
-            raise EmptyResultInProcessLog()
+            raise EmptyResultInProcessLogError() from None
 
         return result_array

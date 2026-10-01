@@ -1,32 +1,16 @@
 """Binary search over a sorted list of ints."""
 
-from typing import Iterator
+from collections.abc import Iterator
 
-from backend.algorithms.interfaces import AlgorithmBase
 from backend.domains.binary_search import BinarySearchStepValueObject
 from backend.domains.constants import BinarySearchStatus
 
 
-class BinarySearch(AlgorithmBase):
+class BinarySearch:
     """Find a number in a sorted list by cutting the list in half each time."""
 
-    # def search(self, array: list[int], target: int) -> int | None:
-    #     """Return the index of ``target``, or ``None`` if it is missing.
-    #
-    #     Args:
-    #         array: Sorted list of ints.
-    #         target: Number to find.
-    #
-    #     Returns:
-    #         Index of ``target``, or ``None`` when it is not in ``array``.
-    #     """
-    #     for step in self.iter_steps(array, target):
-    #         if step.status == BinarySearchStatus.EQUAL:
-    #             return step.mid_index
-    #     return None
-
+    @staticmethod
     def iter_steps(
-        self,
         array: list[int],
         target: int,
     ) -> Iterator[BinarySearchStepValueObject]:
@@ -45,11 +29,15 @@ class BinarySearch(AlgorithmBase):
         while left_index <= right_index:
             mid_index: int = (left_index + right_index) // 2
             mid_value: int = array[mid_index]
+            left_value: int = array[left_index]
+            right_value: int = array[right_index]
 
             if mid_value == target:
                 yield BinarySearchStepValueObject(
                     left_index=left_index,
+                    left_value=left_value,
                     right_index=right_index,
+                    right_value=right_value,
                     mid_index=mid_index,
                     middle_value=mid_value,
                     status=BinarySearchStatus.EQUAL,
@@ -59,7 +47,9 @@ class BinarySearch(AlgorithmBase):
             if mid_value > target:
                 yield BinarySearchStepValueObject(
                     left_index=left_index,
+                    left_value=left_value,
                     right_index=right_index,
+                    right_value=right_value,
                     mid_index=mid_index,
                     middle_value=mid_value,
                     status=BinarySearchStatus.GREATER,
@@ -69,7 +59,9 @@ class BinarySearch(AlgorithmBase):
             else:
                 yield BinarySearchStepValueObject(
                     left_index=left_index,
+                    left_value=left_value,
                     right_index=right_index,
+                    right_value=right_value,
                     mid_index=mid_index,
                     middle_value=mid_value,
                     status=BinarySearchStatus.LESS,

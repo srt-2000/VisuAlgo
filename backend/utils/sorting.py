@@ -1,7 +1,7 @@
 """Helpers that build arrays for sorting demos and tests."""
 
+from collections.abc import Iterable
 from random import randint
-from typing import Iterable
 
 from backend.domains.constants import SortingStatus
 
@@ -42,9 +42,10 @@ def get_current_sorting_status(iter_position: int, array_last_index: int) -> str
     Returns:
         A str constant with status name.
     """
+
     if iter_position == array_last_index:
         current_status: str = SortingStatus.READY
     else:
-        current_status: str = SortingStatus.SORTING
+        current_status = SortingStatus.SORTING
 
     return current_status

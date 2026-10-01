@@ -1,6 +1,6 @@
 """UI labels and widget defaults for the insertion-sort page."""
 
-from enum import StrEnum, IntEnum
+from enum import IntEnum, StrEnum
 
 
 class Header(StrEnum):

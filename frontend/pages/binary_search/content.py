@@ -10,10 +10,10 @@ class PageContent(StrEnum):
     ### Complexity:
     - Time Complexity: :green[**O(log(n))**]
     - Space Complexity: :green[**O(1)**]
-    ### How does it work: 
+    ### How does it work:
     - For :red[**SORTED**] arrays only
     - Find the middle number of the array
-    - Compare the middle number with the target key. 
+    - Compare the middle number with the target key.
         - If equal: return index
         - If the key is smaller: search the left_index half
         - If the key is larger: search the right_index half

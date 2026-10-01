@@ -1,11 +1,11 @@
 """Unit tests for ``InsertionSorter.sort`` and ``InsertionSorter.iter_steps``."""
 
 from backend.algorithms.insertion_sort import InsertionSorter
-from backend.domains.sorting import InsertionSortStepValueObject
 from backend.domains.constants import SortingStatus
+from backend.domains.insertion_sort import InsertionSortStepValueObject
 from tests.algorithms.insertion_sort.cases import (
-    INSERTION_SORT_EXPECTED_DATA_SYNC_TEST,
     INSERTION_SORT_DATA_SYNC_TEST,
+    INSERTION_SORT_EXPECTED_DATA_SYNC_TEST,
 )
 
 
@@ -19,9 +19,7 @@ class TestInsertionSortIterSteps:
     ) -> None:
         """Each step must sort the current prefix and finish with a full sort."""
         # array_copy = array.copy()
-        sorting_steps: list[InsertionSortStepValueObject] = list(
-            insertion_sorter.iter_steps(array)
-        )
+        sorting_steps: list[InsertionSortStepValueObject] = list(insertion_sorter.iter_steps(array))
         sorted_array: list[int] = list(sorting_steps[-1].result)
         expected_array_len: int = len(array)
         expected_steps_quantity: int = expected_array_len
@@ -39,9 +37,7 @@ class TestInsertionSortIterSteps:
             assert len(step.before) == expected_array_len
 
             sorted_part_end_index: int = step.index + 1
-            sorted_array_part_left: list[int] = list(
-                step.result[:sorted_part_end_index]
-            )
+            sorted_array_part_left: list[int] = list(step.result[:sorted_part_end_index])
             expected_sorted_part: list[int] = sorted(array[:sorted_part_end_index])
             assert sorted_array_part_left == expected_sorted_part
 
@@ -59,9 +55,7 @@ class TestInsertionSortIterSteps:
         insertion_sorter: InsertionSorter,
         empty_list: list[int],
     ) -> None:
-        sorting_steps: list[InsertionSortStepValueObject] = list(
-            insertion_sorter.iter_steps(empty_list)
-        )
+        sorting_steps: list[InsertionSortStepValueObject] = list(insertion_sorter.iter_steps(empty_list))
         expected_array_len: int = 0
         expected_steps_quantity: int = 1
         expected_sorted_array: list[int] = []
@@ -86,12 +80,8 @@ class TestInsertionSortIterSteps:
         """Steps for a fixed case must match the golden expected list."""
         array: list[int] = INSERTION_SORT_DATA_SYNC_TEST
         expected_sorted_array: list[int] = sorted(array)
-        expected_steps: list[InsertionSortStepValueObject] = (
-            INSERTION_SORT_EXPECTED_DATA_SYNC_TEST
-        )
-        steps_container: list[InsertionSortStepValueObject] = list(
-            insertion_sorter.iter_steps(array)
-        )
+        expected_steps: list[InsertionSortStepValueObject] = INSERTION_SORT_EXPECTED_DATA_SYNC_TEST
+        steps_container: list[InsertionSortStepValueObject] = list(insertion_sorter.iter_steps(array))
         sorted_array: list[int] = list(steps_container[-1].result)
 
         assert steps_container == expected_steps

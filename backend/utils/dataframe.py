@@ -1,20 +1,27 @@
-from collections import defaultdict
-from typing import Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from pandas import DataFrame
 
-from backend.utils.constants import DataFrameStr, DataFrameInt
+from backend.domains.base import BaseAlgorithmLogDTO
+from backend.utils.constants import DataFrameLiterals
 
 
 def get_dataframe_for_result_table(
-    data_for_dataframe: defaultdict[str, list[str]],
+    data_for_dataframe: BaseAlgorithmLogDTO,
 ) -> DataFrame:
-    dataframe_for_table = DataFrame(data=data_for_dataframe)
+    """Formatting the BaseAlgorithmLogDTO to DataFrame object.
+        Args:
+            data_for_dataframe: Data from process log.
+        Returns: Dataframe object.
+        """
+    serialized_data: dict[str, list[Any]] = data_for_dataframe.__dict__
+    dataframe_for_table = DataFrame(data=serialized_data)
     dataframe_range: Iterable[int] = range(1, len(dataframe_for_table) + 1)
 
-    dataframe_for_table: DataFrame = dataframe_for_table.set_axis(
-        labels=[f"{DataFrameStr.AXIS_NAME} {i}" for i in dataframe_range],
-        axis=DataFrameInt.AXIS_LINES_CHANGES_PARAMETER,
+    dataframe_for_table = dataframe_for_table.set_axis(
+        labels=[f"{DataFrameLiterals.AXIS_NAME} {i}" for i in dataframe_range],
+        axis=DataFrameLiterals.AXIS_LINES_CHANGES_PARAMETER,
     )
 
     return dataframe_for_table

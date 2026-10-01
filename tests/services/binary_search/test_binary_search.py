@@ -8,15 +8,15 @@ from backend.algorithms.binary_search import BinarySearch
 from backend.domains.binary_search import BinarySearchStepValueObject
 from backend.domains.constants import BinarySearchStatus
 from backend.services.binary_search import BinarySearchProcessDataLogger
-from backend.services.constants import Fields, addition_to_full_range, Messages
+from backend.services.constants import Fields, Messages, addition_to_full_range
 from backend.services.exceptions import (
-    TargetIndexNotFoundException,
-    EmptyResultInProcessLog,
+    EmptyResultInProcessLogError,
+    TargetIndexNotFoundError,
 )
 from tests.services.binary_search.cases import (
+    BINARY_SEARCH_EXPECTED_LOG_FIELDS,
     BINARY_SEARCH_RECORD_TEST_ARRAY,
     TEST_TARGET,
-    BINARY_SEARCH_EXPECTED_LOG_FIELDS,
 )
 
 
@@ -31,9 +31,7 @@ class TestBinarySearchProcessDataLogger:
         """One recorded step must fill every log field with the right text."""
         logger = binary_search_process_data_logger
         step_data = binary_search_test_step_data
-        logger._record_step_data_to_algorithm_log(
-            step_data, BINARY_SEARCH_RECORD_TEST_ARRAY
-        )
+        logger._record_step_data_to_algorithm_log(step_data, BINARY_SEARCH_RECORD_TEST_ARRAY)
         step_records = logger.algorithm_log
 
         expected_step_range: list[str] = [
@@ -41,8 +39,7 @@ class TestBinarySearchProcessDataLogger:
             f"{BINARY_SEARCH_RECORD_TEST_ARRAY[step_data.right_index]}"
         ]
         expected_range_size: list[str] = [
-            f"{step_data.right_index - step_data.left_index + addition_to_full_range} "
-            f"{Fields.PIECES}"
+            f"{step_data.right_index - step_data.left_index + addition_to_full_range} {Fields.PIECES}"
         ]
         expected_middle_index: list[str] = [str(step_data.mid_index)]
         expected_middle_element: list[str] = [str(step_data.middle_value)]
@@ -67,9 +64,7 @@ class TestBinarySearchProcessDataLogger:
         test_range: int = 2
 
         for _ in range(test_range):
-            logger._record_step_data_to_algorithm_log(
-                step_data, BINARY_SEARCH_RECORD_TEST_ARRAY
-            )
+            logger._record_step_data_to_algorithm_log(step_data, BINARY_SEARCH_RECORD_TEST_ARRAY)
 
         for field in BINARY_SEARCH_EXPECTED_LOG_FIELDS:
             field_len: int = len(logger.algorithm_log[field])
@@ -89,9 +84,7 @@ class TestBinarySearchProcessDataLogger:
         )
         end_status: str = process_data[Fields.STATUS][-1]
         middle_index_field_len = len(process_data[Fields.MIDDLE_INDEX])
-        steps_quantity = len(
-            list(searcher.iter_steps(BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET))
-        )
+        steps_quantity = len(list(searcher.iter_steps(BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET)))
 
         assert end_status == BinarySearchStatus.EQUAL
         assert middle_index_field_len == steps_quantity
@@ -100,8 +93,8 @@ class TestBinarySearchProcessDataLogger:
         self,
         binary_search_process_data_logger: BinarySearchProcessDataLogger,
     ) -> None:
-        """Missing target must raise ``TargetIndexNotFoundException``."""
-        with pytest.raises(TargetIndexNotFoundException):
+        """Missing target must raise ``TargetIndexNotFoundError``."""
+        with pytest.raises(TargetIndexNotFoundError):
             logger = binary_search_process_data_logger
             array: list[int] = [1, 2, 3]
             target_not_in_array: int = 99
@@ -113,13 +106,9 @@ class TestBinarySearchProcessDataLogger:
     ) -> None:
         """A second successful search must replace the old log, not grow it."""
         logger = binary_search_process_data_logger
-        first_log = logger.get_result_and_process_data(
-            BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET
-        )
+        first_log = logger.get_result_and_process_data(BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET)
         first_log_len = len(first_log[Fields.MIDDLE_INDEX])
-        second_log = logger.get_result_and_process_data(
-            BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET
-        )
+        second_log = logger.get_result_and_process_data(BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET)
         second_log_len = len(second_log[Fields.MIDDLE_INDEX])
         assert second_log_len == first_log_len
 
@@ -130,9 +119,7 @@ class TestBinarySearchProcessDataLogger:
     ) -> None:
         logger = binary_search_process_data_logger
         step_data = binary_search_test_step_data
-        logger._record_step_data_to_algorithm_log(
-            step_data, BINARY_SEARCH_RECORD_TEST_ARRAY
-        )
+        logger._record_step_data_to_algorithm_log(step_data, BINARY_SEARCH_RECORD_TEST_ARRAY)
 
         index_from_result: str = logger.get_target_index_from_process_log()
         expected_mid_index: str = str(step_data.mid_index)
@@ -145,5 +132,5 @@ class TestBinarySearchProcessDataLogger:
     ) -> None:
         logger = binary_search_process_data_logger
 
-        with pytest.raises(EmptyResultInProcessLog, match=Messages.EMPTY_RESULT_IN_LOG):
+        with pytest.raises(EmptyResultInProcessLogError, match=Messages.EMPTY_RESULT_IN_LOG):
             logger.get_target_index_from_process_log()

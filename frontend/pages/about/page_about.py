@@ -3,8 +3,8 @@
 import streamlit as st
 
 from frontend.element_settings import PageTitle
-from frontend.pages.about.element_settings import Header
 from frontend.pages.about.content import PageContent
+from frontend.pages.about.element_settings import Header
 
 st.set_page_config(page_title=PageTitle.ABOUT)
 

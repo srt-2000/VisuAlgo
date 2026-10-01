@@ -1,12 +1,12 @@
 """Domain types for binary search step visualization."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
-from backend.domains.base import BaseStepValueObject
+from backend.domains.base import BaseAlgorithmLogDTO
 
 
 @dataclass(frozen=True, slots=True)
-class BinarySearchStepValueObject(BaseStepValueObject):
+class BinarySearchStepValueObject:
     """One frozen photo of a binary-search guess.
 
     Attributes:
@@ -19,8 +19,23 @@ class BinarySearchStepValueObject(BaseStepValueObject):
     """
 
     left_index: int
+    left_value: int
     right_index: int
+    right_value: int
     mid_index: int
     middle_value: int
     status: str
     target: int
+
+@dataclass
+class BinarySearchAlgorithmLogDTO(BaseAlgorithmLogDTO):
+    """Column-oriented log of one binary-search run.
+    Attributes:
+
+    """
+    step_range: list[str] = field(default_factory=list)
+    range_size: list[str] = field(default_factory=list)
+    mid_index: list[int] = field(default_factory=list)
+    middle_value: list[int] = field(default_factory=list)
+    status: list[str] = field(default_factory=list)
+    target: list[int] = field(default_factory=list)
