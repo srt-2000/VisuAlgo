@@ -32,6 +32,8 @@ class TestBinarySearchIterSteps:
             for step in steps:
                 assert 0 <= step.left_index <= step.mid_index <= step.right_index < len(array)
                 assert step.middle_value == array[step.mid_index]
+                assert step.left_value == array[step.left_index]
+                assert step.right_value == array[step.right_index]
                 assert step.target == target
 
                 if step.middle_value == target:
@@ -50,7 +52,8 @@ class TestBinarySearchIterSteps:
             assert final_status == BinarySearchStatus.EQUAL
             assert founded_value == target
         else:
-            assert all(step.status != BinarySearchStatus.EQUAL for step in steps)
+            for step in steps:
+                assert step.status != BinarySearchStatus.EQUAL
 
     def test_data_sync(self, binary_searcher: BinarySearch) -> None:
         """Steps for a fixed case must match the golden expected list."""

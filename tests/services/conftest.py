@@ -50,7 +50,9 @@ def binary_search_test_step_data() -> BinarySearchStepValueObject:
     """
     step_data: BinarySearchStepValueObject = BinarySearchStepValueObject(
         left_index=2,
+        left_value=26,
         right_index=8,
+        right_value=79,
         mid_index=5,
         middle_value=58,
         status=BinarySearchStatus.LESS,

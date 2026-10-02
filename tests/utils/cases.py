@@ -1,7 +1,5 @@
 """Parametrized limits for ``get_not_sorted_random_list`` tests."""
 
-from collections import defaultdict
-from typing import Any
 
 from backend.domains.constants import SortingStatus
 

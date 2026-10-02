@@ -1,8 +1,7 @@
 """Streamlit page: build a random list and sort it with insertion sort."""
 
 import streamlit as st
-from pandas.core.interchange.dataframe_protocol import DataFrame
-
+import pandas as pd
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.insertion_sort import InsertionSortAlgorithmLogDTO
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
@@ -90,7 +89,7 @@ if (st.session_state.sorted_array and st.session_state.process_data) is not None
     sorted_column.success(body=Messages.SORTED_ARRAY, icon=Icon.DONE_OUTLINE)
     sorted_column.write(st.session_state.sorted_array)
 
-    data_frame_for_table: DataFrame = get_dataframe_for_result_table(data_for_dataframe=st.session_state.process_data)
+    data_frame_for_table: pd.DataFrame = get_dataframe_for_result_table(data_for_dataframe=st.session_state.process_data)
 
     st.table(data=data_frame_for_table, border=TableBorderLiteral.HORIZONTAL_BORDER)
 

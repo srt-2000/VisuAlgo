@@ -22,8 +22,8 @@ BINARY_SEARCH_DATA_SYNC_TEST: tuple[list[int], int] = ([1, 2, 3, 4, 5, 6, 7, 8, 
 """Fixed ``(array, target)`` for the golden step sequence."""
 
 BINARY_SEARCH_EXPECTED_DATA_SYNC_TEST: list[BinarySearchStepValueObject] = [
-    BinarySearchStepValueObject(0, 8, 4, 5, BinarySearchStatus.GREATER, 3),
-    BinarySearchStepValueObject(0, 3, 1, 2, BinarySearchStatus.LESS, 3),
-    BinarySearchStepValueObject(2, 3, 2, 3, BinarySearchStatus.EQUAL, 3),
+    BinarySearchStepValueObject(0, 1, 8, 9, 4, 5, BinarySearchStatus.GREATER, 3),
+    BinarySearchStepValueObject(0, 1, 3, 4, 1, 2, BinarySearchStatus.LESS, 3),
+    BinarySearchStepValueObject(2, 3, 3, 4, 2, 3, BinarySearchStatus.EQUAL, 3),
 ]
 """Exact steps expected for ``BINARY_SEARCH_DATA_SYNC_TEST``."""

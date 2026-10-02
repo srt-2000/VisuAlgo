@@ -1,4 +1,5 @@
 """Shared pytest fixtures for VisuAlgo tests."""
+
 from dataclasses import dataclass
 
 import pytest
@@ -41,6 +42,7 @@ def insertion_sorter() -> InsertionSorter:
 @dataclass
 class AlgorithmLogDTO(BaseAlgorithmLogDTO):
     """Give tests one shared ``BaseAlgorithmLogDTO`` instance."""
+
     column1: list[str]
     middle_index: list[str]
     check_status: list[str]
@@ -48,7 +50,7 @@ class AlgorithmLogDTO(BaseAlgorithmLogDTO):
 
 
 @pytest.fixture(scope="function")
-def log_dto() -> AlgorithmLogDTO:
+def algorithm_log_dto() -> AlgorithmLogDTO:
     """Give tests ``AlgorithmLogDTO`` instance.
 
     Returns:

@@ -27,12 +27,14 @@ class BinarySearchStepValueObject:
     status: str
     target: int
 
+
 @dataclass
 class BinarySearchAlgorithmLogDTO(BaseAlgorithmLogDTO):
     """Column-oriented log of one binary-search run.
     Attributes:
 
     """
+
     step_range: list[str] = field(default_factory=list)
     range_size: list[str] = field(default_factory=list)
     mid_index: list[int] = field(default_factory=list)

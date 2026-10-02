@@ -3,7 +3,7 @@
 from loguru import logger
 
 from backend.algorithms.binary_search import BinarySearch
-from backend.domains.binary_search import BinarySearchStepValueObject, BinarySearchAlgorithmLogDTO
+from backend.domains.binary_search import BinarySearchAlgorithmLogDTO, BinarySearchStepValueObject
 from backend.domains.constants import BinarySearchStatus
 from backend.services.constants import Fields, Messages, addition_to_full_range
 from backend.services.exceptions import (

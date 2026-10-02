@@ -8,6 +8,7 @@ from backend.domains.binary_search import BinarySearchAlgorithmLogDTO
 from backend.services.binary_search import BinarySearchProcessDataLogger
 from backend.services.exceptions import TargetIndexNotFoundError
 from backend.utils.dataframe import get_dataframe_for_result_table
+from backend.utils.elements import get_int_slider_mid_value
 from frontend.element_settings import Icon, PageTitle, SliderLiteral, TableBorderLiteral
 from frontend.pages.binary_search.content import PageContent
 from frontend.pages.binary_search.element_settings import (
@@ -22,7 +23,6 @@ from frontend.pages.binary_search.element_settings import (
     SliderStr,
     Success,
 )
-from backend.utils.elements import get_int_slider_mid_value
 
 st.set_page_config(page_title=PageTitle.BINARY_SEARCH_ALGORITHM)
 
@@ -43,10 +43,7 @@ st.badge(
     color=BadgeColor.GREEN,
 )
 
-slider_mid_value_render: int = get_int_slider_mid_value(
-    min_value=slider_min_value,
-    max_value=slider_max_value
-)
+slider_mid_value_render: int = get_int_slider_mid_value(min_value=slider_min_value, max_value=slider_max_value)
 
 inputted_target: int = st.number_input(
     label=NumberInputStr.LABEL,
@@ -64,8 +61,7 @@ if st.button(label=Button.LABEL):
 
     try:
         process_data: BinarySearchAlgorithmLogDTO = process_logger.get_result_and_process_data(
-            array=array_from_slider,
-            target=inputted_target
+            array=array_from_slider, target=inputted_target
         )
     except TargetIndexNotFoundError:
         st.error(body=f"{inputted_target} {Error.NOT_FOUND_MESSAGE}")
@@ -73,10 +69,7 @@ if st.button(label=Button.LABEL):
         dataframe_for_table: DataFrame = get_dataframe_for_result_table(data_for_dataframe=process_data)
         target_index: int = process_logger.get_target_index_from_process_log()
 
-        st.table(
-            data=dataframe_for_table,
-            border=TableBorderLiteral.HORIZONTAL_BORDER
-        )
+        st.table(data=dataframe_for_table, border=TableBorderLiteral.HORIZONTAL_BORDER)
 
         st.success(
             body=f"{inputted_target} {Success.SUCCESS_MESSAGE} **[{target_index}]**",

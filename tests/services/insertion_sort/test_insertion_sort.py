@@ -1,13 +1,11 @@
 """Unit tests for ``InsertionSortProcessDataLogger``."""
 
-from collections import defaultdict
-
 import pytest
 
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.constants import SortingStatus
-from backend.domains.insertion_sort import InsertionSortStepValueObject
-from backend.services.constants import Fields, Messages
+from backend.domains.insertion_sort import InsertionSortAlgorithmLogDTO, InsertionSortStepValueObject
+from backend.services.constants import Messages
 from backend.services.exceptions import EmptyResultInProcessLogError
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
 from tests.services.insertion_sort.cases import (
@@ -28,18 +26,18 @@ class TestInsertionSortProcessDataLogger:
         logger = insertion_sort_process_data_logger
         step_data = insertion_sort_test_step_data
         logger._record_step_data_to_algorithm_log(step_data)
-        step_records: defaultdict[str, list[str]] = logger.algorithm_log
+        step_records: InsertionSortAlgorithmLogDTO = logger.algorithm_log
         expected_index: list[int] = [int(step_data.index)]
         expected_value: list[int] = [int(step_data.value)]
         expected_before: list[tuple[int, ...]] = [step_data.before]
         expected_result: list[tuple[int, ...]] = [step_data.result]
         expected_status: list[str] = [str(step_data.status)]
 
-        assert step_records[Fields.INDEX] == expected_index
-        assert step_records[Fields.VALUE] == expected_value
-        assert step_records[Fields.BEFORE] == expected_before
-        assert step_records[Fields.RESULT] == expected_result
-        assert step_records[Fields.SORT_STATUS] == expected_status
+        assert step_records.index == expected_index
+        assert step_records.value == expected_value
+        assert step_records.before == expected_before
+        assert step_records.result == expected_result
+        assert step_records.status == expected_status
 
     def test_record_step_data_appends(
         self,
@@ -55,7 +53,7 @@ class TestInsertionSortProcessDataLogger:
             logger._record_step_data_to_algorithm_log(step_data)
 
         for field in INSERTION_SORT_EXPECTED_LOG_FIELDS:
-            field_len: int = len(logger.algorithm_log[field])
+            field_len: int = len(getattr(logger.algorithm_log, field))
 
             assert field_len == test_range
 
@@ -68,9 +66,9 @@ class TestInsertionSortProcessDataLogger:
         logger = insertion_sort_process_data_logger
         sorter = insertion_sorter
         array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
-        process_data: defaultdict[str, list[str]] = logger.get_result_and_process_data(array)
-        end_status: str = process_data[Fields.SORT_STATUS][-1]
-        result_steps_quantity = len(process_data[Fields.INDEX])
+        process_data: InsertionSortAlgorithmLogDTO = logger.get_result_and_process_data(array)
+        end_status: str = process_data.status[-1]
+        result_steps_quantity = len(process_data.index)
         expected_steps_quantity = len(list(sorter.iter_steps(INSERTION_SORT_RECORD_TEST_ARRAY)))
 
         assert end_status == SortingStatus.READY
@@ -84,10 +82,10 @@ class TestInsertionSortProcessDataLogger:
         logger = insertion_sort_process_data_logger
         first_array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
         second_array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
-        first_log: defaultdict[str, list[int | str | tuple]] = logger.get_result_and_process_data(first_array)
-        second_log: defaultdict[str, list[int | str | tuple]] = logger.get_result_and_process_data(second_array)
-        first_log_len = len(first_log[Fields.VALUE])
-        second_log_len = len(second_log[Fields.VALUE])
+        first_log: InsertionSortAlgorithmLogDTO = logger.get_result_and_process_data(first_array)
+        second_log: InsertionSortAlgorithmLogDTO = logger.get_result_and_process_data(second_array)
+        first_log_len = len(first_log.value)
+        second_log_len = len(second_log.value)
 
         assert second_log_len == first_log_len
 

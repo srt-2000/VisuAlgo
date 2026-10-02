@@ -22,7 +22,6 @@ class InsertionSorter:
         """
 
         if not array:
-
             yield InsertionSortStepValueObject(
                 index=0,
                 value=0,

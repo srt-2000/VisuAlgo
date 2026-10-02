@@ -1,5 +1,3 @@
-
-
 def get_int_slider_mid_value(min_value: int, max_value: int) -> int:
     """Getting the middle value for a slider rendering
     Args:

@@ -23,6 +23,7 @@ class InsertionSortStepValueObject:
     result: tuple[int, ...]
     status: str
 
+
 @dataclass
 class InsertionSortAlgorithmLogDTO(BaseAlgorithmLogDTO):
     """Column-oriented log of one insertion-sort run.
@@ -33,9 +34,9 @@ class InsertionSortAlgorithmLogDTO(BaseAlgorithmLogDTO):
         result: Array snapshot after the step.
         status: Sort status label at each step.
     """
+
     index: list[int] = field(default_factory=list)
     value: list[int] = field(default_factory=list)
     before: list[tuple[int, ...]] = field(default_factory=list)
     result: list[tuple[int, ...]] = field(default_factory=list)
     status: list[str] = field(default_factory=list)
-
