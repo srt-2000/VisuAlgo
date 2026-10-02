@@ -13,10 +13,10 @@ from backend.services.exceptions import (
 
 
 class BinarySearchProcessDataLogger:
-    """Run binary search and keep a human-readable log of each step.
+    """Run binary search and keep a readable log of each step.
 
     Attributes:
-        algorithm_log: Field name → list of string values, one per step.
+        algorithm_log: One list per column. Each guess appends one item.
     """
 
     def __init__(self, algorithm: BinarySearch) -> None:
@@ -32,7 +32,7 @@ class BinarySearchProcessDataLogger:
         self,
         step_data: BinarySearchStepValueObject,
     ) -> None:
-        """Append one step's text fields into ``algorithm_log``.
+        """Append one step's fields into ``algorithm_log``.
 
         Args:
             step_data: Current search step.
@@ -60,7 +60,7 @@ class BinarySearchProcessDataLogger:
             target: Number to find.
 
         Returns:
-            Log map: field name → list of per-step strings.
+            The same log object, now filled with one entry per guess.
 
         Raises:
             TargetIndexNotFoundError: If ``target`` is missing from
@@ -82,7 +82,17 @@ class BinarySearchProcessDataLogger:
         return self.algorithm_log
 
     def get_target_index_from_process_log(self) -> int:
-        """Get target index from result log."""
+        """Return the last middle index stored in the log.
+
+        After a successful search that index is where the target sits.
+        Call this only once the log has at least one step.
+
+        Returns:
+            ``mid_index`` from the last recorded step.
+
+        Raises:
+            EmptyResultInProcessLogError: If the log has no steps yet.
+        """
         try:
             target_index: int = self.algorithm_log.mid_index[-1]
         except IndexError:

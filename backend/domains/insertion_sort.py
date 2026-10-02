@@ -27,12 +27,15 @@ class InsertionSortStepValueObject:
 @dataclass
 class InsertionSortAlgorithmLogDTO(BaseAlgorithmLogDTO):
     """Column-oriented log of one insertion-sort run.
+
+    Each list grows by one item every time a value is inserted.
+
     Attributes:
         index: Cursor index at each step.
         value: Value being inserted at each step.
-        before: Array snapshot before the step.
-        result: Array snapshot after the step.
-        status: Sort status label at each step.
+        before: How the list looked before this move.
+        result: How the list looks after this move.
+        status: ``sorting`` while work remains, ``ready`` on the last step.
     """
 
     index: list[int] = field(default_factory=list)

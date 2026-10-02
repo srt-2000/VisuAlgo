@@ -1,3 +1,5 @@
+"""Unit tests for ``get_dataframe_for_result_table``."""
+
 from dataclasses import Field, fields
 from typing import Any
 
@@ -8,7 +10,10 @@ from tests.conftest import AlgorithmLogDTO
 
 
 class TestGetDataFrameForResultTable:
+    """Check that a filled log becomes a table with the same rows and columns."""
+
     def test_not_empty(self, algorithm_log_dto: AlgorithmLogDTO) -> None:
+        """Row count, labels, column names, and cell values must match the log."""
         # result dataset
         result_dataframe: pd.DataFrame = get_dataframe_for_result_table(data_for_dataframe=algorithm_log_dto)
         result_rows_quantity: int = len(result_dataframe)

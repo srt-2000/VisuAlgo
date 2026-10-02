@@ -14,14 +14,18 @@ class BinarySearch:
         array: list[int],
         target: int,
     ) -> Iterator[BinarySearchStepValueObject]:
-        """Yield each guess until we find ``target`` or run out of room.
+        """Yield each guess until ``target`` is found or the window is empty.
+
+        An empty list yields nothing: there is no middle element to check.
+        If ``target`` is missing, the generator simply ends. The last step
+        is then not an equal hit.
 
         Args:
-            array: Sorted list of ints.
+            array: Sorted list of ints. Unsorted input gives wrong guesses.
             target: Number to find.
 
         Yields:
-            One step snapshot per middle-element check.
+            One snapshot each time the middle element is compared.
         """
         left_index: int = 0
         right_index: int = len(array) - 1

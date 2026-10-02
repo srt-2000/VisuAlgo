@@ -14,3 +14,4 @@ class LeftNavigationTitle(StrEnum):
 
 
 pages_paths = st.secrets.project_pages_paths
+"""File paths of sidebar pages, loaded from Streamlit secrets."""

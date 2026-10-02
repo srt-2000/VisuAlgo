@@ -21,10 +21,10 @@ class TargetIndexNotFoundError(Exception):
 
 
 class EmptyResultInProcessLogError(Exception):
-    """Raised when the target index value is empty after algorithm got result."""
+    """Raised when code tries to read a step from an empty process log."""
 
     def __init__(
         self,
     ) -> None:
-        """Build an exception that write the problem."""
+        """Build the exception with the empty-log message."""
         super().__init__(Messages.EMPTY_RESULT_IN_LOG)

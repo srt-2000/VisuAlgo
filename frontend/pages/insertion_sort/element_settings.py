@@ -36,7 +36,7 @@ class LeftColumnNumberInputInt(IntEnum):
 
 
 class RightColumnSliderInt(IntEnum):
-    """Limits for the minimum-value input (right column)."""
+    """Limits for the random-value range slider (right column)."""
 
     MIN = -100
     MAX = 100
@@ -46,14 +46,14 @@ class RightColumnSliderInt(IntEnum):
 
 
 class RightColumnSliderStr(StrEnum):
-    """Labels and placeholder for random-list number inputs."""
+    """Label and session key for the random-value range slider."""
 
     LABEL = "values range"
     KEY = "val_range"
 
 
 class Button(StrEnum):
-    """Label for the sort action button."""
+    """Labels for the buttons that create a list and then sort it."""
 
     LABEL_SORT_IT = "SORT IT"
     LABEL_CREATE = "CREATE"

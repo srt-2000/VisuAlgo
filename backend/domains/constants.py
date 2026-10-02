@@ -1,3 +1,5 @@
+"""Status words written onto each algorithm step."""
+
 from enum import StrEnum
 
 

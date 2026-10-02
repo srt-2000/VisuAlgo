@@ -1,4 +1,4 @@
-"""Helpers that build arrays for sorting demos and tests."""
+"""Helpers for random demo lists and the sorting-vs-ready label."""
 
 from collections.abc import Iterable
 from random import randint
@@ -33,14 +33,14 @@ def get_not_sorted_random_list(
 
 
 def get_current_sorting_status(iter_position: int, array_last_index: int) -> str:
-    """Get the sorting status of the current iteration.
+    """Say whether this step is still sorting or already the last one.
 
     Args:
-        iter_position: int Current iteration position index.
-        array_last_index: int Last index of iterating array.
+        iter_position: Index of the step we just finished.
+        array_last_index: Last valid index in the array.
 
     Returns:
-        A str constant with status name.
+        ``ready`` when ``iter_position`` is the last index, otherwise ``sorting``.
     """
 
     if iter_position == array_last_index:

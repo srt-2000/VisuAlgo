@@ -40,9 +40,11 @@ class TestGetNotSortedRandomList:
 
 
 class TestGetCurrentSortingStatus:
+    """Check the ready-versus-sorting rule for a step index."""
+
     @pytest.mark.parametrize("test_invariants", INDEXES_AND_STATUS_RESULTS)
     def test_all_invariants(self, test_invariants: tuple[int, int, str]) -> None:
-        """Check all invariants of indexes and it results"""
+        """The last index is ``ready``; every earlier index is still ``sorting``."""
         iter_position, array_last_index, expected_status = test_invariants
         status: str = get_current_sorting_status(iter_position=iter_position, array_last_index=array_last_index)
 

@@ -12,13 +12,16 @@ class InsertionSorter:
 
     @staticmethod
     def iter_steps(array: list[int] | None) -> Iterator[InsertionSortStepValueObject]:
-        """Yield one snapshot after each insertion step.
+        """Yield one snapshot after each value is placed.
+
+        The sort works on a copy, so the caller's list stays unchanged.
+        An empty list, or ``None``, yields one ready snapshot and stops.
 
         Args:
-            array: List of ints to sort in place.
+            array: List of ints to sort. ``None`` is treated as empty.
 
         Yields:
-            One step snapshot after each key insertion.array
+            One snapshot per index, after that value has been inserted.
         """
 
         if not array:

@@ -115,6 +115,7 @@ class TestBinarySearchProcessDataLogger:
         binary_search_process_data_logger: BinarySearchProcessDataLogger,
         binary_search_test_step_data: BinarySearchStepValueObject,
     ) -> None:
+        """The last recorded middle index is what this method returns."""
         logger = binary_search_process_data_logger
         step_data = binary_search_test_step_data
         logger._record_step_data_to_algorithm_log(step_data)
@@ -128,6 +129,7 @@ class TestBinarySearchProcessDataLogger:
         self,
         binary_search_process_data_logger: BinarySearchProcessDataLogger,
     ) -> None:
+        """An empty log must raise ``EmptyResultInProcessLogError``."""
         logger = binary_search_process_data_logger
 
         with pytest.raises(EmptyResultInProcessLogError, match=Messages.EMPTY_RESULT_IN_LOG):

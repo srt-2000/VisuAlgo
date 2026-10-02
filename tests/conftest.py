@@ -41,7 +41,17 @@ def insertion_sorter() -> InsertionSorter:
 
 @dataclass
 class AlgorithmLogDTO(BaseAlgorithmLogDTO):
-    """Give tests one shared ``BaseAlgorithmLogDTO`` instance."""
+    """Test log with four text columns and no field defaults.
+
+    ``clear()`` turns each column into ``None`` because nothing here
+    was declared with a default value.
+
+    Attributes:
+        column1: First text column.
+        middle_index: Middle indexes stored as text.
+        check_status: Comparison labels such as ``>``, ``<``, ``=``.
+        target: Target values stored as text.
+    """
 
     column1: list[str]
     middle_index: list[str]
@@ -51,10 +61,10 @@ class AlgorithmLogDTO(BaseAlgorithmLogDTO):
 
 @pytest.fixture(scope="function")
 def algorithm_log_dto() -> AlgorithmLogDTO:
-    """Give tests ``AlgorithmLogDTO`` instance.
+    """Build a filled log for dataframe and ``clear()`` tests.
 
     Returns:
-        An algorithm LOG object.
+        Log whose four columns each hold three values.
     """
     log_dto = AlgorithmLogDTO(
         column1=["par1_1", "par1_2", "par1_3"],

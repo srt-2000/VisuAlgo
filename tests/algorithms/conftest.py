@@ -17,10 +17,13 @@ def sorted_filled_list_with_nine_elements() -> list[int]:
 
 @pytest.fixture(scope="function", params=NOT_SORTED_ARRAYS)
 def array(request) -> tuple[list[int], ...]:
-    """Provide not sorted arrays for every testcase.
+    """Provide one unsorted list from ``NOT_SORTED_ARRAYS``.
+
+    Args:
+        request: Pytest request that holds the current parameter.
 
     Returns:
-        tuple[list[int]]
+        The unsorted list for this test case.
     """
 
     return request.param

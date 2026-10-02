@@ -94,6 +94,7 @@ class TestInsertionSortProcessDataLogger:
         insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
         insertion_sort_test_step_data: InsertionSortStepValueObject,
     ) -> None:
+        """The last recorded array snapshot is the sorted result."""
         logger = insertion_sort_process_data_logger
         step_data = insertion_sort_test_step_data
         logger._record_step_data_to_algorithm_log(step_data)
@@ -107,6 +108,7 @@ class TestInsertionSortProcessDataLogger:
         self,
         insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
     ) -> None:
+        """An empty log must raise ``EmptyResultInProcessLogError``."""
         logger = insertion_sort_process_data_logger
 
         with pytest.raises(EmptyResultInProcessLogError, match=Messages.EMPTY_RESULT_IN_LOG):

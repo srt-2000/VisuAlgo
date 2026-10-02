@@ -1,4 +1,4 @@
-"""Unit tests for ``BinarySearch.search`` and ``BinarySearch.iter_steps``."""
+"""Unit tests for ``BinarySearch.iter_steps``."""
 
 import pytest
 

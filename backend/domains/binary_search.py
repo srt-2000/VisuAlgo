@@ -11,7 +11,9 @@ class BinarySearchStepValueObject:
 
     Attributes:
         left_index: Left edge of the current search window.
+        left_value: Value sitting at ``left_index``.
         right_index: Right edge of the current search window.
+        right_value: Value sitting at ``right_index``.
         mid_index: Index of the number we just checked.
         middle_value: Value at ``mid_index``.
         status: Whether mid is equal, greater, or less than ``target``.
@@ -31,8 +33,16 @@ class BinarySearchStepValueObject:
 @dataclass
 class BinarySearchAlgorithmLogDTO(BaseAlgorithmLogDTO):
     """Column-oriented log of one binary-search run.
-    Attributes:
 
+    Each list grows by one item every time the algorithm checks a middle value.
+
+    Attributes:
+        step_range: Window edges as text, for example ``"3 ... 9"``.
+        range_size: How many elements are still inside that window.
+        mid_index: Index checked on that step.
+        middle_value: Value at ``mid_index``.
+        status: How the middle value compared to the target.
+        target: Number we are looking for, repeated on every step.
     """
 
     step_range: list[str] = field(default_factory=list)

@@ -1,4 +1,4 @@
-"""Unit tests for ``InsertionSorter.sort`` and ``InsertionSorter.iter_steps``."""
+"""Unit tests for ``InsertionSorter.iter_steps``."""
 
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.constants import SortingStatus
@@ -55,6 +55,7 @@ class TestInsertionSortIterSteps:
         insertion_sorter: InsertionSorter,
         empty_list: list[int],
     ) -> None:
+        """An empty list yields one ready snapshot and does not invent numbers."""
         sorting_steps: list[InsertionSortStepValueObject] = list(insertion_sorter.iter_steps(empty_list))
         expected_array_len: int = 0
         expected_steps_quantity: int = 1

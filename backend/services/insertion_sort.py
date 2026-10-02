@@ -9,10 +9,10 @@ from backend.services.exceptions import EmptyResultInProcessLogError
 
 
 class InsertionSortProcessDataLogger:
-    """Run insertion sort and keep a human-readable log of each step.
+    """Run insertion sort and keep a readable log of each step.
 
     Attributes:
-        algorithm_log: Field name → list of values, one per step.
+        algorithm_log: One list per column. Each insertion appends one item.
     """
 
     def __init__(self, algorithm: InsertionSorter) -> None:
@@ -43,7 +43,7 @@ class InsertionSortProcessDataLogger:
         self,
         array: list[int],
     ) -> InsertionSortAlgorithmLogDTO:
-        """Sort ``array`` copy locally and return the filled step log.
+        """Sort a copy of ``array`` and return the filled step log.
 
         Clears any old log first.
 
@@ -51,7 +51,7 @@ class InsertionSortProcessDataLogger:
             array: List of ints to sort.
 
         Returns:
-            Log map: field name → list of per-step values.
+            The same log object, now filled with one entry per insertion.
         """
         self.algorithm_log.clear()
 
@@ -61,7 +61,16 @@ class InsertionSortProcessDataLogger:
         return self.algorithm_log
 
     def get_result_array_from_process_log(self) -> tuple[int, ...]:
-        """Get result sorted array from algorithm log."""
+        """Return the array snapshot from the last step in the log.
+
+        After a finished sort that snapshot is the sorted list.
+
+        Returns:
+            How the list looked after the final insertion.
+
+        Raises:
+            EmptyResultInProcessLogError: If the log has no steps yet.
+        """
         try:
             result_array: tuple[int, ...] = self.algorithm_log.result[-1]
         except IndexError:

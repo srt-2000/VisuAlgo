@@ -31,3 +31,4 @@ INDEXES_AND_STATUS_RESULTS: tuple[tuple[int, int, str], ...] = (
     (-1, 0, SortingStatus.SORTING),
     (-1, -1, SortingStatus.READY),
 )
+"""``(current index, last index, expected status)`` cases."""
