@@ -20,11 +20,11 @@ class TestBinarySearchIterSteps:
         self,
         binary_searcher: BinarySearch,
         test_case: tuple[list[int], int],
-        empty_list: list[int],
     ) -> None:
         """Each step must stay inside bounds and use the right status."""
         array, target = test_case
         steps: list[BinarySearchStepValueObject] = list(binary_searcher.iter_steps(array, target))
+        empty_list: list[BinarySearchStepValueObject] = []
 
         if not array:
             assert steps == empty_list

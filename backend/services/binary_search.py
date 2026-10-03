@@ -41,7 +41,7 @@ class BinarySearchProcessDataLogger:
         self.algorithm_log.range_size.append(
             f"{step_data.right_index - step_data.left_index + addition_to_full_range} {Fields.PIECES}"
         )
-        self.algorithm_log.mid_index.append(step_data.mid_index)
+        self.algorithm_log.middle_index.append(step_data.mid_index)
         self.algorithm_log.middle_value.append(step_data.middle_value)
         self.algorithm_log.status.append(step_data.status)
         self.algorithm_log.target.append(step_data.target)
@@ -88,13 +88,13 @@ class BinarySearchProcessDataLogger:
         Call this only once the log has at least one step.
 
         Returns:
-            ``mid_index`` from the last recorded step.
+            ``middle_index`` from the last recorded step.
 
         Raises:
             EmptyResultInProcessLogError: If the log has no steps yet.
         """
         try:
-            target_index: int = self.algorithm_log.mid_index[-1]
+            target_index: int = self.algorithm_log.middle_index[-1]
         except IndexError:
             logger.warning(Messages.EMPTY_RESULT_IN_LOG)
             raise EmptyResultInProcessLogError() from None

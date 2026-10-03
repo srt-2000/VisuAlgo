@@ -1,5 +1,6 @@
 """Pytest fixtures shared by algorithm unit tests."""
 
+
 import pytest
 
 from tests.algorithms.insertion_sort.cases import NOT_SORTED_ARRAYS
@@ -16,7 +17,7 @@ def sorted_filled_list_with_nine_elements() -> list[int]:
 
 
 @pytest.fixture(scope="function", params=NOT_SORTED_ARRAYS)
-def array(request) -> tuple[list[int], ...]:
+def array(request: pytest.FixtureRequest) -> list[int]:
     """Provide one unsorted list from ``NOT_SORTED_ARRAYS``.
 
     Args:
@@ -25,5 +26,6 @@ def array(request) -> tuple[list[int], ...]:
     Returns:
         The unsorted list for this test case.
     """
+    param: list[int] = request.param
 
-    return request.param
+    return param

@@ -9,7 +9,7 @@ TEST_TARGET: int = 3
 BINARY_SEARCH_EXPECTED_LOG_FIELDS = (
     "step_range",
     "range_size",
-    "mid_index",
+    "middle_index",
     "middle_value",
     "status",
     "target",

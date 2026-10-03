@@ -46,7 +46,7 @@ class TestBinarySearchProcessDataLogger:
 
         assert step_records.step_range == expected_step_range
         assert step_records.range_size == expected_range_size
-        assert step_records.mid_index == expected_middle_index
+        assert step_records.middle_index == expected_middle_index
         assert step_records.middle_value == expected_middle_element
         assert step_records.status == expected_status
         assert step_records.target == expected_target
@@ -81,7 +81,7 @@ class TestBinarySearchProcessDataLogger:
             TEST_TARGET,
         )
         end_status: str = process_data.status[-1]
-        middle_index_field_len = len(process_data.mid_index)
+        middle_index_field_len = len(process_data.middle_index)
         steps_quantity = len(list(searcher.iter_steps(BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET)))
 
         assert end_status == BinarySearchStatus.EQUAL
@@ -105,9 +105,9 @@ class TestBinarySearchProcessDataLogger:
         """A second successful search must replace the old log, not grow it."""
         logger = binary_search_process_data_logger
         first_log = logger.get_result_and_process_data(BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET)
-        first_log_len = len(first_log.mid_index)
+        first_log_len = len(first_log.middle_index)
         second_log = logger.get_result_and_process_data(BINARY_SEARCH_RECORD_TEST_ARRAY, TEST_TARGET)
-        second_log_len = len(second_log.mid_index)
+        second_log_len = len(second_log.middle_index)
         assert second_log_len == first_log_len
 
     def test_get_target_index_from_result(

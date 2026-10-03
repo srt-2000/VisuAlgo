@@ -1,5 +1,6 @@
-"""Parametrized limits for ``get_not_sorted_random_list`` tests."""
+"""Parametrized inputs for utils unit tests (random lists, status, keys)."""
 
+from typing import Any
 
 from backend.domains.constants import SortingStatus
 
@@ -32,3 +33,17 @@ INDEXES_AND_STATUS_RESULTS: tuple[tuple[int, int, str], ...] = (
     (-1, -1, SortingStatus.READY),
 )
 """``(current index, last index, expected status)`` cases."""
+
+UNDERSCORE_REMOVING_DATA_SET: tuple[dict[str, Any], ...] = (
+    {"with_underscore": [1, 2, 3]},
+    {"with no underscore": [1, 2, 3]},
+    {" ": [1, 2, 3]},
+    {"_": [1, 2, 3]},
+    {"0_1": [1, 2, 3]},
+    {
+        "s_S": [1, 2, 3],
+        "before_after on": [1, 2, 3],
+        "free teo get_ao": [1, 2, 3],
+    },
+)
+"""Dict samples for underscore-to-space key cleanup tests."""

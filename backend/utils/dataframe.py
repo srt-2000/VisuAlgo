@@ -4,8 +4,30 @@ from collections.abc import Iterable
 from typing import Any
 
 import pandas as pd
+
 from backend.domains.base import BaseAlgorithmLogDTO
 from backend.utils.constants import DataFrameLiterals
+
+
+def get_new_dict_with_removed_under_score_from_keys(array: dict[str, Any]) -> dict[str, Any]:
+    """Copy a dict and turn underscores in keys into spaces.
+
+    Useful before building a DataFrame: field names like ``middle_index``
+    become human-readable column titles like ``middle index``.
+
+    Args:
+        array: Source mapping. Values are kept as-is.
+
+    Returns:
+        New dict with the same values and cleaned keys.
+    """
+    new_dict: dict[str, Any] = {}
+
+    for key, value in array.items():
+        new_key: str = key.replace("_", " ")
+        new_dict[new_key] = value
+
+    return new_dict
 
 
 def get_dataframe_for_result_table(
@@ -23,6 +45,8 @@ def get_dataframe_for_result_table(
         Table ready to pass to ``st.table``.
     """
     serialized_data: dict[str, list[Any]] = data_for_dataframe.__dict__
+    serialized_data = get_new_dict_with_removed_under_score_from_keys(serialized_data)
+
     dataframe_for_table = pd.DataFrame(data=serialized_data)
     dataframe_range: Iterable[int] = range(1, len(dataframe_for_table) + 1)
 

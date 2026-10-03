@@ -39,15 +39,15 @@ class BinarySearchAlgorithmLogDTO(BaseAlgorithmLogDTO):
     Attributes:
         step_range: Window edges as text, for example ``"3 ... 9"``.
         range_size: How many elements are still inside that window.
-        mid_index: Index checked on that step.
-        middle_value: Value at ``mid_index``.
+        middle_index: Index checked on that step.
+        middle_value: Value checked on that step.
         status: How the middle value compared to the target.
         target: Number we are looking for, repeated on every step.
     """
 
     step_range: list[str] = field(default_factory=list)
     range_size: list[str] = field(default_factory=list)
-    mid_index: list[int] = field(default_factory=list)
+    middle_index: list[int] = field(default_factory=list)
     middle_value: list[int] = field(default_factory=list)
     status: list[str] = field(default_factory=list)
     target: list[int] = field(default_factory=list)
