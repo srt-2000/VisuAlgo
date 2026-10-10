@@ -6,7 +6,7 @@ from backend.algorithms.binary_search import BinarySearch
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.binary_search import BinarySearchStepValueObject
 from backend.domains.constants import BinarySearchStatus, SortingStatus
-from backend.domains.insertion_sort import InsertionSortStepValueObject
+from backend.domains.sorting import BaseSortStepValueObject
 from backend.services.binary_search import BinarySearchProcessDataLogger
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
 
@@ -63,13 +63,13 @@ def binary_search_test_step_data() -> BinarySearchStepValueObject:
 
 
 @pytest.fixture(scope="function")
-def insertion_sort_test_step_data() -> InsertionSortStepValueObject:
+def insertion_sort_test_step_data() -> BaseSortStepValueObject:
     """Provide one sample insertion-sort step for logger tests.
 
     Returns:
         Frozen step with fixed index, value, and ``SORTING`` status.
     """
-    step_data: InsertionSortStepValueObject = InsertionSortStepValueObject(
+    step_data: BaseSortStepValueObject = BaseSortStepValueObject(
         index=2,
         value=3,
         before=(2, 38, 3),

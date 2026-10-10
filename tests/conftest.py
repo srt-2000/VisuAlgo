@@ -5,6 +5,7 @@ from dataclasses import dataclass
 import pytest
 
 from backend.algorithms.binary_search import BinarySearch
+from backend.algorithms.bubble_sort import BubbleSorter
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.base import BaseAlgorithmLogDTO
 
@@ -17,6 +18,16 @@ def empty_list() -> list[int]:
         Empty list.
     """
     return []
+
+
+@pytest.fixture(scope="function")
+def one_element_array() -> list[int]:
+    """Provide a single-element list for edge-case tests.
+
+    Returns:
+        List with one int.
+    """
+    return [555]
 
 
 @pytest.fixture(scope="class")
@@ -37,6 +48,16 @@ def insertion_sorter() -> InsertionSorter:
         An insertion sort algorithm object.
     """
     return InsertionSorter()
+
+
+@pytest.fixture(scope="class")
+def bubble_sorter() -> BubbleSorter:
+    """Give tests one shared ``BubbleSorter`` instance.
+
+    Returns:
+        A bubble sort algorithm object.
+    """
+    return BubbleSorter()
 
 
 @dataclass

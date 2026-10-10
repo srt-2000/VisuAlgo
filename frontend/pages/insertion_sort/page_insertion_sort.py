@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit as st
 
 from backend.algorithms.insertion_sort import InsertionSorter
-from backend.domains.insertion_sort import InsertionSortAlgorithmLogDTO
+from backend.domains.sorting import BaseSortAlgorithmLogDTO
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
 from backend.utils.dataframe import get_dataframe_for_result_table
 from backend.utils.sorting import get_not_sorted_random_list
@@ -76,7 +76,7 @@ if st.session_state.not_sorted_array is not None:
         not_sorted_array_copy: list[int] = st.session_state.not_sorted_array.copy()
         insertion_sorting = InsertionSorter()
         process_logger = InsertionSortProcessDataLogger(algorithm=insertion_sorting)
-        process_data: InsertionSortAlgorithmLogDTO = process_logger.get_result_and_process_data(
+        process_data: BaseSortAlgorithmLogDTO = process_logger.get_result_and_process_data(
             array=not_sorted_array_copy,
         )
         sorted_array: tuple[int, ...] = process_logger.get_result_array_from_process_log()

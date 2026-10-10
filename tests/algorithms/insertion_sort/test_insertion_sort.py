@@ -2,10 +2,10 @@
 
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.constants import SortingStatus
-from backend.domains.insertion_sort import InsertionSortStepValueObject
+from backend.domains.sorting import BaseSortStepValueObject
 from tests.algorithms.insertion_sort.cases import (
-    INSERTION_SORT_DATA_SYNC_TEST,
     INSERTION_SORT_EXPECTED_DATA_SYNC_TEST,
+    SORT_DATA_SYNC_TEST,
 )
 
 
@@ -18,8 +18,7 @@ class TestInsertionSortIterSteps:
         array: list[int],
     ) -> None:
         """Each step must sort the current prefix and finish with a full sort."""
-        # array_copy = array.copy()
-        sorting_steps: list[InsertionSortStepValueObject] = list(insertion_sorter.iter_steps(array))
+        sorting_steps: list[BaseSortStepValueObject] = list(insertion_sorter.iter_steps(array))
         sorted_array: list[int] = list(sorting_steps[-1].result)
         expected_array_len: int = len(array)
         expected_steps_quantity: int = expected_array_len
@@ -56,7 +55,7 @@ class TestInsertionSortIterSteps:
         empty_list: list[int],
     ) -> None:
         """An empty list yields one ready snapshot and does not invent numbers."""
-        sorting_steps: list[InsertionSortStepValueObject] = list(insertion_sorter.iter_steps(empty_list))
+        sorting_steps: list[BaseSortStepValueObject] = list(insertion_sorter.iter_steps(empty_list))
         expected_array_len: int = 0
         expected_steps_quantity: int = 1
         expected_sorted_array: list[int] = []
@@ -64,7 +63,7 @@ class TestInsertionSortIterSteps:
         steps_quantity: int = len(sorting_steps)
         assert steps_quantity == expected_steps_quantity
 
-        step: InsertionSortStepValueObject = sorting_steps[0]
+        step: BaseSortStepValueObject = sorting_steps[0]
         assert step.index == 0
         assert step.value == 0
         assert isinstance(step.result, tuple)
@@ -79,10 +78,10 @@ class TestInsertionSortIterSteps:
         insertion_sorter: InsertionSorter,
     ) -> None:
         """Steps for a fixed case must match the golden expected list."""
-        array: list[int] = INSERTION_SORT_DATA_SYNC_TEST
+        array: list[int] = SORT_DATA_SYNC_TEST
         expected_sorted_array: list[int] = sorted(array)
-        expected_steps: list[InsertionSortStepValueObject] = INSERTION_SORT_EXPECTED_DATA_SYNC_TEST
-        steps_container: list[InsertionSortStepValueObject] = list(insertion_sorter.iter_steps(array))
+        expected_steps: list[BaseSortStepValueObject] = INSERTION_SORT_EXPECTED_DATA_SYNC_TEST
+        steps_container: list[BaseSortStepValueObject] = list(insertion_sorter.iter_steps(array))
         sorted_array: list[int] = list(steps_container[-1].result)
 
         assert steps_container == expected_steps

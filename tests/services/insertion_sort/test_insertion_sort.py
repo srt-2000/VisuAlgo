@@ -4,7 +4,7 @@ import pytest
 
 from backend.algorithms.insertion_sort import InsertionSorter
 from backend.domains.constants import SortingStatus
-from backend.domains.insertion_sort import InsertionSortAlgorithmLogDTO, InsertionSortStepValueObject
+from backend.domains.sorting import BaseSortAlgorithmLogDTO, BaseSortStepValueObject
 from backend.services.constants import Messages
 from backend.services.exceptions import EmptyResultInProcessLogError
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
@@ -20,13 +20,13 @@ class TestInsertionSortProcessDataLogger:
     def test_record_step_data(
         self,
         insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
-        insertion_sort_test_step_data: InsertionSortStepValueObject,
+        insertion_sort_test_step_data: BaseSortStepValueObject,
     ) -> None:
         """One recorded step must fill every log field with the right value."""
         logger = insertion_sort_process_data_logger
         step_data = insertion_sort_test_step_data
         logger._record_step_data_to_algorithm_log(step_data)
-        step_records: InsertionSortAlgorithmLogDTO = logger.algorithm_log
+        step_records: BaseSortAlgorithmLogDTO = logger.algorithm_log
         expected_index: list[int] = [int(step_data.index)]
         expected_value: list[int] = [int(step_data.value)]
         expected_before: list[tuple[int, ...]] = [step_data.before]
@@ -42,7 +42,7 @@ class TestInsertionSortProcessDataLogger:
     def test_record_step_data_appends(
         self,
         insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
-        insertion_sort_test_step_data: InsertionSortStepValueObject,
+        insertion_sort_test_step_data: BaseSortStepValueObject,
     ) -> None:
         """Two records must append values, not overwrite earlier ones."""
         logger = insertion_sort_process_data_logger
@@ -66,7 +66,7 @@ class TestInsertionSortProcessDataLogger:
         logger = insertion_sort_process_data_logger
         sorter = insertion_sorter
         array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
-        process_data: InsertionSortAlgorithmLogDTO = logger.get_result_and_process_data(array)
+        process_data: BaseSortAlgorithmLogDTO = logger.get_result_and_process_data(array)
         end_status: str = process_data.status[-1]
         result_steps_quantity = len(process_data.index)
         expected_steps_quantity = len(list(sorter.iter_steps(INSERTION_SORT_RECORD_TEST_ARRAY)))
@@ -82,8 +82,8 @@ class TestInsertionSortProcessDataLogger:
         logger = insertion_sort_process_data_logger
         first_array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
         second_array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
-        first_log: InsertionSortAlgorithmLogDTO = logger.get_result_and_process_data(first_array)
-        second_log: InsertionSortAlgorithmLogDTO = logger.get_result_and_process_data(second_array)
+        first_log: BaseSortAlgorithmLogDTO = logger.get_result_and_process_data(first_array)
+        second_log: BaseSortAlgorithmLogDTO = logger.get_result_and_process_data(second_array)
         first_log_len = len(first_log.value)
         second_log_len = len(second_log.value)
 
@@ -92,7 +92,7 @@ class TestInsertionSortProcessDataLogger:
     def test_get_result_array_from_process_log(
         self,
         insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
-        insertion_sort_test_step_data: InsertionSortStepValueObject,
+        insertion_sort_test_step_data: BaseSortStepValueObject,
     ) -> None:
         """The last recorded array snapshot is the sorted result."""
         logger = insertion_sort_process_data_logger

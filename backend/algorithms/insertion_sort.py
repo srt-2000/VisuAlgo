@@ -3,15 +3,15 @@
 from collections.abc import Iterator
 
 from backend.domains.constants import SortingStatus
-from backend.domains.insertion_sort import InsertionSortStepValueObject
-from backend.utils.sorting import get_current_sorting_status
+from backend.domains.sorting import BaseSortStepValueObject
+from backend.utils.sorting import get_current_sort_status
 
 
 class InsertionSorter:
     """Sort a list copy by insertion sort and expose step snapshots."""
 
     @staticmethod
-    def iter_steps(array: list[int] | None) -> Iterator[InsertionSortStepValueObject]:
+    def iter_steps(array: list[int] | None) -> Iterator[BaseSortStepValueObject]:
         """Yield one snapshot after each value is placed.
 
         The sort works on a copy, so the caller's list stays unchanged.
@@ -25,7 +25,7 @@ class InsertionSorter:
         """
 
         if not array:
-            yield InsertionSortStepValueObject(
+            yield BaseSortStepValueObject(
                 index=0,
                 value=0,
                 before=(),
@@ -45,12 +45,12 @@ class InsertionSorter:
                 check_index -= 1
 
             array_copy[check_index + 1] = current_value
-            current_status = get_current_sorting_status(
+            current_status: str = get_current_sort_status(
                 iter_position=current_index,
                 array_last_index=len(array_copy) - 1,
             )
 
-            yield InsertionSortStepValueObject(
+            yield BaseSortStepValueObject(
                 index=current_index,
                 value=current_value,
                 before=tuple(before_state),

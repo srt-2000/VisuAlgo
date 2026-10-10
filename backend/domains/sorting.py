@@ -6,8 +6,8 @@ from backend.domains.base import BaseAlgorithmLogDTO
 
 
 @dataclass(frozen=True, slots=True)
-class InsertionSortStepValueObject:
-    """One frozen photo of an insertion-sort step.
+class BaseSortStepValueObject:
+    """One frozen photo of a sort step.
 
     Attributes:
         index: Where we are looking right now.
@@ -25,8 +25,8 @@ class InsertionSortStepValueObject:
 
 
 @dataclass
-class InsertionSortAlgorithmLogDTO(BaseAlgorithmLogDTO):
-    """Column-oriented log of one insertion-sort run.
+class BaseSortAlgorithmLogDTO(BaseAlgorithmLogDTO):
+    """Column-oriented log of one sort run.
 
     Each list grows by one item every time a value is inserted.
 

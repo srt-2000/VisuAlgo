@@ -3,7 +3,7 @@
 from loguru import logger
 
 from backend.algorithms.insertion_sort import InsertionSorter
-from backend.domains.insertion_sort import InsertionSortAlgorithmLogDTO, InsertionSortStepValueObject
+from backend.domains.sorting import BaseSortAlgorithmLogDTO, BaseSortStepValueObject
 from backend.services.constants import Messages
 from backend.services.exceptions import EmptyResultInProcessLogError
 
@@ -22,11 +22,11 @@ class InsertionSortProcessDataLogger:
             algorithm: Engine that yields step snapshots via ``iter_steps``.
         """
         self._algorithm_engine = algorithm
-        self.algorithm_log = InsertionSortAlgorithmLogDTO()
+        self.algorithm_log = BaseSortAlgorithmLogDTO()
 
     def _record_step_data_to_algorithm_log(
         self,
-        step_data: InsertionSortStepValueObject,
+        step_data: BaseSortStepValueObject,
     ) -> None:
         """Append one step's fields into ``algorithm_log``.
 
@@ -42,7 +42,7 @@ class InsertionSortProcessDataLogger:
     def get_result_and_process_data(
         self,
         array: list[int],
-    ) -> InsertionSortAlgorithmLogDTO:
+    ) -> BaseSortAlgorithmLogDTO:
         """Sort a copy of ``array`` and return the filled step log.
 
         Clears any old log first.

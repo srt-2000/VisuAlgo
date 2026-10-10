@@ -32,7 +32,7 @@ def get_not_sorted_random_list(
     return random_list
 
 
-def get_current_sorting_status(iter_position: int, array_last_index: int) -> str:
+def get_current_sort_status(iter_position: int, array_last_index: int) -> str:
     """Say whether this step is still sorting or already the last one.
 
     Args:
