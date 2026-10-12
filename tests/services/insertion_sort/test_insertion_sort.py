@@ -8,10 +8,7 @@ from backend.domains.sorting import BaseSortAlgorithmLogDTO, BaseSortStepValueOb
 from backend.services.constants import Messages
 from backend.services.exceptions import EmptyResultInProcessLogError
 from backend.services.insertion_sort import InsertionSortProcessDataLogger
-from tests.services.insertion_sort.cases import (
-    INSERTION_SORT_EXPECTED_LOG_FIELDS,
-    INSERTION_SORT_RECORD_TEST_ARRAY,
-)
+from tests.services.insertion_sort.cases import INSERTION_SORT_RECORD_TEST_ARRAY
 
 
 class TestInsertionSortProcessDataLogger:
@@ -27,11 +24,11 @@ class TestInsertionSortProcessDataLogger:
         step_data = insertion_sort_test_step_data
         logger._record_step_data_to_algorithm_log(step_data)
         step_records: BaseSortAlgorithmLogDTO = logger.algorithm_log
-        expected_index: list[int] = [int(step_data.index)]
-        expected_value: list[int] = [int(step_data.value)]
+        expected_index: list[int] = [step_data.index]
+        expected_value: list[int] = [step_data.value]
         expected_before: list[tuple[int, ...]] = [step_data.before]
         expected_result: list[tuple[int, ...]] = [step_data.result]
-        expected_status: list[str] = [str(step_data.status)]
+        expected_status: list[str] = [step_data.status]
 
         assert step_records.index == expected_index
         assert step_records.value == expected_value
@@ -43,6 +40,7 @@ class TestInsertionSortProcessDataLogger:
         self,
         insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
         insertion_sort_test_step_data: BaseSortStepValueObject,
+        expected_log_fields: tuple[str, ...],
     ) -> None:
         """Two records must append values, not overwrite earlier ones."""
         logger = insertion_sort_process_data_logger
@@ -52,12 +50,12 @@ class TestInsertionSortProcessDataLogger:
         for _ in range(test_range):
             logger._record_step_data_to_algorithm_log(step_data)
 
-        for field in INSERTION_SORT_EXPECTED_LOG_FIELDS:
+        for field in expected_log_fields:
             field_len: int = len(getattr(logger.algorithm_log, field))
 
             assert field_len == test_range
 
-    def test_sort_and_get_process_data(
+    def test_get_result_and_process_data(
         self,
         insertion_sort_process_data_logger: InsertionSortProcessDataLogger,
         insertion_sorter: InsertionSorter,

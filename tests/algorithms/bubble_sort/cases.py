@@ -1,3 +1,5 @@
+"""Sample inputs and expected steps for bubble-sort algorithm tests."""
+
 from random import randint
 
 from backend.domains.constants import SortingStatus
@@ -24,4 +26,4 @@ BUBBLE_SORT_EXPECTED_DATA_SYNC_TEST: list[BaseSortStepValueObject] = [
     BaseSortStepValueObject(1, 3, (1, 3, 2, 5), (1, 2, 3, 5), SortingStatus.SORTING),
     BaseSortStepValueObject(0, 1, (1, 2, 3, 5), (1, 2, 3, 5), SortingStatus.READY),
 ]
-"""Exact steps expected for ``BUBBLE_SORT_DATA_SYNC_TEST``."""
+"""Exact steps expected for ``BUBLE_SORT_DATA_SYNC_TEST``."""

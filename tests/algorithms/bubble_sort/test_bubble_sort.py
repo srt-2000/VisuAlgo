@@ -23,7 +23,7 @@ class TestBubbleSortIterSteps:
         expected_sorted_array: list[int] = sorted(array)
         result_steps_quantity: int = len(result_sorting_steps)
 
-        assert result_steps_quantity <= expected_steps_quantity
+        assert result_steps_quantity == expected_steps_quantity
 
         for current_step_index, step in enumerate(result_sorting_steps):
             current_element_index: int = step.index
