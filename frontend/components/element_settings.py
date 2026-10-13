@@ -11,6 +11,7 @@ class LeftNavigationTitle(StrEnum):
     ABOUT = "About"
     BINARY_SEARCH = "Binary Search"
     INSERTION_SORT = "Insertion Sort"
+    BUBBLE_SORT = "Bubble Sort"
 
 
 pages_paths = st.secrets.project_pages_paths

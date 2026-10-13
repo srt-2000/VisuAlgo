@@ -10,6 +10,7 @@ class PageTitle(StrEnum):
     ABOUT = "About Visualgo"
     BINARY_SEARCH_ALGORITHM = "Binary Search Algorithm"
     INSERTION_SORT_ALGORITHM = "Insertion Sort Algorithm"
+    BUBBLE_SORT_ALGORITHM = "Bubble Sort Algorithm"
 
 
 class Icon(StrEnum):

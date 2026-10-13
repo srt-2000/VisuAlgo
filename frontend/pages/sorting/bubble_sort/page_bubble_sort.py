@@ -1,17 +1,17 @@
-"""Streamlit page: build a random list and sort it with insertion sort."""
+"""Streamlit page: build a random list and sort it with bubble sort."""
 
 import pandas as pd
 import streamlit as st
 
-from backend.algorithms.insertion_sort import InsertionSorter
+from backend.algorithms.bubble_sort import BubbleSorter
 from backend.domains.sorting import BaseSortAlgorithmLogDTO
-from backend.services.insertion_sort import InsertionSortProcessDataLogger
+from backend.services.bubble_sort import BubbleSortProcessDataLogger
 from backend.utils.dataframe import get_dataframe_for_result_table
 from backend.utils.sorting import get_not_sorted_random_list
 from frontend.element_settings import Icon, PageTitle, SliderLiteral, TableBorderLiteral
-from frontend.pages.insertion_sort.constants import Fields, Messages
-from frontend.pages.insertion_sort.content import PageContent
-from frontend.pages.insertion_sort.element_settings import (
+from frontend.pages.sorting.bubble_sort.content import PageContent
+from frontend.pages.sorting.constants import Fields, Messages
+from frontend.pages.sorting.element_settings import (
     Button,
     Columns,
     Header,
@@ -21,7 +21,7 @@ from frontend.pages.insertion_sort.element_settings import (
     RightColumnSliderStr,
 )
 
-st.set_page_config(page_title=PageTitle.INSERTION_SORT_ALGORITHM)
+st.set_page_config(page_title=PageTitle.BUBBLE_SORT_ALGORITHM)
 
 if Fields.NOT_SORTED_ARRAY not in st.session_state:
     st.session_state.not_sorted_array = None
@@ -30,9 +30,9 @@ if Fields.SORTED_ARRAY not in st.session_state:
 if Fields.PROCESS_DATA not in st.session_state:
     st.session_state.process_data = None
 
-st.header(body=Header.INSERTION_SORT, divider=Header.DIVIDER)
+st.header(body=Header.BUBBLE_SORT, divider=Header.BUBBLE_SORT_HEADER_DIVIDER)
 
-st.markdown(body=PageContent.INSERTION_SORT_WELCOME)
+st.markdown(body=PageContent.BUBBLE_SORT_WELCOME)
 
 left_column, right_column = st.columns(spec=Columns.RANDOM_LIST_DATA_COLUMNS_QUANTITY)
 
@@ -74,8 +74,8 @@ if st.session_state.not_sorted_array is not None:
 
     if sorted_column.button(label=Button.LABEL_SORT_IT):
         not_sorted_array_copy: list[int] = st.session_state.not_sorted_array.copy()
-        insertion_sorting = InsertionSorter()
-        process_logger = InsertionSortProcessDataLogger(algorithm=insertion_sorting)
+        insertion_sorting = BubbleSorter()
+        process_logger = BubbleSortProcessDataLogger(algorithm=insertion_sorting)
         process_data: BaseSortAlgorithmLogDTO = process_logger.get_result_and_process_data(
             array=not_sorted_array_copy,
         )
@@ -84,7 +84,7 @@ if st.session_state.not_sorted_array is not None:
         st.session_state.sorted_array = sorted_array
         st.session_state.process_data = process_data
 
-        st.snow()
+        st.balloons()
 
 if (st.session_state.sorted_array and st.session_state.process_data) is not None:
     sorted_column.success(body=Messages.SORTED_ARRAY, icon=Icon.DONE_OUTLINE)

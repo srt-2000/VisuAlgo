@@ -1,4 +1,4 @@
-"""UI labels and widget defaults for the insertion-sort page."""
+"""UI labels and widget defaults for the sorting pages."""
 
 from enum import IntEnum, StrEnum
 
@@ -7,7 +7,9 @@ class Header(StrEnum):
     """Page header text and divider color."""
 
     INSERTION_SORT = "INSERTION SORT"
-    DIVIDER = "yellow"
+    BUBBLE_SORT = "BUBBLE SORT"
+    INSERTION_SORT_HEADER_DIVIDER = "yellow"
+    BUBBLE_SORT_HEADER_DIVIDER = "violet"
 
 
 class Columns(IntEnum):

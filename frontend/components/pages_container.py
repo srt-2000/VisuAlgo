@@ -28,6 +28,12 @@ class PagesContainer:
         icon=Icon.SORT,
     )
 
+    bubble_sort: StreamlitPage = streamlit.Page(
+        page=pages_paths.BUBBLE_SORT,
+        title=LeftNavigationTitle.BUBBLE_SORT,
+        icon=Icon.SORT,
+    )
+
     @classmethod
     def get_pages(cls) -> list[StreamlitPage]:
         """Return all page objects registered on this class.
