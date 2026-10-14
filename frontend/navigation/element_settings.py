@@ -14,5 +14,13 @@ class LeftNavigationTitle(StrEnum):
     BUBBLE_SORT = "Bubble Sort"
 
 
+class LeftNavigationSubMenuNames(StrEnum):
+    """Section titles that group pages in the left sidebar."""
+
+    EMPTY = ""
+    SEARCHING = "Searching"
+    SORTING = "Sorting"
+
+
 pages_paths = st.secrets.project_pages_paths
 """File paths of sidebar pages, loaded from Streamlit secrets."""

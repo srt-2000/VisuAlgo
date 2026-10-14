@@ -1,4 +1,4 @@
-"""Session keys and short labels for the insertion-sort page."""
+"""Session keys and short labels shared by sorting pages."""
 
 from enum import StrEnum
 

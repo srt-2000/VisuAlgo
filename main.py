@@ -3,9 +3,9 @@
 import streamlit as st
 from streamlit.navigation.page import StreamlitPage
 
-from frontend.components.pages_container import PagesContainer
+from frontend.navigation.navigation_fabric import get_pages_container
 
-pages: list[StreamlitPage] = PagesContainer.get_pages()
+pages: dict[str, list[StreamlitPage]] = get_pages_container()
 app_start_page: StreamlitPage = st.navigation(pages)
 
 if __name__ == "__main__":

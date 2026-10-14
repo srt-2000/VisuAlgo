@@ -13,7 +13,7 @@ NOT_SORTED_ARRAYS: tuple[list[int], ...] = (
     [1],
     [randint(i, 100) for i in range(1, 101)],
 )
-"""Lists used to check that ``iter_steps`` behave correctly."""
+"""Lists used to check that ``iter_steps`` behaves correctly."""
 
 SORT_DATA_SYNC_TEST: list[int] = [1, 3, 2, 5]
 """Fixed list for the insertion-sort golden step sequence."""

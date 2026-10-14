@@ -13,7 +13,7 @@ NOT_SORTED_ARRAYS_WITH_TWO_ELEMENTS_AND_MORE: tuple[list[int], ...] = (
     [5, 2, 3, 5, 10, 10, 3],
     [randint(i, 100) for i in range(1, 101)],
 )
-"""Lists of length 2+ used to check that ``iter_steps`` behave correctly."""
+"""Lists of length 2+ used to check that ``iter_steps`` behaves correctly."""
 
 BUBLE_SORT_DATA_SYNC_TEST: list[int] = [5, 3, 1, 2]
 """Fixed list for the bubble-sort golden step sequence."""

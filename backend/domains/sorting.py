@@ -28,11 +28,11 @@ class BaseSortStepValueObject:
 class BaseSortAlgorithmLogDTO(BaseAlgorithmLogDTO):
     """Column-oriented log of one sort run.
 
-    Each list grows by one item every time a value is inserted.
+    Each list grows by one item every time the sorter yields a step.
 
     Attributes:
         index: Cursor index at each step.
-        value: Value being inserted at each step.
+        value: Value touched on that step.
         before: How the list looked before this move.
         result: How the list looks after this move.
         status: ``sorting`` while work remains, ``ready`` on the last step.
