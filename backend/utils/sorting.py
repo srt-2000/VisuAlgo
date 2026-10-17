@@ -32,18 +32,20 @@ def get_not_sorted_random_list(
     return random_list
 
 
-def get_current_sort_status(iter_position: int, array_last_index: int) -> str:
+def get_current_sort_status(iter_position: int, max_pass_index: int) -> str:
     """Say whether this step is still sorting or already the last one.
 
     Args:
         iter_position: Index of the step we just finished.
-        array_last_index: Last valid index in the array.
+        max_pass_index: Last pass index for this algorithm (may differ
+            between bubble, insertion, and selection).
 
     Returns:
-        ``ready`` when ``iter_position`` is the last index, otherwise ``sorting``.
+        ``ready`` when ``iter_position`` is the last pass, otherwise
+        ``sorting``.
     """
 
-    if iter_position == array_last_index:
+    if iter_position == max_pass_index:
         current_status: str = SortingStatus.READY
     else:
         current_status = SortingStatus.SORTING

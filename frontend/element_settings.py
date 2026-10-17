@@ -11,6 +11,7 @@ class PageTitle(StrEnum):
     BINARY_SEARCH_ALGORITHM = "Binary Search Algorithm"
     INSERTION_SORT_ALGORITHM = "Insertion Sort Algorithm"
     BUBBLE_SORT_ALGORITHM = "Bubble Sort Algorithm"
+    SELECTION_SORT_ALGORITHM = "Selection Sort Algorithm"
 
 
 class Icon(StrEnum):

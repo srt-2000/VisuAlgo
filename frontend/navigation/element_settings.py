@@ -12,6 +12,7 @@ class LeftNavigationTitle(StrEnum):
     BINARY_SEARCH = "Binary Search"
     INSERTION_SORT = "Insertion Sort"
     BUBBLE_SORT = "Bubble Sort"
+    SELECTION_SORT = "Selection Sort"
 
 
 class LeftNavigationSubMenuNames(StrEnum):

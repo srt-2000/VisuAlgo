@@ -35,6 +35,7 @@ class InsertionSorter:
             return
 
         array_copy: list[int] = array.copy()
+
         for current_index in range(0, len(array_copy)):
             current_value: int = array_copy[current_index]
             check_index: int = current_index - 1
@@ -47,7 +48,7 @@ class InsertionSorter:
             array_copy[check_index + 1] = current_value
             current_status: str = get_current_sort_status(
                 iter_position=current_index,
-                array_last_index=len(array_copy) - 1,
+                max_pass_index=len(array_copy) - 1,
             )
 
             yield BaseSortStepValueObject(

@@ -2,7 +2,7 @@
 
 from loguru import logger
 
-from backend.algorithms.bubble_sort import BubbleSorter
+from backend.algorithms.sorting.bubble import BubbleSorter
 from backend.domains.sorting import BaseSortAlgorithmLogDTO, BaseSortStepValueObject
 from backend.services.constants import Messages
 from backend.services.exceptions import EmptyResultInProcessLogError

@@ -2,13 +2,13 @@
 
 import pytest
 
-from backend.algorithms.insertion_sort import InsertionSorter
+from backend.algorithms.sorting.insertion import InsertionSorter
 from backend.domains.constants import SortingStatus
 from backend.domains.sorting import BaseSortAlgorithmLogDTO, BaseSortStepValueObject
 from backend.services.constants import Messages
 from backend.services.exceptions import EmptyResultInProcessLogError
-from backend.services.insertion_sort import InsertionSortProcessDataLogger
-from tests.services.insertion_sort.cases import INSERTION_SORT_RECORD_TEST_ARRAY
+from backend.services.sorting.insertion import InsertionSortProcessDataLogger
+from tests.services.sorting.cases import SORT_RECORD_TEST_ARRAY
 
 
 class TestInsertionSortProcessDataLogger:
@@ -63,11 +63,11 @@ class TestInsertionSortProcessDataLogger:
         """Finished sort ends with READY; log length matches ``iter_steps``."""
         logger = insertion_sort_process_data_logger
         sorter = insertion_sorter
-        array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
+        array: list[int] = SORT_RECORD_TEST_ARRAY.copy()
         process_data: BaseSortAlgorithmLogDTO = logger.get_result_and_process_data(array)
         end_status: str = process_data.status[-1]
         result_steps_quantity = len(process_data.index)
-        expected_steps_quantity = len(list(sorter.iter_steps(INSERTION_SORT_RECORD_TEST_ARRAY)))
+        expected_steps_quantity = len(list(sorter.iter_steps(SORT_RECORD_TEST_ARRAY)))
 
         assert end_status == SortingStatus.READY
         assert result_steps_quantity == expected_steps_quantity
@@ -78,8 +78,8 @@ class TestInsertionSortProcessDataLogger:
     ) -> None:
         """A second sort must replace the old log, not grow it."""
         logger = insertion_sort_process_data_logger
-        first_array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
-        second_array: list[int] = INSERTION_SORT_RECORD_TEST_ARRAY.copy()
+        first_array: list[int] = SORT_RECORD_TEST_ARRAY.copy()
+        second_array: list[int] = SORT_RECORD_TEST_ARRAY.copy()
         first_log: BaseSortAlgorithmLogDTO = logger.get_result_and_process_data(first_array)
         second_log: BaseSortAlgorithmLogDTO = logger.get_result_and_process_data(second_array)
         first_log_len = len(first_log.value)

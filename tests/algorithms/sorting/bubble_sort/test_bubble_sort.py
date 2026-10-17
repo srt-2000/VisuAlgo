@@ -1,9 +1,9 @@
 """Unit tests for ``BubbleSorter.iter_steps``."""
 
-from backend.algorithms.bubble_sort import BubbleSorter
+from backend.algorithms.sorting.bubble import BubbleSorter
 from backend.domains.constants import SortingStatus
 from backend.domains.sorting import BaseSortStepValueObject
-from tests.algorithms.bubble_sort.cases import BUBBLE_SORT_EXPECTED_DATA_SYNC_TEST, BUBLE_SORT_DATA_SYNC_TEST
+from tests.algorithms.sorting.bubble_sort.cases import EXPECTED_DATA_SYNC_TEST, INPUT_DATA_SYNC_TEST
 
 
 class TestBubbleSortIterSteps:
@@ -12,10 +12,10 @@ class TestBubbleSortIterSteps:
     def test_iter_steps_not_empty_invariants(
         self,
         bubble_sorter: BubbleSorter,
-        array_with_two_and_more_elements: list[int],
+        not_sorted_array_with_two_and_more_elements: list[int],
     ) -> None:
         """Each step must sort the current prefix and finish with a full sort."""
-        array: list[int] = array_with_two_and_more_elements
+        array: list[int] = not_sorted_array_with_two_and_more_elements
         result_sorting_steps: list[BaseSortStepValueObject] = list(bubble_sorter.iter_steps(array))
         result_array_after_sort: list[int] = list(result_sorting_steps[-1].result)
         expected_array_len: int = len(array)
@@ -109,9 +109,9 @@ class TestBubbleSortIterSteps:
         bubble_sorter: BubbleSorter,
     ) -> None:
         """Steps for a fixed case must match the golden expected list."""
-        array: list[int] = BUBLE_SORT_DATA_SYNC_TEST
+        array: list[int] = INPUT_DATA_SYNC_TEST
         expected_sorted_array: list[int] = sorted(array)
-        expected_steps: list[BaseSortStepValueObject] = BUBBLE_SORT_EXPECTED_DATA_SYNC_TEST
+        expected_steps: list[BaseSortStepValueObject] = EXPECTED_DATA_SYNC_TEST
         steps_container: list[BaseSortStepValueObject] = list(bubble_sorter.iter_steps(array))
         sorted_array: list[int] = list(steps_container[-1].result)
 

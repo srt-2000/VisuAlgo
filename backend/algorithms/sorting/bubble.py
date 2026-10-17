@@ -49,7 +49,6 @@ class BubbleSorter:
                 result=(one_step_value,),
                 status=SortingStatus.READY,
             )
-            return
 
         for pass_index in range(n - 1):
             for current_index in range(n - 1 - pass_index):
@@ -68,7 +67,7 @@ class BubbleSorter:
                 current_result_state: tuple[int, ...] = tuple(array_copy)
                 current_status: str = get_current_sort_status(
                     iter_position=pass_index,
-                    array_last_index=final_pass_index,
+                    max_pass_index=final_pass_index,
                 )
 
                 yield BaseSortStepValueObject(

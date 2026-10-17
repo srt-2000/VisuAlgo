@@ -3,13 +3,13 @@
 import pandas as pd
 import streamlit as st
 
-from backend.algorithms.bubble_sort import BubbleSorter
+from backend.algorithms.sorting.bubble import BubbleSorter
 from backend.domains.sorting import BaseSortAlgorithmLogDTO
-from backend.services.bubble_sort import BubbleSortProcessDataLogger
+from backend.services.sorting.bubble import BubbleSortProcessDataLogger
 from backend.utils.dataframe import get_dataframe_for_result_table
 from backend.utils.sorting import get_not_sorted_random_list
 from frontend.element_settings import Icon, PageTitle, SliderLiteral, TableBorderLiteral
-from frontend.pages.sorting.bubble_sort.content import PageContent
+from frontend.pages.sorting.bubble.content import PageContent
 from frontend.pages.sorting.constants import Fields, Messages
 from frontend.pages.sorting.element_settings import (
     Button,

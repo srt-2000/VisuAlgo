@@ -1,11 +1,11 @@
-"""Streamlit page: build a random list and sort it with insertion sort."""
+"""Streamlit page: build a random list and sort it with selection sort."""
 
 import pandas as pd
 import streamlit as st
 
-from backend.algorithms.insertion_sort import InsertionSorter
+from backend.algorithms.sorting.selection import SelectionSorter
 from backend.domains.sorting import BaseSortAlgorithmLogDTO
-from backend.services.insertion_sort import InsertionSortProcessDataLogger
+from backend.services.sorting.selection import SelectionSortProcessDataLogger
 from backend.utils.dataframe import get_dataframe_for_result_table
 from backend.utils.sorting import get_not_sorted_random_list
 from frontend.element_settings import Icon, PageTitle, SliderLiteral, TableBorderLiteral
@@ -19,9 +19,9 @@ from frontend.pages.sorting.element_settings import (
     RightColumnSliderInt,
     RightColumnSliderStr,
 )
-from frontend.pages.sorting.insertion_sort.content import PageContent
+from frontend.pages.sorting.selection.content import PageContent
 
-st.set_page_config(page_title=PageTitle.INSERTION_SORT_ALGORITHM)
+st.set_page_config(page_title=PageTitle.SELECTION_SORT_ALGORITHM)
 
 if Fields.NOT_SORTED_ARRAY not in st.session_state:
     st.session_state.not_sorted_array = None
@@ -30,9 +30,9 @@ if Fields.SORTED_ARRAY not in st.session_state:
 if Fields.PROCESS_DATA not in st.session_state:
     st.session_state.process_data = None
 
-st.header(body=Header.INSERTION_SORT, divider=Header.INSERTION_SORT_HEADER_DIVIDER)
+st.header(body=Header.SELECTION_SORT, divider=Header.SELECTION_SORT_HEADER_DIVIDER)
 
-st.markdown(body=PageContent.INSERTION_SORT_WELCOME)
+st.markdown(body=PageContent.SELECTION_SORT_WELCOME)
 
 left_column, right_column = st.columns(spec=Columns.RANDOM_LIST_DATA_COLUMNS_QUANTITY)
 
@@ -74,8 +74,8 @@ if st.session_state.not_sorted_array is not None:
 
     if sorted_column.button(label=Button.LABEL_SORT_IT):
         not_sorted_array_copy: list[int] = st.session_state.not_sorted_array.copy()
-        insertion_sorting = InsertionSorter()
-        process_logger = InsertionSortProcessDataLogger(algorithm=insertion_sorting)
+        selection_sorting = SelectionSorter()
+        process_logger = SelectionSortProcessDataLogger(algorithm=selection_sorting)
         process_data: BaseSortAlgorithmLogDTO = process_logger.get_result_and_process_data(
             array=not_sorted_array_copy,
         )

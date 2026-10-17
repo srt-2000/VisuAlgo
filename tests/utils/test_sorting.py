@@ -46,7 +46,7 @@ class TestGetCurrentSortingStatus:
     def test_all_invariants(self, test_invariants: tuple[int, int, str]) -> None:
         """The last index is ``ready``; every earlier index is still ``sorting``."""
         iter_position, array_last_index, expected_status = test_invariants
-        status: str = get_current_sort_status(iter_position=iter_position, array_last_index=array_last_index)
+        status: str = get_current_sort_status(iter_position=iter_position, max_pass_index=array_last_index)
 
         assert status == expected_status
         assert isinstance(status, str)

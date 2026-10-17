@@ -2,7 +2,7 @@
 
 from loguru import logger
 
-from backend.algorithms.insertion_sort import InsertionSorter
+from backend.algorithms.sorting.insertion import InsertionSorter
 from backend.domains.sorting import BaseSortAlgorithmLogDTO, BaseSortStepValueObject
 from backend.services.constants import Messages
 from backend.services.exceptions import EmptyResultInProcessLogError

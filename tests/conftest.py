@@ -5,8 +5,9 @@ from dataclasses import dataclass
 import pytest
 
 from backend.algorithms.binary_search import BinarySearch
-from backend.algorithms.bubble_sort import BubbleSorter
-from backend.algorithms.insertion_sort import InsertionSorter
+from backend.algorithms.sorting.bubble import BubbleSorter
+from backend.algorithms.sorting.insertion import InsertionSorter
+from backend.algorithms.sorting.selection import SelectionSorter
 from backend.domains.base import BaseAlgorithmLogDTO
 
 
@@ -58,6 +59,16 @@ def bubble_sorter() -> BubbleSorter:
         A bubble sort algorithm object.
     """
     return BubbleSorter()
+
+
+@pytest.fixture(scope="class")
+def selection_sorter() -> SelectionSorter:
+    """Give tests one shared ``SelectionSorter`` instance.
+
+    Returns:
+        A selection sort algorithm object.
+    """
+    return SelectionSorter()
 
 
 @dataclass
