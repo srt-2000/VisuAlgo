@@ -7,6 +7,7 @@ import pytest
 from backend.algorithms.binary_search import BinarySearch
 from backend.algorithms.sorting.bubble import BubbleSorter
 from backend.algorithms.sorting.insertion import InsertionSorter
+from backend.algorithms.sorting.quick import QuickSorter
 from backend.algorithms.sorting.selection import SelectionSorter
 from backend.domains.base import BaseAlgorithmLogDTO
 
@@ -69,6 +70,16 @@ def selection_sorter() -> SelectionSorter:
         A selection sort algorithm object.
     """
     return SelectionSorter()
+
+
+@pytest.fixture(scope="class")
+def quick_sorter() -> QuickSorter:
+    """Give tests one shared ``QuickSorter`` instance.
+
+    Returns:
+        A quick sort algorithm object.
+    """
+    return QuickSorter()
 
 
 @dataclass

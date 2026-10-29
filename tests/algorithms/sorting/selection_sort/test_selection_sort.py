@@ -17,7 +17,7 @@ class TestSelectionSortIterSteps:
         selection_sorter: SelectionSorter,
         not_sorted_array_with_two_and_more_elements: list[int],
     ) -> None:
-        """Each step must sort the current prefix and finish with a full sort."""
+        """Each step grows the sorted prefix; the last step must be fully sorted."""
         array: list[int] = not_sorted_array_with_two_and_more_elements
         result_sorting_steps: list[BaseSortStepValueObject] = list(selection_sorter.iter_steps(array))
         result_array_after_sort: list[int] = list(result_sorting_steps[-1].result)

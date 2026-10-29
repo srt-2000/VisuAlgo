@@ -43,3 +43,47 @@ class BaseSortAlgorithmLogDTO(BaseAlgorithmLogDTO):
     before: list[tuple[int, ...]] = field(default_factory=list)
     result: list[tuple[int, ...]] = field(default_factory=list)
     status: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True, slots=True)
+class QuickSortStepValueObject:
+    """One frozen photo of a quick-sort partition step.
+
+    Attributes:
+        depth: Current recursion depth (``0`` at the root call).
+        side: Recursion-tree branch: ``root``, ``left``, or ``right``.
+        pivot: Pivot value chosen for this partition.
+        before: Subarray as it looked before this partition.
+        result: Partition buckets as ``(left, middle, right)`` after the rearrange.
+        status: ``sorting`` while work remains, ``ready`` when the root finishes.
+    """
+
+    depth: int
+    side: str
+    pivot: int
+    before: tuple[int, ...]
+    result: tuple[list[int], ...]
+    status: str
+
+
+@dataclass
+class QuickSortAlgorithmLogDTO(BaseAlgorithmLogDTO):
+    """Column-oriented log of one quick-sort run.
+
+    Each list grows by one item every time the sorter yields a step.
+
+    Attributes:
+        depth: Recursion depth at each step.
+        side: Recursion-tree branch at each step (``root``, ``left``, or ``right``).
+        pivot: Pivot value used on that step.
+        before: Subarray as it looked before the partition.
+        result: Partition buckets ``(left, middle, right)`` after the rearrange.
+        status: ``sorting`` while work remains, ``ready`` on the last root step.
+    """
+
+    depth: list[int] = field(default_factory=list)
+    side: list[str] = field(default_factory=list)
+    pivot: list[int] = field(default_factory=list)
+    before: list[tuple[int, ...]] = field(default_factory=list)
+    result: list[tuple[list[int], ...]] = field(default_factory=list)
+    status: list[str] = field(default_factory=list)

@@ -55,7 +55,7 @@ class TestInsertionSortIterSteps:
         insertion_sorter: InsertionSorter,
         one_element_array: list[int],
     ) -> None:
-        """Each step must sort the current prefix and finish with a full sort."""
+        """A single-element list yields one ready snapshot and stays unchanged."""
         sorting_steps: list[BaseSortStepValueObject] = list(insertion_sorter.iter_steps(one_element_array))
         expected_array_len: int = 1
         expected_steps_quantity: int = 1

@@ -3,6 +3,7 @@
 from random import randint
 
 NOT_SORTED_ARRAYS_WITH_TWO_ELEMENTS_AND_MORE: tuple[list[int], ...] = (
+    [2, 1],
     [5, 4, 3, 2, 1],
     [3, 4, 1, 5, 2],
     [3, 4, 1, 1, 5, 2, 2],

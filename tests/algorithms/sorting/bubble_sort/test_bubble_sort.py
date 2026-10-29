@@ -14,7 +14,7 @@ class TestBubbleSortIterSteps:
         bubble_sorter: BubbleSorter,
         not_sorted_array_with_two_and_more_elements: list[int],
     ) -> None:
-        """Each step must sort the current prefix and finish with a full sort."""
+        """Each comparison may swap neighbors; the last step must be fully sorted."""
         array: list[int] = not_sorted_array_with_two_and_more_elements
         result_sorting_steps: list[BaseSortStepValueObject] = list(bubble_sorter.iter_steps(array))
         result_array_after_sort: list[int] = list(result_sorting_steps[-1].result)
