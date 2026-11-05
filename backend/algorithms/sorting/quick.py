@@ -2,6 +2,7 @@
 
 from collections.abc import Generator
 
+from backend.algorithms.sorting.constants import RecursionTreeSide
 from backend.domains.constants import SortingStatus
 from backend.domains.sorting import QuickSortStepValueObject
 
@@ -13,7 +14,7 @@ class QuickSorter:
     def iter_steps(
         array: list[int] | None,
         recursion_depth: int = 0,
-        recursion_tree_side: str = "root",
+        recursion_tree_side: str = RecursionTreeSide.ROOT,
     ) -> Generator[QuickSortStepValueObject, None, list[int]]:
         """Yield one snapshot after each partition, plus a final ready step.
 
@@ -79,14 +80,14 @@ class QuickSorter:
         )
 
         left_sorted: list[int] = yield from QuickSorter.iter_steps(
-            left,
-            next_depth,
-            "left",
+            array=left,
+            recursion_depth=next_depth,
+            recursion_tree_side=RecursionTreeSide.LEFT,
         )
         right_sorted: list[int] = yield from QuickSorter.iter_steps(
-            right,
-            next_depth,
-            "right",
+            array=right,
+            recursion_depth=next_depth,
+            recursion_tree_side=RecursionTreeSide.RIGHT,
         )
 
         assembled: list[int] = left_sorted + middle + right_sorted

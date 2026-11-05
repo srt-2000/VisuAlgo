@@ -2,6 +2,7 @@
 
 from collections.abc import Generator
 
+from backend.algorithms.sorting.constants import RecursionTreeSide
 from backend.algorithms.sorting.quick import QuickSorter
 from backend.domains.constants import SortingStatus
 from backend.domains.sorting import QuickSortStepValueObject
@@ -60,7 +61,7 @@ class TestQuickSortIterSteps:
 
         assert array == array_copy
         assert steps
-        assert steps[0].side == "root"
+        assert steps[0].side == RecursionTreeSide.ROOT
         assert steps[0].depth == 0
         assert steps[-1].status == SortingStatus.READY
         assert all(step.status == SortingStatus.SORTING for step in steps[:-1])
@@ -71,9 +72,9 @@ class TestQuickSortIterSteps:
 
             assert step.pivot == step.before[len(step.before) // 2]
             assert sorted(step.before) == sorted(flat)
-            assert step.side in {"root", "left", "right"}
+            assert step.side in {RecursionTreeSide.ROOT, RecursionTreeSide.LEFT, RecursionTreeSide.RIGHT}
             assert step.depth >= 0
-            assert (step.side == "root") == (step.depth == 0)
+            assert (step.side == RecursionTreeSide.ROOT) == (step.depth == 0)
             assert all(value < step.pivot for value in left)
             assert all(value == step.pivot for value in middle)
             assert all(value > step.pivot for value in right)
@@ -124,7 +125,7 @@ class TestQuickSortIterSteps:
         assert one_element_array == array_copy
         assert len(sorting_steps) == 1
         assert only_step.depth == 0
-        assert only_step.side == "root"
+        assert only_step.side == RecursionTreeSide.ROOT
         assert only_step.pivot == one_element_array[0]
         assert only_step.before == (one_element_array[0],)
         assert flat == array_copy
@@ -142,7 +143,7 @@ class TestQuickSortIterSteps:
 
         assert len(sorting_steps) == 1
         assert step.depth == 0
-        assert step.side == "root"
+        assert step.side == RecursionTreeSide.ROOT
         assert step.pivot == 0
         assert step.before == ()
         assert step.result == ([], [], [])
