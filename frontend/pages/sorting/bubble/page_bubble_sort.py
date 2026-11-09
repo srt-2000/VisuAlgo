@@ -79,9 +79,9 @@ if st.session_state.not_sorted_array is not None:
         process_data: BaseSortAlgorithmLogDTO = process_logger.get_result_and_process_data(
             array=not_sorted_array_copy,
         )
-        sorted_array: tuple[int, ...] = process_logger.get_result_array_from_process_log()
+        final_result: tuple[int, ...] = process_logger.get_result_array_from_process_log()
 
-        st.session_state.sorted_array = sorted_array
+        st.session_state.sorted_array = final_result
         st.session_state.process_data = process_data
 
         st.balloons()

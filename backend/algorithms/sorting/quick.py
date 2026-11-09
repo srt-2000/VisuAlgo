@@ -90,7 +90,7 @@ class QuickSorter:
             recursion_tree_side=RecursionTreeSide.RIGHT,
         )
 
-        assembled: list[int] = left_sorted + middle + right_sorted
+        assembled_array: list[int] = left_sorted + middle + right_sorted
 
         if recursion_depth == 0:
             yield QuickSortStepValueObject(
@@ -102,4 +102,4 @@ class QuickSorter:
                 status=SortingStatus.READY,
             )
 
-        return assembled
+        return assembled_array

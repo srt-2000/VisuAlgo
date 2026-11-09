@@ -69,3 +69,9 @@ class SortAlgorithmsPageContainer(BasePagesContainer):
         title=LeftNavigationTitle.SELECTION_SORT,
         icon=Icon.SORT,
     )
+
+    quick_sort: StreamlitPage = streamlit.Page(
+        page=pages_paths.QUICK_SORT,
+        title=LeftNavigationTitle.QUICK_SORT,
+        icon=Icon.SORT,
+    )

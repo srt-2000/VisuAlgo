@@ -47,3 +47,13 @@ UNDERSCORE_REMOVING_DATA_SET: tuple[dict[str, Any], ...] = (
     },
 )
 """Dict samples for underscore-to-space key cleanup tests."""
+
+INVARIANTS_UNPACK_SUBLISTS: tuple[tuple[list[int], ...], ...] = (
+    ([2, 8, 4], [], [3, 10], [-2, 0]),
+    ([], [], [], []),
+    ([], [], [1], [-2]),
+    ([2, 8, 4], [0, 15, 4], [3, 3, 3], [4, 4, 40]),
+    ([-2, -8, -4], [], [-3, -10], [-2, -0]),
+    ([],),
+    (),
+)

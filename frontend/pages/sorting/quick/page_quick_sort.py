@@ -1,0 +1,101 @@
+"""Streamlit page: build a random list and sort it with quick sort."""
+
+import pandas as pd
+import streamlit as st
+
+from backend.algorithms.sorting.quick import QuickSorter
+from backend.domains.sorting import QuickSortAlgorithmLogDTO
+from backend.services.sorting.quick import QuickSortProcessDataLogger
+from backend.utils.common import unpack_sublists_to_array
+from backend.utils.dataframe import get_dataframe_for_result_table
+from backend.utils.sorting import get_not_sorted_random_list
+from frontend.element_settings import Icon, PageTitle, SliderLiteral, TableBorderLiteral
+from frontend.pages.sorting.constants import Fields, Messages
+from frontend.pages.sorting.element_settings import (
+    Button,
+    Columns,
+    Header,
+    LeftColumnNumberInputInt,
+    NumberInputStr,
+    RightColumnSliderInt,
+    RightColumnSliderStr,
+)
+from frontend.pages.sorting.quick.content import PageContent
+
+st.set_page_config(page_title=PageTitle.QUICK_SORT_ALGORITHM)
+
+if Fields.NOT_SORTED_ARRAY not in st.session_state:
+    st.session_state.not_sorted_array = None
+if Fields.SORTED_ARRAY not in st.session_state:
+    st.session_state.sorted_array = None
+if Fields.PROCESS_DATA not in st.session_state:
+    st.session_state.process_data = None
+
+st.header(body=Header.QUICK_SORT, divider=Header.QUICK_SORT_HEADER_DIVIDER)
+
+st.markdown(body=PageContent.QUICK_SORT_WELCOME)
+
+left_column, right_column = st.columns(spec=Columns.RANDOM_LIST_DATA_COLUMNS_QUANTITY)
+
+not_sorted_list_length: int = left_column.number_input(
+    icon=Icon.INPUT,
+    label=NumberInputStr.LABEL_LENGTH,
+    placeholder=NumberInputStr.PLACEHOLDER_ENTER_NUMBER,
+    min_value=LeftColumnNumberInputInt.MIN,
+    max_value=LeftColumnNumberInputInt.MAX,
+    value=LeftColumnNumberInputInt.RENDER,
+    step=LeftColumnNumberInputInt.STEP,
+)
+
+randomizer_min_value, randomizer_max_value = right_column.slider(
+    label=RightColumnSliderStr.LABEL,
+    min_value=RightColumnSliderInt.MIN,
+    max_value=RightColumnSliderInt.MAX,
+    value=(
+        RightColumnSliderInt.MIN_RENDER,
+        RightColumnSliderInt.MAX_RENDER,
+    ),
+    key=RightColumnSliderStr.KEY,
+    bind=SliderLiteral.QUERY_PARAMS,
+)
+
+not_sorted_column, sorted_column = st.columns(spec=Columns.LIST_RENDER_COLUMNS_QUANTITY, border=True)
+
+if not_sorted_column.button(label=Button.LABEL_CREATE):
+    st.session_state.not_sorted_array = get_not_sorted_random_list(
+        not_sorted_list_length,
+        randomizer_min_value,
+        randomizer_max_value,
+    )
+    st.session_state.sorted_array = None
+
+if st.session_state.not_sorted_array is not None:
+    not_sorted_column.info(body=Messages.NOT_SORTED_ARRAY, icon=Icon.DONE_OUTLINE)
+    not_sorted_column.write(tuple(st.session_state.not_sorted_array))
+
+    if sorted_column.button(label=Button.LABEL_SORT_IT):
+        not_sorted_array_copy: list[int] = st.session_state.not_sorted_array.copy()
+        insertion_sorting = QuickSorter()
+        process_logger = QuickSortProcessDataLogger(algorithm=insertion_sorting)
+        process_data: QuickSortAlgorithmLogDTO = process_logger.get_result_and_process_data(
+            array=not_sorted_array_copy,
+        )
+
+        final_result: tuple[list[int], ...] = process_logger.get_result_array_from_process_log()
+
+        st.session_state.sorted_array = unpack_sublists_to_array(final_result)
+        st.session_state.process_data = process_data
+
+        st.balloons()
+
+if (st.session_state.sorted_array and st.session_state.process_data) is not None:
+    sorted_column.success(body=Messages.SORTED_ARRAY, icon=Icon.DONE_OUTLINE)
+    sorted_column.write(st.session_state.sorted_array)
+
+    data_frame_for_table: pd.DataFrame = get_dataframe_for_result_table(
+        data_for_dataframe=st.session_state.process_data
+    )
+
+    st.table(data=data_frame_for_table, border=TableBorderLiteral.HORIZONTAL_BORDER)
+
+    st.markdown(PageContent.RESULT)

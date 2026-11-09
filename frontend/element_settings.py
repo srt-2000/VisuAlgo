@@ -12,6 +12,7 @@ class PageTitle(StrEnum):
     INSERTION_SORT_ALGORITHM = "Insertion Sort Algorithm"
     BUBBLE_SORT_ALGORITHM = "Bubble Sort Algorithm"
     SELECTION_SORT_ALGORITHM = "Selection Sort Algorithm"
+    QUICK_SORT_ALGORITHM = "Quick Sort Algorithm"
 
 
 class Icon(StrEnum):

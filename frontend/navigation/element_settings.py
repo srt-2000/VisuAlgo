@@ -13,6 +13,7 @@ class LeftNavigationTitle(StrEnum):
     INSERTION_SORT = "Insertion Sort"
     BUBBLE_SORT = "Bubble Sort"
     SELECTION_SORT = "Selection Sort"
+    QUICK_SORT = "Quick Sort"
 
 
 class LeftNavigationSubMenuNames(StrEnum):
